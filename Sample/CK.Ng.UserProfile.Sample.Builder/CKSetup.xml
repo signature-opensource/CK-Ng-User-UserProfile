@@ -1,0 +1,22 @@
+<Setup>
+    <Aspect Type="CK.Setup.SetupableAspectConfiguration, CK.Setupable.Model" Version="1" />
+    <Aspect Type="CK.Setup.SqlSetupAspectConfiguration, CK.SqlServer.Setup.Model">
+        <DefaultDatabaseConnectionString>Server=.;Database=UserProfileSampleDB_LOCAL;Integrated Security=True;TrustServerCertificate=true</DefaultDatabaseConnectionString>
+    </Aspect>
+    <Aspect Type="CK.Setup.TypeScriptAspectConfiguration, CK.TypeScript" />
+    <BinPaths>
+        <BinPath>
+            <TypeScript IntegrationMode="Inline" TargetProjectPath="{ProjectPath}/UserProfile.Sample.Web" ActiveCultures="fr">
+                <Types>
+                    <Type>CK.IO.Actor.IGetUserProfileQCommand, CK.IO.Actor</Type>
+                    <Type>CK.IO.Actor.IUpdateUserCommand, CK.Ng.UserProfile</Type>
+                    <Type>CK.IO.Actor.ISetUserNameCommand, CK.IO.Actor</Type>
+                    <Type>CK.IO.User.NamedUser.ISetUserNamesCommand, CK.IO.User.NamedUser</Type>
+                    <Type>CK.IO.User.PreferredCulture.ISetUserPreferredCultureCommand, CK.IO.User.PreferredCulture</Type>
+                    <Type>CK.IO.User.UserPassword.ISetPasswordCommand, CK.IO.User.UserPassword</Type>
+                    <Type>CK.IO.Actor.IUserProfile, CK.IO.Actor</Type>
+                </Types>
+            </TypeScript>
+        </BinPath>
+    </BinPaths>
+</Setup>

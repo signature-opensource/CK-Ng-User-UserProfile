@@ -1,0 +1,30 @@
+<div class="ck-user-profile-left-card">
+    @if( userProfile() ) {
+        <nz-avatar class="ck-user-profile-avatar"
+                   [nzSize]="actualAvatarSize()"
+                   [nzText]="avatarFallback()"
+                   [nzSrc]="avatarImgSrc()" />
+        <span class="username">{{ userProfile()?.userName }}</span>
+
+        <div class="profile-properties">
+            <!-- <PreProfilePropsRegistration revert /> -->
+
+            <!-- <PostProfilePropsRegistration /> -->
+        </div>
+    }
+</div>
+<div class="ck-user-profile-right-card">
+    <nz-tabset nzSize="large" class="ck-user-profile-tabset">
+        <!-- <PreUserProfileTabsRegistration revert /> -->
+
+        <!-- <PreUserProfileGeneralInfosTab revert /> -->
+        <nz-tab [nzTitle]="'CK.UserProfile.GeneralInfos' | translate">
+            <ng-template nz-tab>
+                <ck-user-update-form />
+            </ng-template>
+        </nz-tab>
+        <!-- <PostUserProfileGeneralInfosTab /> -->
+
+        <!-- <PostUserProfileTabsRegistration /> -->
+    </nz-tabset>
+</div>

@@ -1,0 +1,12 @@
+{
+    "CK.UserProfile.UserPassword.Button.Cancel": "Annuler",
+    "CK.UserProfile.UserPassword.Button.Confirm": "Confirmer",
+    "CK.UserProfile.Form.PasswordLengthError": "Les mots de passe doivent contenir au moins {{minLength}} caractères.",
+    "CK.UserProfile.Form.PasswordMustMatch": "Les mots de passe ne correspondent pas.",
+    "CK.UserProfile.Form.PasswordRequired": "Veuillez renseigner votre nouveau mot de passe.",
+    "CK.UserProfile.Form.RepeatPasswordRequired": "Veuillez confirmer votre mot de passe.",
+    "CK.UserProfile.Password": "Mot de passe",
+    "CK.UserProfile.Password.InputPlaceholder": "Renseignez votre de mot de passe",
+    "CK.UserProfile.RepeatPassword": "Confirmation",
+    "CK.UserProfile.RepeatPassword.InputPlaceholder": "Confirmez votre mot de passe"
+}

@@ -1,0 +1,113 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.PreferredCulture.Tests", "Tests\CK.Ng.UserProfile.PreferredCulture.Tests\CK.Ng.UserProfile.PreferredCulture.Tests.csproj", "{73F1DC6C-7505-C23A-4F4F-6792DA251D03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.Tests", "Tests\CK.Ng.UserProfile.Tests\CK.Ng.UserProfile.Tests.csproj", "{6FA90E06-3BA1-5082-04B4-28C3BC9027EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.UserPassword.Tests", "Tests\CK.Ng.UserProfile.UserPassword.Tests\CK.Ng.UserProfile.UserPassword.Tests.csproj", "{99545CAF-FDAE-266B-CEA7-B03216B69F6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.UserPassword", "CK.Ng.UserProfile.UserPassword\CK.Ng.UserProfile.UserPassword.csproj", "{EB49BB24-D042-C3C5-EE34-15C443FB76F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile", "CK.Ng.UserProfile\CK.Ng.UserProfile.csproj", "{AC2CC045-EAA8-6937-F168-95D11A37CE07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.NamedUser", "CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj", "{28E2740D-9B85-60EC-763C-639AE21E8BC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.PreferredCulture", "CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj", "{69D5CED2-49BA-231E-F057-37111229F76F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{548A1032-9660-495A-9AA6-665486635373}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		Directory.Build.props = Directory.Build.props
+		NuGet.config = NuGet.config
+		RepositoryInfo.xml = RepositoryInfo.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.NamedUser.Tests", "Tests\CK.Ng.UserProfile.NamedUser.Tests\CK.Ng.UserProfile.NamedUser.Tests.csproj", "{2A8FB71A-889A-41A6-983F-327548652DEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{A85284D1-2BA1-4DD8-843F-75B371DBE785}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.Sample.App", "Sample\CK.Ng.UserProfile.Sample.App\CK.Ng.UserProfile.Sample.App.csproj", "{AA78100E-9A31-46BA-BB19-45059E81A0E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.Sample.Builder", "Sample\CK.Ng.UserProfile.Sample.Builder\CK.Ng.UserProfile.Sample.Builder.csproj", "{8C341A0E-653B-48DE-ABB9-215880F8A0C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CK.Ng.UserProfile.Sample.Host", "Sample\CK.Ng.UserProfile.Sample.Host\CK.Ng.UserProfile.Sample.Host.csproj", "{A8A82A4D-DB50-4689-A496-29950DE7128D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeCakeBuilder", "CodeCakeBuilder\CodeCakeBuilder.csproj", "{484E57FF-04CA-282B-DF8A-95F0C8587F63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73F1DC6C-7505-C23A-4F4F-6792DA251D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F1DC6C-7505-C23A-4F4F-6792DA251D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F1DC6C-7505-C23A-4F4F-6792DA251D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F1DC6C-7505-C23A-4F4F-6792DA251D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA90E06-3BA1-5082-04B4-28C3BC9027EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA90E06-3BA1-5082-04B4-28C3BC9027EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA90E06-3BA1-5082-04B4-28C3BC9027EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA90E06-3BA1-5082-04B4-28C3BC9027EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99545CAF-FDAE-266B-CEA7-B03216B69F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99545CAF-FDAE-266B-CEA7-B03216B69F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99545CAF-FDAE-266B-CEA7-B03216B69F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99545CAF-FDAE-266B-CEA7-B03216B69F6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB49BB24-D042-C3C5-EE34-15C443FB76F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB49BB24-D042-C3C5-EE34-15C443FB76F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB49BB24-D042-C3C5-EE34-15C443FB76F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB49BB24-D042-C3C5-EE34-15C443FB76F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC2CC045-EAA8-6937-F168-95D11A37CE07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC2CC045-EAA8-6937-F168-95D11A37CE07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC2CC045-EAA8-6937-F168-95D11A37CE07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC2CC045-EAA8-6937-F168-95D11A37CE07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28E2740D-9B85-60EC-763C-639AE21E8BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28E2740D-9B85-60EC-763C-639AE21E8BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28E2740D-9B85-60EC-763C-639AE21E8BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28E2740D-9B85-60EC-763C-639AE21E8BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69D5CED2-49BA-231E-F057-37111229F76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D5CED2-49BA-231E-F057-37111229F76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D5CED2-49BA-231E-F057-37111229F76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D5CED2-49BA-231E-F057-37111229F76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A8FB71A-889A-41A6-983F-327548652DEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A8FB71A-889A-41A6-983F-327548652DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A8FB71A-889A-41A6-983F-327548652DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A8FB71A-889A-41A6-983F-327548652DEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA78100E-9A31-46BA-BB19-45059E81A0E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA78100E-9A31-46BA-BB19-45059E81A0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA78100E-9A31-46BA-BB19-45059E81A0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA78100E-9A31-46BA-BB19-45059E81A0E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C341A0E-653B-48DE-ABB9-215880F8A0C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C341A0E-653B-48DE-ABB9-215880F8A0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C341A0E-653B-48DE-ABB9-215880F8A0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C341A0E-653B-48DE-ABB9-215880F8A0C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A82A4D-DB50-4689-A496-29950DE7128D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A82A4D-DB50-4689-A496-29950DE7128D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A82A4D-DB50-4689-A496-29950DE7128D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A82A4D-DB50-4689-A496-29950DE7128D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{484E57FF-04CA-282B-DF8A-95F0C8587F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484E57FF-04CA-282B-DF8A-95F0C8587F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484E57FF-04CA-282B-DF8A-95F0C8587F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484E57FF-04CA-282B-DF8A-95F0C8587F63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{73F1DC6C-7505-C23A-4F4F-6792DA251D03} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6FA90E06-3BA1-5082-04B4-28C3BC9027EA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{99545CAF-FDAE-266B-CEA7-B03216B69F6B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2A8FB71A-889A-41A6-983F-327548652DEC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AA78100E-9A31-46BA-BB19-45059E81A0E3} = {A85284D1-2BA1-4DD8-843F-75B371DBE785}
+		{8C341A0E-653B-48DE-ABB9-215880F8A0C3} = {A85284D1-2BA1-4DD8-843F-75B371DBE785}
+		{A8A82A4D-DB50-4689-A496-29950DE7128D} = {A85284D1-2BA1-4DD8-843F-75B371DBE785}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FDC4612-5FB7-47CE-B785-EBDF22374149}
+	EndGlobalSection
+EndGlobal
