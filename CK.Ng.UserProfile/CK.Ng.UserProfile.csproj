@@ -6,8 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.IO.Actor" Version="0.39.2--0008-develop" />
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.0.0--05j4601-develop" />
-    <PackageReference Include="CK.Ng.Cris.AspNet" Version="0.50.0-a00-00-0025-develop" />
-    <PackageReference Include="CK.Ng.AspNet.Auth" Version="0.26.3--0034-develop" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.0.0--05j5o8q-develop" />
+    <PackageReference Include="CK.Ng.Cris.AspNet" Version="0.50.0-a00-00-0026-develop" />
+    <PackageReference Include="CK.Ng.AspNet.Auth" Version="0.26.3--0036-develop" />
   </ItemGroup>
 </Project>
