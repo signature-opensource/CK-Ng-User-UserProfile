@@ -9,10 +9,10 @@
   <ItemGroup>
     <PackageReference Include="CK.AppBuilder" Version="30.0.1--0018-develop" />
     <PackageReference Include="CK.AppIdentity.Hosting" Version="0.10.1--0007-develop" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0026-develop" />
+    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0028-develop" />
     <PackageReference Include="CK.Setupable.Engine" Version="30.0.1--0017-develop" />
     <PackageReference Include="CK.SqlServer.Setup.Engine" Version="30.0.1--0017-develop" />
-    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0036-develop" />
+    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0037-develop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.UserProfile.Sample.App\CK.Ng.UserProfile.Sample.App.csproj" />
