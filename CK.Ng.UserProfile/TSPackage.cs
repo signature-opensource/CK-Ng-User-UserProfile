@@ -8,7 +8,7 @@ namespace CK.Ng.UserProfile;
 [Requires<Zorro.GenericFormComponent, Localization.TSPackage, AspNet.Auth.TSPackage, Cris.AspNet.TSPackage>]
 [TypeScriptFile( "user.service.ts", "UserService" )]
 [NgProviderImport( "UserService" )]
-[NgProviderImport( "provideAppInitializer", LibraryName = "@angular/core" )]
+[NgProviderImport( "provideAppInitializer", From = "@angular/core" )]
 [NgProvider( "provideAppInitializer( () => { inject( UserService ); } )" )]
 public class TSPackage : TypeScriptPackage
 {

@@ -1,11 +1,10 @@
 import { Component, computed, inject, linkedSignal, Signal, viewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { IFormControlConfig, FormControlConfig } from '@local/ck-gen/CK/Ng/Zorro/generic-form/generic-form.model';
 import {
     CKNotificationService,
     CrisError,
-    FormControlConfig,
-    IFormControlConfig,
     GenericFormComponent,
     HttpCrisEndpoint,
     SetUserNameCommand,
