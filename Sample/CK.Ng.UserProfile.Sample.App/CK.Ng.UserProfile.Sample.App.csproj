@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.AppIdentity.Hosting" Version="0.10.1--0008-develop" />
-    <PackageReference Include="CK.Cris.AspNet" Version="0.50.0-a00-00-0029-develop" />
+    <PackageReference Include="CK.Cris.AspNet" Version="0.50.0-a00-00-0030-develop" />
     <PackageReference Include="CK.Cris.Auth" Version="0.39.2--0014-develop" />
     <PackageReference Include="CK.DB.AspNet.Auth" Version="27.0.2--0019-develop" />
     <PackageReference Include="CK.DB.User.NamedUser" Version="25.0.2--0015-develop" />
@@ -17,7 +17,7 @@
     <PackageReference Include="CK.DB.User.UserPassword" Version="25.0.1--0018-develop" />
     <PackageReference Include="CK.SqlServer.Transaction" Version="10.0.1--0009-develop" />
     <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.26.3--0046-develop" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.50.0-a00-00-0029-develop" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.50.0-a00-00-0030-develop" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
