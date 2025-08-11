@@ -59,6 +59,7 @@ public class NgUserProfileTests
                                                                                        typeof( IUpdateUserCommand ),
                                                                                        typeof( IGetUserProfileQCommand ) );
 
+        TestHelper.Monitor.DebuggerBreakOn( "TypeScript packages structure:" );
         tsConfig.ActiveCultures.Add( NormalizedCultureInfo.EnsureNormalizedCultureInfo( "fr" ) );
         var engineRes = (await configuration.RunSuccessfullyAsync());
 

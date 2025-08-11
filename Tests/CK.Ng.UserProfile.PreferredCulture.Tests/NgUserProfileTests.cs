@@ -13,6 +13,7 @@ using static CK.Testing.MonitorTestHelper;
 
 namespace CK.Ng.UserProfile.PreferredCulture.Tests;
 
+
 public class NgUserProfileTests
 {
     [Test]
