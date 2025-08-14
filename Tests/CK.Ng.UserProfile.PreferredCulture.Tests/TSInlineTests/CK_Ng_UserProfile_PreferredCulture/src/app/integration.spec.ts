@@ -17,9 +17,8 @@ describe( 'integration tests', () => {
             } ).compileComponents();
 
         ngAuthService = TestBed.inject( NgAuthService );
-        await ngAuthService.authService.isInitialized;
         cris = TestBed.inject( HttpCrisEndpoint );
-
+        await ngAuthService.authService.isInitialized;
         await cris.updateAmbientValuesAsync();
     } );
 
@@ -37,7 +36,7 @@ describe( 'integration tests', () => {
         await authService.basicLogin( 'TestUser', 'success' );
         expect( ngAuthService.authenticationInfo().level ).toBe( AuthLevel.Normal );
         expect( ngAuthService.authenticationInfo() ).toStrictEqual( authService.authenticationInfo );
-        await cris.updateAmbientValuesAsync();
+        // await cris.updateAmbientValuesAsync();
 
         const profile = await cris.sendOrThrowAsync( new GetUserProfileQCommand( authService.authenticationInfo.user.userId ) );
         expect( profile ).not.toBeNull();

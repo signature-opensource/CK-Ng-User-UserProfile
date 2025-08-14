@@ -3,21 +3,23 @@ using CK.Cris;
 using CK.Cris.AspNet;
 using CK.DB.User.UserPassword;
 using CK.IO.Actor;
-using CK.Ng.UserProfile.PreferredCulture.Tests.MyLayout;
+using CK.Ng.UserProfile.Tests.MyLayout;
 using CK.SqlServer;
 using CK.Testing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using System.Diagnostics;
 using static CK.Testing.MonitorTestHelper;
 
-namespace CK.Ng.UserProfile.PreferredCulture.Tests;
+namespace CK.Ng.UserProfile.Tests;
 
-
-public class NgUserProfileTests
+[TestFixture]
+public class UserProfileTests
 {
-    [Test]
-    public async Task CK_Ng_UserProfile_PreferredCulture_Async()
+    [TestCase( "test" )]
+    [TestCase( "ck-watch", Explicit = true )]
+    public async Task CK_Ng_UserProfile_Async( string yarnCommand )
     {
         var targetProjectPath = TestHelper.GetTypeScriptInlineTargetProjectPath();
 
@@ -25,38 +27,20 @@ public class NgUserProfileTests
         configuration.FirstBinPath.Path = TestHelper.BinFolder;
         configuration.EnsureSqlServerConfigurationAspect();
 
-        configuration.FirstBinPath.Assemblies.Add( "CK.Cris.Auth" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.Cris.AspNet.Auth" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.DB.AspNet.Auth" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.AspNet.Auth.Basic" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.DB.User.UserPassword" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile.PreferredCulture" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.DB.User.PreferredCulture" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.Zorro.BackOffice" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.SqlServer.Transaction" );
-
-        configuration.FirstBinPath.Types.Add( typeof( CrisAspNetService ),
-                                              typeof( DB.User.PreferredCulture.Package ),
-                                              typeof( UserPasswordTable ),
-                                              typeof( CrisBackgroundExecutorService ),
-                                              typeof( CrisBackgroundExecutor ),
-                                              typeof( MyLayoutPackage ),
-                                              typeof( TestCommandHandler ),
-                                              typeof( IO.User.PreferredCulture.ICreateUserCommand ),
-                                              typeof( ICreateUserCommandResult ),
-                                              typeof( IGetUserProfileQCommand ),
-                                              typeof( IO.User.PreferredCulture.ISetUserPreferredCultureCommand ),
-                                              typeof( ISetUserNameCommand ),
-                                              typeof( IUpdateUserCommand ),
-                                              typeof( IO.User.PreferredCulture.IUserProfile ) );
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Cris.Auth",
+                                                          "CK.Ng.Cris.AspNet.Auth",
+                                                          "CK.DB.AspNet.Auth",
+                                                          "CK.Ng.AspNet.Auth.Basic",
+                                                          "CK.DB.User.UserPassword",
+                                                          "CK.Ng.UserProfile",
+                                                          "CK.Ng.Zorro.BackOffice",
+                                                          "CK.SqlServer.Transaction" ] );
 
         var tsConfig = configuration.FirstBinPath.EnsureTypeScriptConfigurationAspect( targetProjectPath,
-                                                                                       typeof( IGetUserProfileQCommand ),
-                                                                                       typeof( IO.User.PreferredCulture.ISetUserPreferredCultureCommand ),
-                                                                                       typeof( ISetUserNameCommand ),
                                                                                        typeof( IUpdateUserCommand ),
-                                                                                       typeof( IO.User.PreferredCulture.IUserProfile ) );
+                                                                                       typeof( ISetUserNameCommand ),
+                                                                                       typeof( IGetUserProfileQCommand ),
+                                                                                       typeof( IUserProfile ) );
 
         tsConfig.ActiveCultures.Add( NormalizedCultureInfo.EnsureNormalizedCultureInfo( "fr" ) );
         var engineRes = (await configuration.RunSuccessfullyAsync());
@@ -97,9 +81,15 @@ public class NgUserProfileTests
         var builder = WebApplication.CreateSlimBuilder();
         builder.AddUnsafeAllowAllCors();
         builder.AddWebFrontAuth( ao => ao.SlidingExpirationTime = TimeSpan.FromMinutes( 10 ) );
-        await using var server = await builder.CreateRunningAspNetServerAsync( map, app => { app.UseMiddleware<CrisMiddleware>(); app.UseCris(); } );
+        await using var server = await builder.CreateRunningAspNetServerAsync( map, app => app.UseMiddleware<CrisMiddleware>() );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
-        runner.Run();
+
+        if( !Debugger.IsAttached && yarnCommand == "ck-watch" )
+        {
+            TestHelper.Monitor.Warn( $"No debugger currently attached. Changing ck-watch to test." );
+            yarnCommand = "test";
+        }
+        runner.Run( yarnCommand );
     }
 }
