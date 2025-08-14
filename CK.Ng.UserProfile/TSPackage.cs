@@ -5,7 +5,7 @@ using CK.TypeScript;
 namespace CK.Ng.UserProfile;
 
 [TypeScriptPackage]
-[Requires<Zorro.GenericFormComponent, Localization.TSPackage, AspNet.Auth.TSPackage, Cris.AspNet.TSPackage>]
+[Requires<Localization.TSPackage, AspNet.Auth.TSPackage, Cris.AspNet.TSPackage>]
 [TypeScriptFile( "user.service.ts", "UserService" )]
 [NgProviderImport( "UserService" )]
 [NgProviderImport( "provideAppInitializer", From = "@angular/core" )]
