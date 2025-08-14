@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.IO.Actor" Version="0.39.2--0010-develop" />
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.0.0--05jiisn-develop" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.0.0--05jinel-develop" />
     <PackageReference Include="CK.Ng.Cris.AspNet" Version="0.50.0-a00-00-0033-develop" />
     <PackageReference Include="CK.Ng.AspNet.Auth" Version="0.26.3--0070-develop" />
   </ItemGroup>
