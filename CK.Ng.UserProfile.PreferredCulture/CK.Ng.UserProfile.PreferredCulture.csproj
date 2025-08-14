@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.IO.User.PreferredCulture" Version="0.0.0--05jieg2-develop" />
+    <PackageReference Include="CK.IO.User.PreferredCulture" Version="0.0.0--05jiq1p-develop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
