@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IFormControlConfig, FormControlConfig } from '@local/ck-gen/CK/Ng/Zorro/generic-form/generic-form.model';
 import {
-    CKNotificationService,
+    NotificationService,
     CrisError,
     GenericFormComponent,
     HttpCrisEndpoint,
@@ -36,7 +36,7 @@ export class UserUpdateFormComponent {
     readonly #userService = inject( UserService );
     readonly #translateService = inject( TranslateService );
     readonly #cris = inject( HttpCrisEndpoint );
-    readonly #notif = inject( CKNotificationService );
+    readonly #notif = inject( NotificationService );
     // <PostDependencyInjection />
 
     // <PreInputOutput revert />

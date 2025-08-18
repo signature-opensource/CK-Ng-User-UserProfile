@@ -7,7 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { checkPasswords } from './form-validators';
-import { CKNotificationService } from '@local/ck-gen/CK/Ng/Zorro/notification.service';
+import { NotificationService } from '@local/ck-gen/CK/Ng/Zorro/notification.service';
 import { HttpCrisEndpoint } from '@local/ck-gen/CK/Cris/HttpCrisEndpoint';
 import { SetPasswordCommand } from '@local/ck-gen/CK/IO/User/UserPassword/SetPasswordCommand';
 import { UserService } from '@local/ck-gen/CK/Ng/UserProfile/user.service';
@@ -30,7 +30,7 @@ export class UserPasswordFormComponent {
     readonly #userService = inject( UserService );
     readonly #formBuilder = inject( FormBuilder );
     readonly #cris = inject( HttpCrisEndpoint );
-    readonly #notif = inject( CKNotificationService );
+    readonly #notif = inject( NotificationService );
     readonly #translateService = inject( TranslateService );
     // <PostDependencyInjection />
 
