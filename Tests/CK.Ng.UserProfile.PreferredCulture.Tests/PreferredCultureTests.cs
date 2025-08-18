@@ -35,7 +35,6 @@ public class PreferredCultureTests
                 "CK.Ng.UserProfile",
                 "CK.Ng.UserProfile.PreferredCulture",
                 "CK.DB.User.PreferredCulture",
-                "CK.Ng.Zorro.BackOffice",
                 "CK.SqlServer.Transaction"
             ] );
 

@@ -33,7 +33,6 @@ public class UserPasswordTests
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.AspNet.Auth.Basic" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile.UserPassword" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.Zorro.BackOffice" );
 
         var tsConfig = configuration.FirstBinPath.EnsureTypeScriptConfigurationAspect( targetProjectPath,
                                                                                        typeof( IGetUserProfileQCommand ),

@@ -35,7 +35,6 @@ public class NamedUserTests
                 "CK.Ng.AspNet.Auth.Basic",
                 "CK.Ng.UserProfile",
                 "CK.Ng.UserProfile.NamedUser",
-                "CK.Ng.Zorro.BackOffice",
                 "CK.SqlServer.Transaction"
             ] );
 

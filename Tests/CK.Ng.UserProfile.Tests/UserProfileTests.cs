@@ -33,7 +33,6 @@ public class UserProfileTests
                                                           "CK.Ng.AspNet.Auth.Basic",
                                                           "CK.DB.User.UserPassword",
                                                           "CK.Ng.UserProfile",
-                                                          "CK.Ng.Zorro.BackOffice",
                                                           "CK.SqlServer.Transaction" ] );
 
         var tsConfig = configuration.FirstBinPath.EnsureTypeScriptConfigurationAspect( targetProjectPath,
