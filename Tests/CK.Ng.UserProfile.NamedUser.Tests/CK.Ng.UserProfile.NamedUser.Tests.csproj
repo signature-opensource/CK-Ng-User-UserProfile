@@ -7,19 +7,19 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.Tests.NUnit" Version="30.0.1--0020-develop" />
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="27.0.2--0021-develop" />
-    <PackageReference Include="CK.DB.User.NamedUser" Version="25.0.2--0017-develop" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="25.0.1--0020-develop" />
-    <PackageReference Include="CK.Cris.Auth" Version="0.39.2--0016-develop" />
-    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.26.3--0071-develop" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.50.0-a00-00-0034-develop" />
-    <PackageReference Include="CK.SqlServer.Transaction" Version="10.0.1--0011-develop" />
-    <PackageReference Include="CK.Testing.AspNetServer.Auth" Version="27.0.2--0021-develop" />
-    <PackageReference Include="CK.Testing.TypeScriptEngine" Version="0.26.3--0071-develop" />
-    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0071-develop" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0034-develop" />
-    <PackageReference Include="CK.Testing.SqlServerEngine" Version="30.0.1--0020-develop" />
+    <PackageReference Include="CK.DB.Tests.NUnit" Version="30.0.1--0021-develop" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="27.0.2--0022-develop" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="25.0.2--0018-develop" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="25.0.1--0021-develop" />
+    <PackageReference Include="CK.Cris.Auth" Version="0.39.2--0017-develop" />
+    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.26.3--0074-develop" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.50.0-a00-00-0035-develop" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="10.0.1--0012-develop" />
+    <PackageReference Include="CK.Testing.AspNetServer.Auth" Version="27.0.2--0022-develop" />
+    <PackageReference Include="CK.Testing.TypeScriptEngine" Version="0.26.3--0074-develop" />
+    <PackageReference Include="CK.TS.Angular.Engine" Version="0.26.3--0074-develop" />
+    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.50.0-a00-00-0035-develop" />
+    <PackageReference Include="CK.Testing.SqlServerEngine" Version="30.0.1--0021-develop" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
   </ItemGroup>
