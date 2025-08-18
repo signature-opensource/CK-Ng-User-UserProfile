@@ -1,27 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <!-- https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#copylocallockfileassemblies -->
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-        <IsPackable>False</IsPackable>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.0.0--05jpcm0-develop" />
-        <PackageReference Include="CK.AppIdentity.Hosting" Version="0.10.1--0011-develop" />
-        <PackageReference Include="CK.Cris.AspNet" Version="0.50.0-a00-00-0036-develop" />
-        <PackageReference Include="CK.Cris.Auth" Version="0.39.2--0017-develop" />
-        <PackageReference Include="CK.DB.AspNet.Auth" Version="27.0.2--0022-develop" />
-        <PackageReference Include="CK.DB.User.NamedUser" Version="25.0.2--0018-develop" />
-        <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.0.0--05jpbsb-develop" />
-        <PackageReference Include="CK.DB.User.UserPassword" Version="25.0.1--0021-develop" />
-        <PackageReference Include="CK.SqlServer.Transaction" Version="10.0.1--0012-develop" />
-        <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.26.3--0075-develop" />
-        <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.50.0-a00-00-0036-develop" />
-        <ProjectReference Include="..\..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
-        <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />
-        <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
-        <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword\CK.Ng.UserProfile.UserPassword.csproj" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#copylocallockfileassemblies -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <IsPackable>False</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.0.0--05jqby8-develop" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="0.10.1--0011-develop" />
+    <PackageReference Include="CK.Cris.AspNet" Version="0.50.0-a00-00-0037-develop" />
+    <PackageReference Include="CK.Cris.Auth" Version="0.39.2--0017-develop" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="27.0.2--0022-develop" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="25.0.2--0018-develop" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.0.0--05jpbsb-develop" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="25.0.1--0021-develop" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="10.0.1--0012-develop" />
+    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.26.3--0077-develop" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.50.0-a00-00-0037-develop" />
+    <ProjectReference Include="..\..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
+    <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />
+    <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
+    <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword\CK.Ng.UserProfile.UserPassword.csproj" />
+  </ItemGroup>
 </Project>
