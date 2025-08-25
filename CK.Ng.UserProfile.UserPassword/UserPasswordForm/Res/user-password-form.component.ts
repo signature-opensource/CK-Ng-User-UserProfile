@@ -64,10 +64,8 @@ export class UserPasswordFormComponent {
         if ( this.formGroup.valid ) {
             try {
                 const res = await this.#cris.sendOrThrowAsync( new SetPasswordCommand( this.userProfile()!.userId, this.formGroup.get( 'password' )!.value ) );
-                res?.userMessages.forEach( um => {
-                    this.#notif.notifyUserMessage( um );
-                } );
                 if ( res ) {
+                    this.#notif.notifySimpleMessage( 'success', this.#translateService.instant( 'User.PasswordSet' ) );
                     this.formGroup.reset();
                     return Promise.resolve();
                 }

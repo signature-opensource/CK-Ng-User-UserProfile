@@ -39,13 +39,11 @@ begin
 
            // <PreSetUserNamesCommandRegistering />
            if( this.userProfile()!.firstName !== form.get( 'firstName' )!.value || this.userProfile()!.lastName !== form.get( 'lastName' )!.value ) {
-               const newFirstName = form.get( 'firstName' )!.value;
+               const newFirstName = form.get( 'firstName' )!.value.trim();
                const currentFirstName = this.userProfile()!.firstName;
-               const newLastName = form.get( 'lastName' )!.value;
+               const newLastName = form.get( 'lastName' )!.value.trim();
                const currentLastName = this.userProfile()!.lastName;
                const setUserNamesCmd = new SetUserNamesCommand();
-
-               setUserNamesCmd.actorId = this.userProfile()!.userId;
 
                setUserNamesCmd.userId = this.userProfile()!.userId;
                setUserNamesCmd.firstName = newFirstName !== currentFirstName ? newFirstName : null;

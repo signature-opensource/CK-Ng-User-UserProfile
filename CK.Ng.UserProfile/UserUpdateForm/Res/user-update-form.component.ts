@@ -77,7 +77,7 @@ export class UserUpdateFormComponent {
                     userNameCmd.actorId = this.userProfile()!.userId;
 
                     userNameCmd.userId = this.userProfile()!.userId;
-                    userNameCmd.userName = form.get( 'userName' )!.value;
+                    userNameCmd.userName = form.get( 'userName' )!.value.trim();
                     batchCmd.commands.push( { command: userNameCmd, description: 'Setting user\'s username.' } );
                 }
                 // <PostSetUserNameCommandRegistering />

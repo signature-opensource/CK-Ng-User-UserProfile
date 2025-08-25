@@ -7,13 +7,13 @@ using CK.SqlServer;
 namespace CK.Ng.UserProfile.Sample.App;
 
 [RealObject]
-public class TestCommandHandler : IRealObject
+public class UserCommandHandler : IRealObject
 {
     [CommandHandler]
     public async Task<IUpdateUserCommandResult> UpdateUserAsync( ISqlTransactionCallContext ctx,
                                                                  IUpdateUserCommand cmd,
                                                                  UserTable table,
-                                                                 CrisBackgroundExecutor exec,
+                                                                 ICrisCommandContext commandCtx,
                                                                  PocoDirectory pocoDir )
     {
         var result = cmd.CreateResult<IUpdateUserCommandResult>();
@@ -21,8 +21,7 @@ public class TestCommandHandler : IRealObject
         {
             foreach( var batched in cmd.Commands )
             {
-                var execCmd = exec.Submit( ctx.Monitor, batched.Command, incomingValidationCheck: true );
-                var executedCommand = await execCmd.ExecutedCommand;
+                var executedCommand = await commandCtx.ExecuteAsync( batched.Command );
 
                 // upcoming:
                 // var executedCommand = await execCmd.SuccessfulCommand;

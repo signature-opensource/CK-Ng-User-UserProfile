@@ -1,6 +1,7 @@
 {
     "Search.NoResult": "Aucun résultat.",
     "Search.Placeholder": "Recherche...",
+    "User.PasswordSet": "Votre mot de passe a été modifié avec succès.",
     "User.UnableToReloadProfile": "Une erreur est survenue lors du chargement de votre profil. Veuillez vous reconnecter.",
     "User.UserUpdated": "Votre profil a été mise à jour avec succès.",
     "User.UserUpdateFailed": "Une erreur est survenue lors de la mise à jour."
