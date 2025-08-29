@@ -5,7 +5,7 @@ import { AuthLevel, GetUserProfileQCommand, HttpCrisEndpoint, NgAuthService, Use
 export class UserService {
     // <PreDependencyInjection revert />
     readonly #cris = inject( HttpCrisEndpoint );
-    readonly #authService = inject(NgAuthService);
+    readonly #authService = inject( NgAuthService );
     // <PostDependencyInjection />
 
     // <PreLocalVariables revert />

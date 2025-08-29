@@ -12,7 +12,7 @@ import { UserService, UserUpdateFormComponent } from '@local/ck-gen';
         TranslateModule,
         UserUpdateFormComponent
     ],
-    templateUrl: './user-profile-page.component.html'
+    templateUrl: './user-profile-page.html'
 } )
 export class UserProfilePageComponent {
     // <PreDependencyInjection revert />

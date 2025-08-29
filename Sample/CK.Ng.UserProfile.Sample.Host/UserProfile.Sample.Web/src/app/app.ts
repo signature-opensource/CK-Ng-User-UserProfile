@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 
-@Component({
+@Component( {
   selector: 'app-root',
   imports: [RouterOutlet, CKGenAppModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.less'
-})
+  templateUrl: './app.html',
+  styleUrl: './app.less'
+} )
 export class AppComponent {
   title = 'UserProfile.Sample.Web';
 }
-
