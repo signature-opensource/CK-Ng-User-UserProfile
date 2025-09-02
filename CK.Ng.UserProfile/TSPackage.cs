@@ -6,7 +6,7 @@ namespace CK.Ng.UserProfile;
 
 [TypeScriptPackage]
 [Requires<Localization.TSPackage, AspNet.Auth.TSPackage, Cris.AspNet.TSPackage>]
-[TypeScriptFile( "user.service.ts", "UserService" )]
+[TypeScriptFile( "user-service.ts", "UserService" )]
 [NgProviderImport( "UserService" )]
 [NgProviderImport( "provideAppInitializer", From = "@angular/core" )]
 [NgProvider( "provideAppInitializer( () => { inject( UserService ); } )" )]

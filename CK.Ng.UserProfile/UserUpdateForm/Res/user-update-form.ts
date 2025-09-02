@@ -1,11 +1,12 @@
 import { Component, computed, inject, linkedSignal, Signal, viewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { IFormControlConfig, FormControlConfig } from '@local/ck-gen/CK/Ng/Zorro/generic-form/generic-form.model';
 import {
     NotificationService,
     CrisError,
+    FormControlConfig,
     GenericFormComponent,
+    IFormControlConfig,
     HttpCrisEndpoint,
     SetUserNameCommand,
     UpdateUserCommand,
@@ -25,7 +26,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
         NzButtonModule,
         GenericFormComponent
     ],
-    templateUrl: './user-update-form.component.html'
+    templateUrl: './user-update-form.html'
 })
 export class UserUpdateFormComponent {
     // <PreViewChildren revert />
@@ -77,7 +78,7 @@ export class UserUpdateFormComponent {
                     userNameCmd.actorId = this.userProfile()!.userId;
 
                     userNameCmd.userId = this.userProfile()!.userId;
-                    userNameCmd.userName = form.get( 'userName' )!.value;
+                    userNameCmd.userName = form.get( 'userName' )!.value.trim();
                     batchCmd.commands.push( { command: userNameCmd, description: 'Setting user\'s username.' } );
                 }
                 // <PostSetUserNameCommandRegistering />

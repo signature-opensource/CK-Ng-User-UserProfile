@@ -18,3 +18,16 @@ begin
 
            """ into <PreProfilePropsRegistration>;
 end
+
+create <ts> transformer
+begin
+    inject """
+
+           const firstName = this.#userService.userProfile()?.firstName;
+           const lastName = this.#userService.userProfile()?.lastName
+           if ( firstName && lastName ) {
+               return `${trimAndUpper( firstName.trim().slice( 0, 1 ) )}${trimAndUpper( lastName.trim().slice( 0, 1 ) )}`;
+           }
+
+           """ into <PreAvatarFallbackComputing>
+end

@@ -7,10 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { checkPasswords } from './form-validators';
-import { NotificationService } from '@local/ck-gen/CK/Ng/Zorro/notification.service';
-import { HttpCrisEndpoint } from '@local/ck-gen/CK/Cris/HttpCrisEndpoint';
-import { SetPasswordCommand } from '@local/ck-gen/CK/IO/User/UserPassword/SetPasswordCommand';
-import { UserService } from '@local/ck-gen/CK/Ng/UserProfile/user.service';
+import { HttpCrisEndpoint, NotificationService, SetPasswordCommand, UserService } from '@local/ck-gen';
 
 @Component( {
     selector: 'ck-user-password-form',
@@ -23,7 +20,7 @@ import { UserService } from '@local/ck-gen/CK/Ng/UserProfile/user.service';
         NzFormModule,
         NzInputModule
     ],
-    templateUrl: './user-password-form.component.html'
+    templateUrl: './user-password-form.html'
 } )
 export class UserPasswordFormComponent {
     // <PreDependencyInjection revert />
@@ -64,10 +61,8 @@ export class UserPasswordFormComponent {
         if ( this.formGroup.valid ) {
             try {
                 const res = await this.#cris.sendOrThrowAsync( new SetPasswordCommand( this.userProfile()!.userId, this.formGroup.get( 'password' )!.value ) );
-                res?.userMessages.forEach( um => {
-                    this.#notif.notifyUserMessage( um );
-                } );
                 if ( res ) {
+                    this.#notif.notifySimpleMessage( 'success', this.#translateService.instant( 'User.PasswordSet' ) );
                     this.formGroup.reset();
                     return Promise.resolve();
                 }

@@ -7,6 +7,6 @@
     "CK.UserProfile.Form.RepeatPasswordRequired": "Veuillez confirmer votre mot de passe.",
     "CK.UserProfile.Password": "Mot de passe",
     "CK.UserProfile.Password.InputPlaceholder": "Renseignez votre de mot de passe",
-    "CK.UserProfile.RepeatPassword": "Confirmation",
+    "CK.UserProfile.RepeatPassword": "Confirmation du mot de passe",
     "CK.UserProfile.RepeatPassword.InputPlaceholder": "Confirmez votre mot de passe"
 }

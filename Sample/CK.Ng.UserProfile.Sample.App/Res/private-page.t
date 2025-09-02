@@ -13,17 +13,6 @@ begin
     insert """
            </ck-backoffice-layout>
 
-           <ng-template #defaultListTpl>
-               <!-- Default displayed items when modal opens -->
-               <div class="default-list">
-               </div>
-           </ng-template>
-
-           <ng-template #resultTpl>
-               <!-- Search result items -->
-               <div class="search-result">
-               </div>
-           </ng-template>
            """ after *;
 end
 

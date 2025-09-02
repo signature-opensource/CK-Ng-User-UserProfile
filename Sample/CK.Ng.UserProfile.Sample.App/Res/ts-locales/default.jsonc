@@ -1,6 +1,7 @@
 {
     "Search.NoResult": "No results.",
     "Search.Placeholder": "Search...",
+    "User.PasswordSet": "Your password has successfully been modified.",
     "User.UnableToReloadProfile": "Unable to reload your profile. Please try to reconnect.",
     "User.UserUpdated": "Your profile has successfully been updated.",
     "User.UserUpdateFailed": "An error occured while updating your profile."
