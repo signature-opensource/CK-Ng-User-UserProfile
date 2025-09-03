@@ -1,12 +1,14 @@
+image: Ubuntu2204
+clone_folder: /usr/CKli-World/CK-Crs-Projects/CK-Ng-User-UserProfile
+services:
+- mssql2019
 environment:
+  MSBUILDTERMINALLOGGER: off
+  YARN_ENABLE_IMMUTABLE_INSTALLS: false
   CODECAKEBUILDER_SECRET_KEY:
     secure: 8VAzdXgUQaJyFoU3WLf2iPFV/8zPDm9qV4TfOpx8/rg=
-  SqlServer/MasterConnectionString: Server=(local)\SQL2017;Database=master;User ID=sa;Password=Password12!
-services:
-- mssql2017
+  SqlServer/MasterConnectionString: Server=(local)\SQL2019;Database=master;User ID=sa;Password=Password12!
 version: build{build}
-image: Visual Studio 2022
-clone_folder: C:\CKli-World\CK-Crs-Projects\CK-Ng-User-UserProfile
 on_finish:
 - ps: >-
     Write-Host "Collecting logs..."
@@ -22,7 +24,5 @@ on_finish:
 
     Write-Host "Logs uploaded."
 test: false
-init:
-- git config --global core.autocrlf true
 build_script:
 - dotnet run --project CodeCakeBuilder -nointeraction
