@@ -1,4 +1,5 @@
 image: Ubuntu2204
+version: build{build}
 clone_folder: /usr/CKli-World/CK-Crs-Projects/CK-Ng-User-UserProfile
 services:
 - mssql2019
@@ -8,7 +9,6 @@ environment:
   CODECAKEBUILDER_SECRET_KEY:
     secure: 8VAzdXgUQaJyFoU3WLf2iPFV/8zPDm9qV4TfOpx8/rg=
   SqlServer/MasterConnectionString: Server=(local)\SQL2019;Database=master;User ID=sa;Password=Password12!
-version: build{build}
 on_finish:
 - ps: >-
     Write-Host "Collecting logs..."
