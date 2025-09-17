@@ -6,7 +6,7 @@
     <Aspect Type="CK.Setup.TypeScriptAspectConfiguration, CK.TypeScript" />
     <BinPaths>
         <BinPath>
-            <TypeScript IntegrationMode="Inline" TargetProjectPath="{ProjectPath}/UserProfile.Sample.Web" ActiveCultures="fr">
+            <TypeScript IntegrationMode="Inline" TargetProjectPath="{ProjectPath}/UserProfile.Sample.Web" DefaultCulture="fr" ActiveCultures="fr-CA, de-be, nl-BE, zh">
                 <Types>
                     <Type>CK.IO.Actor.IGetUserProfileQCommand, CK.IO.Actor</Type>
                     <Type>CK.IO.Actor.IUpdateUserCommand, CK.Ng.UserProfile</Type>

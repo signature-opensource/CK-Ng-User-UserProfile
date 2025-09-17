@@ -19,7 +19,7 @@ end
 create <ts> transformer
 begin
     ensure import { inject } from '@angular/core';
-    ensure import { LayoutComponent } from '@local/ck-gen';
+    ensure import { Layout } from '@local/ck-gen';
     ensure import { TranslateModule } from '@ngx-translate/core';
     ensure import { Router } from '@angular/router';
 
@@ -27,7 +27,7 @@ begin
         in first {^braces}
             in after "imports:"
                 in first {^[]}
-                    replace "RouterOutlet" with "RouterOutlet, LayoutComponent, TranslateModule";
+                    replace "RouterOutlet" with "RouterOutlet, Layout, TranslateModule";
 
     inject """
            readonly #router = inject( Router );

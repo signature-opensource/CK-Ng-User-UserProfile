@@ -4,7 +4,7 @@ using CK.TypeScript;
 namespace CK.Ng.UserProfile.NamedUser;
 
 [TypeScriptPackage]
-[Requires<CK.Ng.UserProfile.TSPackage>]
-public class TSPackage : TypeScriptPackage
+[Requires<UserProfilePackage>]
+public class UserProfileNamedUserPackage : TypeScriptPackage
 {
 }

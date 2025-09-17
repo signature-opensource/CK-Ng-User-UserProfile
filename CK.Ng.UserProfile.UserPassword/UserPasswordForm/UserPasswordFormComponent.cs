@@ -5,7 +5,7 @@ using CK.TypeScript;
 namespace CK.Ng.UserProfile.UserPassword;
 
 [NgComponent]
-[Package<TSPackage>]
+[Package<UserProfilePasswordPackage>]
 [TypeScriptFile( "user-password-validator.ts", "UserPasswordValidator" )]
 public sealed class UserPasswordFormComponent : NgComponent
 {

@@ -2,7 +2,7 @@ import { Component, computed, inject, input, linkedSignal } from '@angular/core'
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserService, UserUpdateFormComponent } from '@local/ck-gen';
+import { UserService, UserUpdateForm } from '@local/ck-gen';
 
 @Component( {
     selector: 'ck-user-profile-page',
@@ -10,11 +10,11 @@ import { UserService, UserUpdateFormComponent } from '@local/ck-gen';
         NzAvatarModule,
         NzTabsModule,
         TranslateModule,
-        UserUpdateFormComponent
+        UserUpdateForm
     ],
     templateUrl: './user-profile-page.html'
 } )
-export class UserProfilePageComponent {
+export class UserProfilePage {
     // <PreDependencyInjection revert />
     readonly #userService = inject( UserService );
     // <PostDependencyInjection />
