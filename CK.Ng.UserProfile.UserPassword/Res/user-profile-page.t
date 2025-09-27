@@ -17,15 +17,15 @@ end
 
 create <ts> transformer
 begin
-    ensure import { UserPasswordFormComponent } from '@local/ck-gen';
+    ensure import { UserPasswordForm } from '@local/ck-gen';
 
     in after "@Component" 
             in first {^braces}
                 in after "imports:"
                     in first {^[]}
-                        replace "UserUpdateFormComponent" with """
-                                                               UserUpdateFormComponent,
-                                                                       UserPasswordFormComponent
+                        replace "UserUpdateForm" with """
+                                                               UserUpdateForm,
+                                                                       UserPasswordForm
 
                                                                """;
 end

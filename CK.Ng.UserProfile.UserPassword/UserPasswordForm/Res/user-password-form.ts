@@ -22,7 +22,7 @@ import { HttpCrisEndpoint, NotificationService, SetPasswordCommand, UserService 
     ],
     templateUrl: './user-password-form.html'
 } )
-export class UserPasswordFormComponent {
+export class UserPasswordForm {
     // <PreDependencyInjection revert />
     readonly #userService = inject( UserService );
     readonly #formBuilder = inject( FormBuilder );

@@ -4,7 +4,7 @@ using CK.TS.Angular;
 namespace CK.Ng.UserProfile;
 
 [NgRoutedComponent<INgPrivatePageComponent>( Route = "profile" )]
-[Package<TSPackage>]
+[Package<UserProfilePackage>]
 [OptionalRequires<INgUserInfoBoxComponent>]
 public sealed class UserProfilePageComponent : NgRoutedComponent
 {

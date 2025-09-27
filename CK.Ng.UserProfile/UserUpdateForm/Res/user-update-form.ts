@@ -5,7 +5,7 @@ import {
     NotificationService,
     CrisError,
     FormControlConfig,
-    GenericFormComponent,
+    GenericForm,
     IFormControlConfig,
     HttpCrisEndpoint,
     SetUserNameCommand,
@@ -24,13 +24,13 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
         TranslateModule,
         FontAwesomeModule,
         NzButtonModule,
-        GenericFormComponent
+        GenericForm
     ],
     templateUrl: './user-update-form.html'
 })
-export class UserUpdateFormComponent {
+export class UserUpdateForm {
     // <PreViewChildren revert />
-    formComponent: Signal<GenericFormComponent | undefined> = viewChild( 'formComp' );
+    formComponent: Signal<GenericForm | undefined> = viewChild( 'formComp' );
     // <PostViewChildren />
 
     // <PreDependencyInjection revert />

@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.IO.User.NamedUser" Version="26.0.1" />
+    <PackageReference Include="CK.IO.User.NamedUser" Version="26.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
