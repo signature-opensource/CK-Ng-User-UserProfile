@@ -9,16 +9,16 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.AppIdentity.Hosting" Version="0.11.2--0001-develop" />
-    <PackageReference Include="CK.Cris.AspNet" Version="0.51.1--0004-develop" />
+    <PackageReference Include="CK.Cris.AspNet" Version="0.51.1--0006-develop" />
     <PackageReference Include="CK.Cris.Auth" Version="0.40.3--0003-develop" />
     <PackageReference Include="CK.DB.AspNet.Auth" Version="28.0.3--0003-develop" />
     <PackageReference Include="CK.DB.User.NamedUser" Version="26.0.3--0003-develop" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.1.3--0003-develop" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="26.0.3--0003-develop" />
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.2.1--0004-develop" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.2.1--0005-develop" />
     <PackageReference Include="CK.SqlServer.Transaction" Version="11.0.2--0001-develop" />
-    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.27.3--0005-develop" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.51.1--0004-develop" />
+    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.27.3--0006-develop" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.51.1--0006-develop" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
