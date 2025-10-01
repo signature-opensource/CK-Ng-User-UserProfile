@@ -1,7 +1,7 @@
 <div class="ck-user-profile-left-card">
     @if( userProfile() ) {
         <nz-avatar class="ck-user-profile-avatar"
-                   [nzSize]="actualAvatarSize()"
+                   [nzSize]="avatarSize"
                    [nzText]="avatarFallback()"
                    [nzSrc]="avatarImgSrc()" />
         <span class="username">{{ userProfile()?.userName }}</span>
