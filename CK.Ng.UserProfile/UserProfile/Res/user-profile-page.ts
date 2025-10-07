@@ -19,17 +19,9 @@ export class UserProfilePage {
     readonly #userService = inject( UserService );
     // <PostDependencyInjection />
 
-    // <PreInputOutput revert />
-    avatarSize = input<number>( 192 );
-    // <PostInputOutput />
-
     // <PreLocalVariables revert />
     userProfile = linkedSignal( () => this.#userService.userProfile() );
-    actualAvatarSize = computed( () => {
-        let result = this.avatarSize();
-        // <AvatarSizeComputing />
-        return result;
-    } );
+    avatarSize: number = this.#computeAvatarSize();
     avatarImgSrc = computed( () => {
         let result = '';
         // <AvatarImgSrcComputing />
@@ -57,4 +49,14 @@ export class UserProfilePage {
         return result;
     } );
     // <PostLocalVariables />
+
+    // <PublicMethods />
+
+    // <PrivateMethods>
+    #computeAvatarSize(): number {
+        let res = 128;
+        // <ComputeAvatarSize />
+        return res;
+    }
+    // </PrivateMethods>
 }
