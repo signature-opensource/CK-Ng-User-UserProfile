@@ -26,7 +26,7 @@ export class UserService {
     async refreshUserProfileAsync(): Promise<void> {
         // <PreUserProfileRefresh revert />
         const res = await this.#cris.sendOrThrowAsync( new GetUserProfileQCommand( this.#authService.authenticationInfo().user.userId ) );
-        this.#userProfile.set(res);
+        this.#userProfile.set( res );
         // <PostUserProfileRefresh />
     }
 }

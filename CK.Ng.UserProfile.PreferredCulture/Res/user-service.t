@@ -11,7 +11,7 @@ begin
            
             const prefCulture = res?.preferredCultureName ?? 'en';
             this.#cris.ambientValuesOverride.currentCultureName = prefCulture;
-            if ( this.#translateService.currentLang !== prefCulture ) {
+            if ( this.#translateService.getCurrentLang() !== prefCulture ) {
                 this.#translateService.use( prefCulture );
             }
 
