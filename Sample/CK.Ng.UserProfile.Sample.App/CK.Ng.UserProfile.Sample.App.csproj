@@ -15,7 +15,7 @@
     <PackageReference Include="CK.DB.User.NamedUser" Version="27.1.2--0001-develop" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.3.2--0001-develop" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="27.1.2--0001-develop" />
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.5.2--0001-develop" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.5.3--0001-develop" />
     <PackageReference Include="CK.SqlServer.Transaction" Version="11.0.3--0003-develop" />
     <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.30.2--0001-develop" />
     <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.54.2--0001-develop" />
