@@ -8,17 +8,17 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="0.12.0" />
-    <PackageReference Include="CK.Cris.AspNet" Version="0.54.1" />
-    <PackageReference Include="CK.Cris.Auth" Version="0.42.1" />
-    <PackageReference Include="CK.DB.AspNet.Auth" Version="29.1.1" />
-    <PackageReference Include="CK.DB.User.NamedUser" Version="27.1.1" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.3.1" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="27.1.1" />
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.5.1" />
-    <PackageReference Include="CK.SqlServer.Transaction" Version="11.0.2" />
-    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.30.1" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.54.1" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="0.12.1--0003-develop" />
+    <PackageReference Include="CK.Cris.AspNet" Version="0.54.2--0001-develop" />
+    <PackageReference Include="CK.Cris.Auth" Version="0.42.2--0002-develop" />
+    <PackageReference Include="CK.DB.AspNet.Auth" Version="29.1.2--0001-develop" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="27.1.2--0001-develop" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.3.2--0001-develop" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="27.1.2--0001-develop" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.5.2--0001-develop" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="11.0.3--0003-develop" />
+    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.30.2--0001-develop" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.54.2--0001-develop" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
