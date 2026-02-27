@@ -1,4 +1,5 @@
 import { Component, computed, inject, linkedSignal, Signal, viewChild } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
@@ -49,8 +50,10 @@ export class UserUpdateForm {
     // <PostIconsDefinition />
 
     // <PreLocalVariables revert />
+    #currentLang = toSignal( this.#translateService.onLangChange );
     userProfile = linkedSignal( () => this.#userService.userProfile() );
     formData = computed( () => {
+        const _lang = this.#currentLang(); // Track language changes to re-generate form labels.
         if ( this.userProfile() ) {
             return { formControls: this.#generateUserUpdateFormConfig() }
         }
