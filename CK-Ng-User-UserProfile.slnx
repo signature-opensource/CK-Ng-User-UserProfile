@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/Sample/">
+    <Project Path="Sample/CK.Ng.UserProfile.Sample.App/CK.Ng.UserProfile.Sample.App.csproj" />
+    <Project Path="Sample/CK.Ng.UserProfile.Sample.Builder/CK.Ng.UserProfile.Sample.Builder.csproj" />
+    <Project Path="Sample/CK.Ng.UserProfile.Sample.Host/CK.Ng.UserProfile.Sample.Host.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="appveyor.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="NuGet.config" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/CK.Ng.UserProfile.NamedUser.Tests/CK.Ng.UserProfile.NamedUser.Tests.csproj" />
+    <Project Path="Tests/CK.Ng.UserProfile.PreferredCulture.Tests/CK.Ng.UserProfile.PreferredCulture.Tests.csproj" />
+    <Project Path="Tests/CK.Ng.UserProfile.Tests/CK.Ng.UserProfile.Tests.csproj" />
+    <Project Path="Tests/CK.Ng.UserProfile.UserPassword.Tests/CK.Ng.UserProfile.UserPassword.Tests.csproj" />
+  </Folder>
+  <Project Path="CK.Ng.UserProfile.NamedUser/CK.Ng.UserProfile.NamedUser.csproj" />
+  <Project Path="CK.Ng.UserProfile.PreferredCulture/CK.Ng.UserProfile.PreferredCulture.csproj" />
+  <Project Path="CK.Ng.UserProfile.UserPassword/CK.Ng.UserProfile.UserPassword.csproj" />
+  <Project Path="CK.Ng.UserProfile/CK.Ng.UserProfile.csproj" />
+</Solution>
