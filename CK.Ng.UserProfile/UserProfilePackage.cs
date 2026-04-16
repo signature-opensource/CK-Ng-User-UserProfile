@@ -1,4 +1,5 @@
 using CK.Core;
+using CK.IO.Actor;
 using CK.Ng.AspNet.Auth;
 using CK.Ng.Cris.AspNet;
 using CK.Ng.Localization;
@@ -13,6 +14,8 @@ namespace CK.Ng.UserProfile;
 [NgProviderImport( "UserService" )]
 [NgProviderImport( "provideAppInitializer", From = "@angular/core" )]
 [NgProvider( "provideAppInitializer( () => { inject( UserService ); } )" )]
+[RegisterTypeScriptType( typeof( IUpdateUserCommand ) )]
+[RegisterTypeScriptType( typeof( ISetUserNameCommand ) )]
 public class UserProfilePackage : TypeScriptPackage
 {
 }
