@@ -5,14 +5,14 @@ begin
            <!-- <PreUserProfileFirstNameProp revert /> -->
            <div class="profile-prop">
                 <span class="prop-name">{{ 'CK.UserProfile.FirstName' | translate }}</span>
-                <span class="prop-value">{{ userProfile()!.firstName }}</span>
+                <span class="prop-value">{{ profile.firstName }}</span>
             </div>
            <!-- <PostUserProfileFirstNameProp /> -->
 
            <!-- <PreUserProfileLastNameProp revert /> -->
            <div class="profile-prop">
                 <span class="prop-name">{{ 'CK.UserProfile.LastName' | translate }}</span>
-                <span class="prop-value">{{ userProfile()!.lastName }}</span>
+                <span class="prop-value">{{ profile.lastName }}</span>
             </div>
            <!-- <PostUserProfileLastNameProp /> -->
 

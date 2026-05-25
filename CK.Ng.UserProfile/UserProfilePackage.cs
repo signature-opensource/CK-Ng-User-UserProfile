@@ -16,6 +16,7 @@ namespace CK.Ng.UserProfile;
 [NgProvider( "provideAppInitializer( () => { inject( UserService ); } )" )]
 [RegisterTypeScriptType( typeof( IUpdateUserCommand ) )]
 [RegisterTypeScriptType( typeof( ISetUserNameCommand ) )]
+[RegisterTypeScriptType( typeof( IGetUserProfileQCommand ) )]
 public class UserProfilePackage : TypeScriptPackage
 {
 }

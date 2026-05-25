@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CK.IO.UserProfile.Workspace" Version="15.1.0--ci.10" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
+    </ItemGroup>
+
+</Project>

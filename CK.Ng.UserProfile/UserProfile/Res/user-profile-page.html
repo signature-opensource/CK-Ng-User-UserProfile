@@ -1,10 +1,11 @@
 <div class="ck-user-profile-left-card">
     @if( userProfile() ) {
+        @let profile = userProfile()!;
         <nz-avatar class="ck-user-profile-avatar"
                    [nzSize]="avatarSize"
                    [nzText]="avatarFallback()"
                    [nzSrc]="avatarImgSrc()" />
-        <span class="username">{{ userProfile()?.userName }}</span>
+        <span class="username">{{ profile.userName }}</span>
 
         <div class="profile-properties">
             <!-- <PreProfilePropsRegistration revert /> -->

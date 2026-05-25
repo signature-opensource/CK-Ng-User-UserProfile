@@ -1,0 +1,13 @@
+@if( formData() ) {
+    <ck-generic-form #formComp class="ck-update-user-inner-form" [inputFormData]="formData()!"></ck-generic-form>
+    <div class="ck-update-user-actions">
+        <button nz-button (click)="cancelModifications()" nzDanger nzType="link" [disabled]="form() && (form()!.invalid || form()!.pristine)">
+            <fa-icon [icon]="cancelIcon" class="ck-btn-icon"></fa-icon>
+            {{ 'Button.Cancel' | translate }}
+        </button>
+        <button nz-button nzType="primary" (click)="updateUserAsync()" [disabled]="form() && (form()!.invalid || form()!.pristine)">
+            <fa-icon [icon]="checkIcon" class="ck-btn-icon"></fa-icon>
+            {{ 'Button.Update' | translate }}
+        </button>
+    </div>
+}

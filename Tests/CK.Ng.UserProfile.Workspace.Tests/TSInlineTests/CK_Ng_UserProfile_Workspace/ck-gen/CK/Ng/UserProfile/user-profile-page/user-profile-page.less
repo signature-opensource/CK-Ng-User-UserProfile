@@ -1,0 +1,67 @@
+ck-user-profile-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 1%;
+    background-color: @ck-backoffice-bg-color;
+}
+
+.ck-user-profile-left-card {
+    border-radius: @ck-border-radius;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: @component-background;
+    box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+    padding: 1%;
+
+    .ck-user-profile-avatar {
+        font-size: @ck-user-profile-avatar-font-size;
+    }
+
+    .username {
+        font-size: @ck-user-profile-username-font-size;
+        padding: @ck-user-profile-username-padding;
+    }
+
+    .profile-properties {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: @ck-user-profile-properties-padding;
+
+        .profile-prop {
+            display: flex;
+            align-items: center;
+            gap: 1%;
+
+            @media only screen and (max-width: 1200px) {
+                flex-direction: column;
+            }
+
+            .prop-name {
+                flex: 2;
+                font-size: @ck-user-profile-prop-name-size;
+            }
+
+            .prop-value {
+                flex: 4;
+                text-align: center;
+                font-size: @ck-user-profile-prop-value-size;
+            }
+        }
+    }
+}
+
+.ck-user-profile-right-card {
+    flex: 4;
+    border-radius: @ck-border-radius;
+    background-color: @component-background;
+    box-shadow: rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
+    padding: 1%;
+
+    .ck-user-profile-tabset {
+        height: 100%;
+    }
+}

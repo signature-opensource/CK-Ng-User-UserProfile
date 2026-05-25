@@ -1,0 +1,69 @@
+import { Component, computed, inject, input, linkedSignal } from '@angular/core';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { TranslateModule } from '@ngx-translate/core';
+import { UserService } from '@local/ck-gen/CK/Ng/UserProfile/user-service';
+import { UserUpdateForm } from '@local/ck-gen/CK/Ng/UserProfile/user-update-form/user-update-form';
+
+@Component( {
+    selector: 'ck-user-profile-page',
+    imports: [
+        NzAvatarModule,
+        NzTabsModule,
+        TranslateModule,
+        UserUpdateForm
+    ],
+    templateUrl: './user-profile-page.html'
+} )
+export class UserProfilePage {
+    // <PreDependencyInjection revert />
+    readonly #userService = inject( UserService );
+    // <PostDependencyInjection />
+
+    // <PreLocalVariables revert />
+    userProfile = linkedSignal( () => this.#userService.userProfile() );
+    avatarSize: number = this.#computeAvatarSize();
+    avatarImgSrc = computed( () => {
+        let result = '';
+        // <AvatarImgSrcComputing />
+        return result;
+    } );
+    avatarFallback = computed( () => {
+        const trimAndUpper = ( s: string ) => s.trim().charAt( 0 ).toUpperCase();
+
+        let result = '';
+        if ( this.userProfile() ) {
+            result = this.userProfile()!.userName;
+
+            // <PreAvatarFallbackComputing revert />
+
+            // Split by separators and pick up to 2 initials
+            const parts = result.split( /[\s._\-+~]+/ ).filter( Boolean );
+            if ( parts.length >= 2 ) {
+                return `${trimAndUpper( parts[0] )}${trimAndUpper( parts[1] )}`;
+            }
+            result = result.slice( 0, 2 ).toUpperCase();
+
+            // <PostAvatarFallbackComputing />
+        }
+
+        return result;
+    } );
+    //<PostLocalVariables >
+    
+      getGroupDisplayName( groupId: number ): string {
+        return this.userProfile()?.groups.find( g => g.groupId === groupId )?.groupName ?? '';
+      }
+    
+    //</PostLocalVariables>
+
+    // <PublicMethods />
+
+    // <PrivateMethods>
+    #computeAvatarSize(): number {
+        let res = 128;
+        // <ComputeAvatarSize />
+        return res;
+    }
+    // </PrivateMethods>
+}
