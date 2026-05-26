@@ -45,5 +45,5 @@ this.validationMessages = validationMessages;
 this.correlationId = correlationId;
 CTSType["CrisCallResult"].set( this );
 }
-readonly _brand!: IPoco["_brand"] & {"4":any};
+readonly _brand!: IPoco["_brand"] & {"5":any};
 }

@@ -31,5 +31,5 @@ this.success = success ?? true;
 this.userMessages = userMessages ?? [];
 CTSType["CK.IO.Actor.IUpdateUserCommandResult"].set( this );
 }
-readonly _brand!: ISimpleBatchCommandResultPart["_brand"] & {"26":any};
+readonly _brand!: ISimpleBatchCommandResultPart["_brand"] & {"39":any};
 }

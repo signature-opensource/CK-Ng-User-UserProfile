@@ -30,5 +30,5 @@ this.success = success ?? true;
 this.userMessages = userMessages ?? [];
 CTSType["CK.IO.Actor.ISetUserNameCommandResult"].set( this );
 }
-readonly _brand!: IStandardResultPart["_brand"] & {"20":any};
+readonly _brand!: IStandardResultPart["_brand"] & {"21":any};
 }

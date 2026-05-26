@@ -31,5 +31,5 @@ this.validationMessages = validationMessages ?? [];
 this.result = result;
 CTSType["CK.Cris.IPocoCommandExecutedCommandResult"].set( this );
 }
-readonly _brand!: IPocoCommandExecutedPart["_brand"] & {"29":any};
+readonly _brand!: IPocoCommandExecutedPart["_brand"] & {"42":any};
 }

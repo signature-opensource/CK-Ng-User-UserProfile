@@ -25,5 +25,5 @@ this.preferredWorkspaceId = preferredWorkspaceId ?? 0;
 this.groups = groups ?? [];
 CTSType["CK.IO.Actor.IUserProfile"].set( this );
 }
-readonly _brand!: IPoco["_brand"] & {"21":any};
+readonly _brand!: IPoco["_brand"] & {"22":any};
 }

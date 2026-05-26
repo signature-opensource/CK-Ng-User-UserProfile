@@ -30,5 +30,5 @@ this.success = success ?? true;
 this.userMessages = userMessages ?? [];
 CTSType["CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult"].set( this );
 }
-readonly _brand!: IStandardResultPart["_brand"] & {"32":any};
+readonly _brand!: IStandardResultPart["_brand"] & {"30":any};
 }

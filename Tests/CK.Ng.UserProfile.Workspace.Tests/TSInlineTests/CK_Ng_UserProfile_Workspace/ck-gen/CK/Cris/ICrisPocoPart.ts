@@ -12,5 +12,5 @@ import { ICrisPoco } from './Model';
  * applied to the specialized part.
  **/
 export interface ICrisPocoPart extends ICrisPoco {
-readonly _brand: ICrisPoco["_brand"] & {"63":any};
+readonly _brand: ICrisPoco["_brand"] & {"78":any};
 }

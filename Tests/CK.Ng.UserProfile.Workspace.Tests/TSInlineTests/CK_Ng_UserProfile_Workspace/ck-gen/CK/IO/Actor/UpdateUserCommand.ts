@@ -46,5 +46,5 @@ CTSType["CK.IO.Actor.IUpdateUserCommand"].set( this );
 get commandModel(): CommandModel<this> { return UpdateUserCommand.#m; }
 
 static #m: MyCommandModel = new MyCommandModel();
-readonly _brand!: ICommand<UpdateUserCommandResult|undefined>["_brand"] & ICommandSimpleBatch["_brand"] & ICommandCurrentCulture["_brand"] & ICommandAuthNormal["_brand"] & {"25":any};
+readonly _brand!: ICommand<UpdateUserCommandResult|undefined>["_brand"] & ICommandSimpleBatch["_brand"] & ICommandCurrentCulture["_brand"] & ICommandAuthNormal["_brand"] & {"38":any};
 }

@@ -1,3 +1,3 @@
 export interface IPoco {
-readonly _brand:  & {"67":any};
+readonly _brand:  & {"82":any};
 }

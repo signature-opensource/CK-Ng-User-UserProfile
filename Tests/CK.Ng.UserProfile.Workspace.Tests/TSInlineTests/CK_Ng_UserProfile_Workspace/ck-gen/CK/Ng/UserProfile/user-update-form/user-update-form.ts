@@ -89,7 +89,7 @@ export class UserUpdateForm {
                     const setWorkspaceCmd = new SetPreferredWorkspaceIdCommand();
                 
                     setWorkspaceCmd.userId = this.userProfile()!.userId;
-                    setWorkspaceCmd.preferredWorkspaceId = form.get( 'preferredWorkspaceId' )!.value;
+                    setWorkspaceCmd.workspaceId = form.get( 'preferredWorkspaceId' )!.value;
                     batchCmd.commands.push( { command: setWorkspaceCmd, description: 'Setting user\'s preferred workspace.' } );
                 }
                 // <PostSetPreferredWorkspaceIdCommandRegistering />

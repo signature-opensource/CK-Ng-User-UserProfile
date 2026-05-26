@@ -69,8 +69,8 @@ public class NamedUserTests
                     c.LastName = "Titi";
                 } );
                 idUser = (await userTable.CreateUserAsync( ctx, cmd )).UserIdResult;
-                await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, idUser, "success", DB.Auth.UCLMode.CreateOrUpdate );
             }
+            await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, idUser, "success", DB.Auth.UCLMode.CreateOrUpdate );
         }
         #endregion
         var builder = WebApplication.CreateSlimBuilder();

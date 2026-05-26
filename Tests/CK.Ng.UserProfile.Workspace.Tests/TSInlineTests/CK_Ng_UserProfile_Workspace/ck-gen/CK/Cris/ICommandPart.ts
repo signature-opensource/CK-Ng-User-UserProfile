@@ -14,5 +14,5 @@ import { ICrisPocoPart } from './ICrisPocoPart';
  * applied to the specialized part.
  **/
 export interface ICommandPart extends IAbstractCommand, ICrisPocoPart {
-readonly _brand: IAbstractCommand["_brand"] & ICrisPocoPart["_brand"] & {"44":any};
+readonly _brand: IAbstractCommand["_brand"] & ICrisPocoPart["_brand"] & {"55":any};
 }

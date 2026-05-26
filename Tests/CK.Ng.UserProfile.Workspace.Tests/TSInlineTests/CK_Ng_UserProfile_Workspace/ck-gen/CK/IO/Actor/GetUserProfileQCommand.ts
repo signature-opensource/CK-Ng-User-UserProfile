@@ -32,5 +32,5 @@ CTSType["CK.IO.Actor.IGetUserProfileQCommand"].set( this );
 get commandModel(): CommandModel<this> { return GetUserProfileQCommand.#m; }
 
 static #m: MyCommandModel = new MyCommandModel();
-readonly _brand!: ICommand<UserProfile|undefined>["_brand"] & ICommandAuthNormal["_brand"] & {"16":any};
+readonly _brand!: ICommand<UserProfile|undefined>["_brand"] & ICommandAuthNormal["_brand"] & {"17":any};
 }

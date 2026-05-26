@@ -22,22 +22,26 @@ public currentCultureName: string;
 public actorId: number;
 public actualActorId: number;
 public deviceId: string;
+public currentWorkspaceId: number;
 public constructor()
 public constructor(
 currentCultureName?: string,
 actorId?: number,
 actualActorId?: number,
-deviceId?: string)
+deviceId?: string,
+currentWorkspaceId?: number)
 constructor(
 currentCultureName?: string,
 actorId?: number,
 actualActorId?: number,
-deviceId?: string)
+deviceId?: string,
+currentWorkspaceId?: number)
 {
 this.currentCultureName = currentCultureName ?? "";
 this.actorId = actorId ?? 0;
 this.actualActorId = actualActorId ?? 0;
 this.deviceId = deviceId ?? "";
+this.currentWorkspaceId = currentWorkspaceId ?? 0;
 CTSType["CK.Cris.AmbientValues.IAmbientValues"].set( this );
 }
 readonly _brand!: IPoco["_brand"] & {"0":any};

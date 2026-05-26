@@ -55,12 +55,12 @@ public class PreferredCultureTests
         using( var ctx = new SqlStandardCallContext() )
         {
             int idUser = await userTable.FindByNameAsync( ctx, "TestUser" );
+            var pwdTable = map.StObjs.Obtain<UserPasswordTable>().ShouldNotBeNull();
             if( idUser <= 0 )
             {
-                var pwdTable = map.StObjs.Obtain<UserPasswordTable>().ShouldNotBeNull();
                 idUser = await userTable.CreateUserAsync( ctx, 1, "TestUser" );
-                await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, idUser, "success", DB.Auth.UCLMode.CreateOrUpdate );
             }
+            await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, idUser, "success", DB.Auth.UCLMode.CreateOrUpdate );
         }
         #endregion
 

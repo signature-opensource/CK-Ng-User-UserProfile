@@ -10,5 +10,5 @@ export interface ICurrentCulturePart extends ICrisPocoPart {
  * not changed.
  **/
 currentCultureName?: string;
-readonly _brand: ICrisPocoPart["_brand"] & {"55":any};
+readonly _brand: ICrisPocoPart["_brand"] & {"69":any};
 }

@@ -11,11 +11,13 @@ public currentCultureName: string|null;
 public actorId: number|null;
 public actualActorId: number|null;
 public deviceId: string|null;
+public currentWorkspaceId: number|null;
 constructor() {
 this.currentCultureName = null;
 this.actorId = null;
 this.actualActorId = null;
 this.deviceId = null;
+this.currentWorkspaceId = null;
 
 }
 }

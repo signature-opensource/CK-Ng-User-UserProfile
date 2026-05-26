@@ -27,5 +27,5 @@ CTSType["CK.Cris.AmbientValues.IAmbientValuesCollectCommand"].set( this );
 get commandModel(): CommandModel<this> { return AmbientValuesCollectCommand.#m; }
 
 static #m: MyCommandModel = new MyCommandModel();
-readonly _brand!: ICommand<AmbientValues|undefined>["_brand"] & {"6":any};
+readonly _brand!: ICommand<AmbientValues|undefined>["_brand"] & {"7":any};
 }

@@ -11,10 +11,10 @@ import { SimpleUserMessage } from './SimpleUserMessage';
 import { UserMessageLevel } from './UserMessageLevel';
 import { AuthLevel } from '../AspNet/Auth/AuthLevel';
 import { SetUserNameCommandResult } from '../IO/Actor/SetUserNameCommandResult';
-import { UpdateUserCommandResult } from '../IO/Actor/UpdateUserCommandResult';
-import { PocoCommandExecutedCommandResult } from '../Cris/PocoCommandExecutedCommandResult';
 import { GroupInfos } from '../IO/UserProfile/Workspace/GroupInfos';
 import { SetPreferredWorkspaceIdCommandResult } from '../IO/UserProfile/Workspace/SetPreferredWorkspaceIdCommandResult';
+import { UpdateUserCommandResult } from '../IO/Actor/UpdateUserCommandResult';
+import { PocoCommandExecutedCommandResult } from '../Cris/PocoCommandExecutedCommandResult';
 import { IAbstractCommand } from '../Cris/Model';
 
 export const SymCTS = Symbol.for("CK.CTSType");
@@ -154,7 +154,8 @@ return new AmbientValues(
 CTSType["string"].nosj( o.currentCultureName ),
 CTSType["int"].nosj( o.actorId ),
 CTSType["int"].nosj( o.actualActorId ),
-CTSType["string"].nosj( o.deviceId ) );
+CTSType["string"].nosj( o.deviceId ),
+CTSType["int"].nosj( o.currentWorkspaceId ) );
 },
 },
 "CK.Cris.AmbientValues.IAmbientValuesCollectCommand": {
@@ -197,6 +198,32 @@ CTSType["bool"].nosj( o.success ),
 CTSType["L(UserMessage)"].nosj( o.userMessages ) );
 },
 },
+"CK.IO.UserProfile.Workspace.IGroupInfos": {
+name: "CK.IO.UserProfile.Workspace.IGroupInfos",
+set( o: GroupInfos ): GroupInfos {  (o as any)[SymCTS] = this; return o; },
+json( o: any ) {return o;
+},
+nosj( o: any ) {if( o == null ) return undefined;
+return new GroupInfos(
+CTSType["int"].nosj( o.groupId ),
+CTSType["string"].nosj( o.groupName ),
+CTSType["bool"].nosj( o.isZone ),
+CTSType["int"].nosj( o.zoneId ),
+CTSType["string"].nosj( o.zoneName ) );
+},
+},
+"CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult": {
+name: "CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult",
+set( o: SetPreferredWorkspaceIdCommandResult ): SetPreferredWorkspaceIdCommandResult {  (o as any)[SymCTS] = this; return o; },
+json( o: any ) {return o;
+},
+nosj( o: any ) {if( o == null ) return undefined;
+return new SetPreferredWorkspaceIdCommandResult(
+CTSType["int"].nosj( o.preferredWorkspaceId ),
+CTSType["bool"].nosj( o.success ),
+CTSType["L(UserMessage)"].nosj( o.userMessages ) );
+},
+},
 "CK.IO.Actor.IUpdateUserCommandResult": {
 name: "CK.IO.Actor.IUpdateUserCommandResult",
 set( o: UpdateUserCommandResult ): UpdateUserCommandResult {  (o as any)[SymCTS] = this; return o; },
@@ -231,31 +258,6 @@ CTSType["L(UserMessage)"].nosj( o.validationMessages ),
 CTSType.fromTypedJson( o.result ) );
 },
 },
-"CK.IO.UserProfile.Workspace.IGroupInfos": {
-name: "CK.IO.UserProfile.Workspace.IGroupInfos",
-set( o: GroupInfos ): GroupInfos {  (o as any)[SymCTS] = this; return o; },
-json( o: any ) {return o;
-},
-nosj( o: any ) {if( o == null ) return undefined;
-return new GroupInfos(
-CTSType["int"].nosj( o.groupId ),
-CTSType["string"].nosj( o.groupName ),
-CTSType["int"].nosj( o.zoneId ),
-CTSType["string"].nosj( o.zoneName ) );
-},
-},
-"CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult": {
-name: "CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult",
-set( o: SetPreferredWorkspaceIdCommandResult ): SetPreferredWorkspaceIdCommandResult {  (o as any)[SymCTS] = this; return o; },
-json( o: any ) {return o;
-},
-nosj( o: any ) {if( o == null ) return undefined;
-return new SetPreferredWorkspaceIdCommandResult(
-CTSType["int"].nosj( o.preferredWorkspaceId ),
-CTSType["bool"].nosj( o.success ),
-CTSType["L(UserMessage)"].nosj( o.userMessages ) );
-},
-},
 "CK.Cris.ISimpleBatchCommandResultPart": {
 name: "CK.Cris.ISimpleBatchCommandResultPart",
 },
@@ -286,14 +288,14 @@ name: "CK.Cris.ICommand<CK.IO.Actor.IUserProfile>",
 "CK.Cris.ICommand<CK.IO.Actor.ISetUserNameCommandResult>": {
 name: "CK.Cris.ICommand<CK.IO.Actor.ISetUserNameCommandResult>",
 },
+"CK.Cris.ICommand<CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult>": {
+name: "CK.Cris.ICommand<CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult>",
+},
 "CK.Cris.ICommand<CK.IO.Actor.IUpdateUserCommandResult>": {
 name: "CK.Cris.ICommand<CK.IO.Actor.IUpdateUserCommandResult>",
 },
 "CK.Cris.ICommand<CK.Cris.ISimpleBatchCommandResultPart>": {
 name: "CK.Cris.ICommand<CK.Cris.ISimpleBatchCommandResultPart>",
-},
-"CK.Cris.ICommand<CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult>": {
-name: "CK.Cris.ICommand<CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommandResult>",
 },
 "CK.Cris.IAbstractCommand": {
 name: "CK.Cris.IAbstractCommand",

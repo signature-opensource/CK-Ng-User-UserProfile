@@ -51,15 +51,15 @@ public class WorkspaceTests
 
         #region Ensuring "TestUser" and its password...
         var userTable = map.StObjs.Obtain<DB.Actor.UserTable>().ShouldNotBeNull();
+        var pwdTable = map.StObjs.Obtain<UserPasswordTable>().ShouldNotBeNull();
         using( var ctx = new SqlStandardCallContext() )
         {
             int idUser = await userTable.FindByNameAsync( ctx, "TestUser" );
             if( idUser <= 0 )
             {
-                var pwdTable = map.StObjs.Obtain<UserPasswordTable>().ShouldNotBeNull();
                 idUser = await userTable.CreateUserAsync( ctx, 1, "TestUser" );
-                await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, idUser, "success", DB.Auth.UCLMode.CreateOrUpdate );
             }
+            await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, idUser, "success", DB.Auth.UCLMode.CreateOrUpdate );
         }
         #endregion
 

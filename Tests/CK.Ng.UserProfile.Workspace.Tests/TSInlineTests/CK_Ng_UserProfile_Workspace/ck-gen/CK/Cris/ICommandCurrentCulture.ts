@@ -6,5 +6,5 @@ import { ICurrentCulturePart } from './ICurrentCulturePart';
  * when validating and handling the command.
  **/
 export interface ICommandCurrentCulture extends ICommandPart, ICurrentCulturePart {
-readonly _brand: ICommandPart["_brand"] & ICurrentCulturePart["_brand"] & {"37":any};
+readonly _brand: ICommandPart["_brand"] & ICurrentCulturePart["_brand"] & {"47":any};
 }

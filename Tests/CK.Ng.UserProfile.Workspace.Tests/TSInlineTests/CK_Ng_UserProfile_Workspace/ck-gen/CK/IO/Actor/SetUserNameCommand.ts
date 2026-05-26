@@ -49,5 +49,5 @@ CTSType["CK.IO.Actor.ISetUserNameCommand"].set( this );
 get commandModel(): CommandModel<this> { return SetUserNameCommand.#m; }
 
 static #m: MyCommandModel = new MyCommandModel();
-readonly _brand!: ICommand<SetUserNameCommandResult|undefined>["_brand"] & ICommandCurrentCulture["_brand"] & ICommandAuthNormal["_brand"] & {"19":any};
+readonly _brand!: ICommand<SetUserNameCommandResult|undefined>["_brand"] & ICommandCurrentCulture["_brand"] & ICommandAuthNormal["_brand"] & {"20":any};
 }

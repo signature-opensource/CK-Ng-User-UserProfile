@@ -49,5 +49,5 @@ CTSType["CK.IO.UserProfile.Workspace.ISetPreferredWorkspaceIdCommand"].set( this
 get commandModel(): CommandModel<this> { return SetPreferredWorkspaceIdCommand.#m; }
 
 static #m: MyCommandModel = new MyCommandModel();
-readonly _brand!: ICommand<SetPreferredWorkspaceIdCommandResult|undefined>["_brand"] & ICommandCurrentCulture["_brand"] & ICommandAuthNormal["_brand"] & {"31":any};
+readonly _brand!: ICommand<SetPreferredWorkspaceIdCommandResult|undefined>["_brand"] & ICommandCurrentCulture["_brand"] & ICommandAuthNormal["_brand"] & {"29":any};
 }
