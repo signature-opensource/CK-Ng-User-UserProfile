@@ -7,7 +7,6 @@ namespace CK.Ng.UserProfile.UserPassword;
 
 [NgComponent]
 [Package<UserProfilePasswordPackage>]
-[TypeScriptFile( "user-password-validator.ts", "UserPasswordValidator" )]
 [RegisterTypeScriptType( typeof( ISetPasswordCommand ) )]
 public sealed class UserPasswordFormComponent : NgComponent
 {

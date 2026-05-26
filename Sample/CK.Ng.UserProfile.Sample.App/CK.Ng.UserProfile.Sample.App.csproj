@@ -20,7 +20,6 @@
     <PackageReference Include="CK.DB.Workspace" Version="15.1.0--ci.11" />
       
     <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.6.3--ci.8" />
-    <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.31.2--ci.5" />
     <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="0.55.2--ci.5" />
       
     <PackageReference Include="CK.SqlServer.Transaction" Version="12.0.1--ci.1" />

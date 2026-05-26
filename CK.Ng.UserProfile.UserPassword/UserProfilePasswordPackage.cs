@@ -1,12 +1,11 @@
 using CK.Core;
-using CK.IO.User.UserPassword;
 using CK.TypeScript;
 
 namespace CK.Ng.UserProfile.UserPassword;
 
 [TypeScriptPackage]
 [Requires<UserProfilePackage>]
-[RegisterTypeScriptType( typeof( ISetPasswordCommand ) )]
+[TypeScriptFile( "password-validators.ts", "PASSWORD_MIN_LENGTH", "passwordComplexityValidator", "passwordsMatchValidator" )]
 public class UserProfilePasswordPackage : TypeScriptPackage
 {
 }

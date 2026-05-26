@@ -1,7 +1,6 @@
 using CK.Core;
 using CK.IO.Actor;
-using CK.Ng.AspNet.Auth;
-using CK.Ng.Cris.AspNet;
+using CK.Ng.Cris.AspNet.Auth;
 using CK.Ng.Localization;
 using CK.TS.Angular;
 using CK.TypeScript;
@@ -9,7 +8,7 @@ using CK.TypeScript;
 namespace CK.Ng.UserProfile;
 
 [TypeScriptPackage]
-[Requires<LocalizationPackage, AspNetAuthPackage, CrisAspNetPackage>]
+[Requires<LocalizationPackage, CrisAspNetAuthPackage>]
 [TypeScriptFile( "user-service.ts", "UserService" )]
 [NgProviderImport( "UserService" )]
 [NgProviderImport( "provideAppInitializer", From = "@angular/core" )]

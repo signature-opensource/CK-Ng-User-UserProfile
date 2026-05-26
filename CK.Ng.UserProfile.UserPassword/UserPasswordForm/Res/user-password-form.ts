@@ -6,8 +6,7 @@ import { faCheck, faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { checkPasswords } from './form-validators';
-import { HttpCrisEndpoint, NotificationService, SetPasswordCommand, UserService } from '@local/ck-gen';
+import { HttpCrisEndpoint, NotificationService, PASSWORD_MIN_LENGTH, passwordComplexityValidator, passwordsMatchValidator, SetPasswordCommand, UserService } from '@local/ck-gen';
 
 @Component( {
     selector: 'ck-user-password-form',
@@ -43,11 +42,10 @@ export class UserPasswordForm {
 
     // <PreLocalVariables revert />
     userProfile = linkedSignal( () => this.#userService.userProfile() );
-    #passwordMinLength: number = 6;
     formGroup: FormGroup = this.#formBuilder.group( {
-        password: new FormControl( '', { nonNullable: true, validators: [Validators.required, Validators.minLength( this.#passwordMinLength )] } ),
-        repeat: new FormControl( '', { nonNullable: true, validators: [Validators.minLength( this.#passwordMinLength )] } ),
-    }, { validators: [checkPasswords( 'password', 'repeat', 'mismatch' )] } );
+        password: new FormControl( '', { nonNullable: true, validators: [Validators.required, Validators.minLength( PASSWORD_MIN_LENGTH ), passwordComplexityValidator] } ),
+        repeat: new FormControl( '', { nonNullable: true, validators: [Validators.minLength( PASSWORD_MIN_LENGTH )] } ),
+    }, { validators: [passwordsMatchValidator( 'password', 'repeat' )] } );
     showPassword: boolean = false;
     showRepeatPassword: boolean = false;
     // <PostLocalVariables />
@@ -85,6 +83,6 @@ export class UserPasswordForm {
     }
 
     getMinLengthError(): string {
-        return this.#translateService.instant( 'CK.UserProfile.Form.PasswordLengthError', { minLength: this.#passwordMinLength } );
+        return this.#translateService.instant( 'CK.UserProfile.Form.PasswordLengthError', { minLength: PASSWORD_MIN_LENGTH } );
     }
 }

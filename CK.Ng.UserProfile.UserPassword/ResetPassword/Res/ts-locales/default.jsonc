@@ -1,0 +1,14 @@
+{
+    "CK.Auth.ResetPassword.Title": "Choose a new password",
+    "CK.Auth.ResetPassword.SubTitle": "Pick something you'll remember, but that others can't guess.",
+    "CK.Auth.ResetPassword.Password.Placeholder": "New password",
+    "CK.Auth.ResetPassword.Password.Required": "Password is required.",
+    "CK.Auth.ResetPassword.Password.MinLength": "Password must be at least 8 characters long.",
+    "CK.Auth.ResetPassword.Password.Complexity": "Password must include at least three of: uppercase, lowercase, digit, special character.",
+    "CK.Auth.ResetPassword.ConfirmPassword.Placeholder": "Confirm new password",
+    "CK.Auth.ResetPassword.ConfirmPassword.Required": "Please confirm your password.",
+    "CK.Auth.ResetPassword.ConfirmPassword.Mismatch": "Passwords do not match.",
+    "CK.Auth.ResetPassword.Submit": "Update password",
+    "CK.Auth.ResetPassword.InvalidToken": "This reset link is no longer valid. Please start a new password reset request.",
+    "CK.Auth.ResetPassword.InvalidTokenTitle": "Link invalid"
+}

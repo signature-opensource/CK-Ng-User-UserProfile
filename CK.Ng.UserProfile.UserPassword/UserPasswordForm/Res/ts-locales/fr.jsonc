@@ -1,6 +1,7 @@
 {
     "CK.UserProfile.UserPassword.Button.Cancel": "Annuler",
     "CK.UserProfile.UserPassword.Button.Confirm": "Confirmer",
+    "CK.UserProfile.Form.PasswordComplexity": "Votre mot de passe doit contenir au moins trois éléments parmi : majuscule, minuscule, chiffre, caractère spécial.",
     "CK.UserProfile.Form.PasswordLengthError": "Les mots de passe doivent contenir au moins {{minLength}} caractères.",
     "CK.UserProfile.Form.PasswordMustMatch": "Les mots de passe ne correspondent pas.",
     "CK.UserProfile.Form.PasswordRequired": "Veuillez renseigner votre nouveau mot de passe.",

@@ -1,0 +1,10 @@
+{
+    "CK.Auth.PasswordLost.Title": "Forgot your password?",
+    "CK.Auth.PasswordLost.SubTitle": "Enter your email address and we'll send you a link to reset it.",
+    "CK.Auth.PasswordLost.Email.Placeholder": "Email",
+    "CK.Auth.PasswordLost.Email.Required": "Email is required.",
+    "CK.Auth.PasswordLost.Email.Invalid": "Please enter a valid email address.",
+    "CK.Auth.PasswordLost.Submit": "Send reset link",
+    "CK.Auth.PasswordLost.Confirmation": "If this email is registered, you will receive instructions to reset your password.",
+    "CK.Auth.PasswordLost.Link": "Forgot your password?"
+}

@@ -1,0 +1,10 @@
+{
+    "CK.Auth.PasswordLost.Title": "Mot de passe oublié ?",
+    "CK.Auth.PasswordLost.SubTitle": "Saisissez votre adresse e-mail, nous vous enverrons un lien de réinitialisation.",
+    "CK.Auth.PasswordLost.Email.Placeholder": "E-mail",
+    "CK.Auth.PasswordLost.Email.Required": "L'adresse e-mail est obligatoire.",
+    "CK.Auth.PasswordLost.Email.Invalid": "Merci de saisir une adresse e-mail valide.",
+    "CK.Auth.PasswordLost.Submit": "Envoyer le lien",
+    "CK.Auth.PasswordLost.Confirmation": "Si cette adresse est enregistrée, vous recevrez les instructions pour réinitialiser votre mot de passe.",
+    "CK.Auth.PasswordLost.Link": "Mot de passe oublié ?"
+}

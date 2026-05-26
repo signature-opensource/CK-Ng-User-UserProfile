@@ -1,6 +1,7 @@
 {
     "CK.UserProfile.UserPassword.Button.Cancel": "Cancel",
     "CK.UserProfile.UserPassword.Button.Confirm": "Confirm",
+    "CK.UserProfile.Form.PasswordComplexity": "Your password must include at least three of: uppercase letter, lowercase letter, digit, special character.",
     "CK.UserProfile.Form.PasswordLengthError": "Passwords must contain at least {{minLength}} characters.",
     "CK.UserProfile.Form.PasswordMustMatch": "Please make sure your passwords match.",
     "CK.UserProfile.Form.PasswordRequired": "Please enter your new password.",
