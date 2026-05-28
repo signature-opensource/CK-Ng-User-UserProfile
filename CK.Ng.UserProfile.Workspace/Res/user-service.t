@@ -24,7 +24,7 @@ begin
                  this.#cris.ambientValuesOverride.currentWorkspaceId = 0;
                  return;
                }
-               this.#currentWorkspace.set( this.userProfile()?.groups.find( g => g.groupId === groupId ) );
+               this.#currentWorkspace.set( this.userProfile()?.groups.find( g => g.group.groupId === groupId )?.group );
                this.#cris.ambientValuesOverride.currentWorkspaceId = this.#currentWorkspace()?.groupId ?? 0;
              }
 
