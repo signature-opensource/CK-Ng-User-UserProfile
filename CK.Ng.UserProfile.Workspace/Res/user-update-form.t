@@ -11,9 +11,9 @@ begin
                this.userProfile()!.preferredWorkspaceId,
                {
                    options: this.userProfile()!.groups
-                       .filter( g => g.isZone )
-                       .map( g => ({ label: g.groupName, value: g.groupId }) ),
-                   show: () => this.userProfile()!.groups.some( g => g.isZone )
+                       .filter( g => g.group.isZone )
+                       .map( g => ({ label: g.group.groupName, value: g.group.groupId }) ),
+                   show: () => this.userProfile()!.groups.some( g => g.group.isZone )
                }
            );
            // <PostPreferredWorkspaceFormControlDefinition />

@@ -17,7 +17,7 @@ begin
     inject """
 
              getGroupDisplayName( groupId: number ): string {
-               return this.userProfile()?.groups.find( g => g.groupId === groupId )?.groupName ?? '';
+               return this.userProfile()?.groups.find( g => g.group.groupId === groupId )?.group.groupName ?? '';
              }
 
            """ into <PostLocalVariables>;
