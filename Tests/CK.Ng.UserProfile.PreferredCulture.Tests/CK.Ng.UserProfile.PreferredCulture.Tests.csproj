@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="CK.Cris.Auth" Version="0.43.1" />
     <PackageReference Include="CK.DB.AspNet.Auth" Version="31.0.2" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.4.3--ci.2" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.4.3--ci.3" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="28.0.2" />
     <PackageReference Include="CK.Ng.AspNet.Auth.Basic" Version="0.31.2" />
     <PackageReference Include="CK.DB.Tests.NUnit" Version="33.0.2" />
