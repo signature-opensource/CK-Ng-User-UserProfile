@@ -39,7 +39,7 @@ public class PreferredCultureTests
             ] );
 
         var tsConfig = configuration.FirstBinPath.EnsureTypeScriptConfigurationAspect( targetProjectPath,
-                                                                                       typeof( IO.User.PreferredCulture.ISetUserPreferredCultureCommand ),
+                                                                                       typeof( IO.User.PreferredCulture.ISetUserExtendedCultureCommand ),
                                                                                        typeof( ISetUserNameCommand ),
                                                                                        typeof( IUpdateUserCommand ),
                                                                                        typeof( IGetUserProfileQCommand ),

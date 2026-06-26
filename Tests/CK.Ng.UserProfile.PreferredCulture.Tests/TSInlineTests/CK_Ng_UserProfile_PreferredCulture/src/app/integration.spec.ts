@@ -1,5 +1,6 @@
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 import { NgAuthService, AuthLevel, HttpCrisEndpoint, GetUserProfileQCommand } from '@local/ck-gen';
+import { locales } from '@local/ck-gen/ts-locales/locales';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
@@ -41,5 +42,6 @@ describe( 'integration tests', () => {
         const profile = await cris.sendOrThrowAsync( new GetUserProfileQCommand( authService.authenticationInfo.user.userId ) );
         expect( profile ).not.toBeNull();
         expect( profile!.userName ).toBe( 'TestUser' );
-        expect( profile!.preferredCultureName ).toBe( 'en' );
+        expect( profile!.extendedCultureId ).toBe( locales['en'].id );
     } );
+} );

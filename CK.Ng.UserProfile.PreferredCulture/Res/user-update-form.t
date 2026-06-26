@@ -23,9 +23,9 @@ end
 
 create <ts> transformer
 begin
-    ensure import { locales } from '@local/ck-gen/ts-locales/locales';
+    ensure import { locales, DEFAULT_LOCALE_INFO } from '@local/ck-gen/ts-locales/locales';
     ensure import { TemplateRef, viewChild } from '@angular/core';
-    ensure import { SetUserPreferredCultureCommand } from '@local/ck-gen';
+    ensure import { SetUserExtendedCultureCommand } from '@local/ck-gen';
 
     inject """
            languageChoice: Signal<TemplateRef<unknown> | undefined> = viewChild( 'languageChoice' );
@@ -33,7 +33,7 @@ begin
 
     inject """
 
-           this.form()!.get( 'language' )?.patchValue( this.userProfile()!.preferredCultureName );
+           this.form()!.get( 'language' )?.patchValue( Object.values( locales ).find( l => l.id === this.userProfile()!.extendedCultureId )?.name ?? DEFAULT_LOCALE_INFO.name );
 
            """ into <PostCancelModifications>;
 
@@ -43,7 +43,7 @@ begin
            const language = new FormControlConfig(
                'select',
                this.#translateService.instant( 'CK.UserProfile.PreferredCultureName' ),
-               this.userProfile()!.preferredCultureName,
+               ( Object.values( locales ).find( l => l.id === this.userProfile()!.extendedCultureId )?.name ?? DEFAULT_LOCALE_INFO.name ),
                {
                    options: Object.entries( locales ).map( cklocale => { return { label: cklocale[1].nativeName, value: cklocale[0] } } ),
                    selectOptionTemplate: this.languageChoice()
@@ -62,14 +62,15 @@ begin
     inject """
 
            // <PreSetUserPreferedCultureCommandRegistering />
-           if( form.get( 'language' )!.value !== this.userProfile()!.preferredCultureName ) {
-               var setCultureCmd = new SetUserPreferredCultureCommand();
+           const currentCultureName = Object.values( locales ).find( l => l.id === this.userProfile()!.extendedCultureId )?.name ?? DEFAULT_LOCALE_INFO.name;
+           if( form.get( 'language' )!.value !== currentCultureName ) {
+               var setCultureCmd = new SetUserExtendedCultureCommand();
 
                setCultureCmd.actorId = this.userProfile()!.userId;
 
                setCultureCmd.userId = this.userProfile()!.userId;
-               setCultureCmd.preferredCultureName = form.get( 'language' )!.value;
-               batchCmd.commands.push( { command: setCultureCmd, description: 'Setting user\'s preferredCultureName.' } );
+               setCultureCmd.extendedCultureId = locales[form.get( 'language' )!.value].id;
+               batchCmd.commands.push( { command: setCultureCmd, description: 'Setting user\'s extendedCultureId.' } );
            }
            // <PostSetUserPreferedCultureCommandRegistering />
            """ into <PostSetUserNameCommandRegistering>;

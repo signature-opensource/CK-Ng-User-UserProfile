@@ -6,7 +6,7 @@ namespace CK.Ng.UserProfile.PreferredCulture;
 
 [TypeScriptPackage]
 [Requires<UserProfilePackage>]
-[RegisterTypeScriptType( typeof( ISetUserPreferredCultureCommand ) )]
+[RegisterTypeScriptType( typeof( ISetUserExtendedCultureCommand ) )]
 public class UserProfilePreferredCulturePackage : TypeScriptPackage
 {
 }

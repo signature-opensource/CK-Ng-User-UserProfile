@@ -19,7 +19,7 @@ begin
     inject """
 
              getPreferredCultureDisplayedName(): string {
-               return locales[this.userProfile()!.preferredCultureName].nativeName;
+               return Object.values( locales ).find( l => l.id === this.userProfile()!.extendedCultureId )?.nativeName ?? '';
              }
 
            """ into <PostLocalVariables>;
