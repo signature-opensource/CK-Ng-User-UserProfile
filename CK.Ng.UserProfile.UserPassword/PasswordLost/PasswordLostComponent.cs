@@ -6,7 +6,7 @@ using CK.TypeScript;
 
 namespace CK.Ng.AspNet.Auth.Basic;
 
-[NgRoutedComponent<AuthenticationPageComponent>( Route = "password-lost" )]
+[NgRoutedComponent<AuthenticationPageComponent>( Route = "password-lost", RegistrationMode = RouteRegistrationMode.Lazy )]
 [Requires<BasicLoginFormComponent>]
 [Package<UserProfilePasswordPackage>]
 [RegisterTypeScriptType( typeof( ISendForgotPasswordEmailCommand ) )]

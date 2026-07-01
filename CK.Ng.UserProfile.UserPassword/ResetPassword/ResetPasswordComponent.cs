@@ -6,7 +6,7 @@ using CK.TypeScript;
 
 namespace CK.Ng.AspNet.Auth.Basic;
 
-[NgRoutedComponent<AuthenticationPageComponent>( Route = "reset-password/:token" )]
+[NgRoutedComponent<AuthenticationPageComponent>( Route = "reset-password/:token", RegistrationMode = RouteRegistrationMode.Lazy )]
 [Package<UserProfilePasswordPackage>]
 [RegisterTypeScriptType( typeof( IResetPasswordCommand ) )]
 public sealed class ResetPasswordComponent : NgRoutedComponent

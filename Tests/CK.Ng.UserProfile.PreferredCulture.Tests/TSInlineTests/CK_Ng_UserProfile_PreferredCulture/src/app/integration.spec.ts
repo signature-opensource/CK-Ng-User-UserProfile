@@ -42,6 +42,6 @@ describe( 'integration tests', () => {
         const profile = await cris.sendOrThrowAsync( new GetUserProfileQCommand( authService.authenticationInfo.user.userId ) );
         expect( profile ).not.toBeNull();
         expect( profile!.userName ).toBe( 'TestUser' );
-        expect( profile!.extendedCultureId ).toBe( locales['en'].id );
+        expect( profile!.extendedCultureId ).toBe( locales['fr'].id );
     } );
 } );
