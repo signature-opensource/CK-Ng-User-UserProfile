@@ -10,6 +10,8 @@ namespace CK.Ng.UserProfile.Sample.App;
 [Requires<NamedUser.UserProfileNamedUserPackage>]
 [Requires<PreferredCulture.UserProfilePreferredCulturePackage>]
 [Requires<UserPassword.UserProfilePasswordPackage>]
+[Requires<UserPassword.Lost.UserProfilePasswordLostPackage>]
+[Requires<UserPassword.Reset.UserProfilePasswordResetPackage>]
 [Requires<Workspace.UserProfileWorkspacePackage>]
 public class UserProfileSamplePackage : TypeScriptPackage
 {

@@ -17,6 +17,7 @@
     <PackageReference Include="CK.DB.User.NamedUser" Version="28.0.3--ci.1" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.5.0--ci.7" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="28.0.3--ci.5" />
+    <PackageReference Include="CK.DB.User.UserPassword.Reset" Version="28.0.3--ci.5" />
     <PackageReference Include="CK.DB.Workspace" Version="15.1.2--ci.1" />
       
     <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="0.7.0--ci.9" />
@@ -29,5 +30,7 @@
     <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword\CK.Ng.UserProfile.UserPassword.csproj" />
+    <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword.Lost\CK.Ng.UserProfile.UserPassword.Lost.csproj" />
+    <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword.Reset\CK.Ng.UserProfile.UserPassword.Reset.csproj" />
   </ItemGroup>
 </Project>

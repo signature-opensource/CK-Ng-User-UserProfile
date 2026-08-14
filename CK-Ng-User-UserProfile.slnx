@@ -21,6 +21,8 @@
   <Project Path="CK.Ng.UserProfile.NamedUser/CK.Ng.UserProfile.NamedUser.csproj" />
   <Project Path="CK.Ng.UserProfile.PreferredCulture/CK.Ng.UserProfile.PreferredCulture.csproj" />
   <Project Path="CK.Ng.UserProfile.UserPassword/CK.Ng.UserProfile.UserPassword.csproj" />
+  <Project Path="CK.Ng.UserProfile.UserPassword.Lost/CK.Ng.UserProfile.UserPassword.Lost.csproj" />
+  <Project Path="CK.Ng.UserProfile.UserPassword.Reset/CK.Ng.UserProfile.UserPassword.Reset.csproj" />
   <Project Path="CK.Ng.UserProfile.Workspace/CK.Ng.UserProfile.Workspace.csproj" />
   <Project Path="CK.Ng.UserProfile/CK.Ng.UserProfile.csproj" />
 </Solution>

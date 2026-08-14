@@ -6,7 +6,7 @@ begin
            <nz-tab [nzTitle]="'CK.UserProfile.Security' | translate">
                 <ng-template nz-tab>
                     <!-- <PreUserProfilePasswordForm revert /> -->
-                    <ck-user-password-form />
+                    <ck-change-password-form />
                     <!-- <PostUserProfilePasswordForm /> -->
                 </ng-template>
             </nz-tab>
@@ -17,15 +17,15 @@ end
 
 create <ts> transformer
 begin
-    ensure import { UserPasswordForm } from '@local/ck-gen';
+    ensure import { ChangePasswordForm } from '@local/ck-gen';
 
-    in after "@Component" 
+    in after "@Component"
             in first {^braces}
                 in after "imports:"
                     in first {^[]}
                         replace "UserUpdateForm" with """
                                                                UserUpdateForm,
-                                                                       UserPasswordForm
+                                                                       ChangePasswordForm
 
                                                                """;
 end

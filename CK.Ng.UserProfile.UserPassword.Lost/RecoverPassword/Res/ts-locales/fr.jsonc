@@ -1,0 +1,14 @@
+{
+    "CK.Auth.RecoverPassword.Title": "Choisissez un nouveau mot de passe",
+    "CK.Auth.RecoverPassword.SubTitle": "Choisissez un mot de passe dont vous vous souviendrez, mais difficile à deviner.",
+    "CK.Auth.RecoverPassword.Password.Placeholder": "Nouveau mot de passe",
+    "CK.Auth.RecoverPassword.Password.Required": "Le mot de passe est obligatoire.",
+    "CK.Auth.RecoverPassword.Password.MinLength": "Le mot de passe doit contenir au moins 8 caractères.",
+    "CK.Auth.RecoverPassword.Password.Complexity": "Le mot de passe doit contenir au moins trois de : majuscule, minuscule, chiffre, caractère spécial.",
+    "CK.Auth.RecoverPassword.ConfirmPassword.Placeholder": "Confirmer le mot de passe",
+    "CK.Auth.RecoverPassword.ConfirmPassword.Required": "Merci de confirmer votre mot de passe.",
+    "CK.Auth.RecoverPassword.ConfirmPassword.Mismatch": "Les mots de passe ne correspondent pas.",
+    "CK.Auth.RecoverPassword.Submit": "Mettre à jour",
+    "CK.Auth.RecoverPassword.InvalidToken": "Ce lien de réinitialisation n'est plus valide. Veuillez relancer une demande de réinitialisation.",
+    "CK.Auth.RecoverPassword.InvalidTokenTitle": "Lien invalide"
+}
