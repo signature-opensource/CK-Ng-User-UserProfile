@@ -1,20 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <IsPackable>False</IsPackable>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="CK.AppBuilder" Version="33.0.2--ci.1" />
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="0.14.1" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.55.3--ci.1" />
-    <PackageReference Include="CK.Setupable.Engine" Version="33.0.3--ci.1" />
-    <PackageReference Include="CK.SqlServer.Setup.Engine" Version="33.0.3--ci.1" />
-    <PackageReference Include="CK.TS.Angular.Engine" Version="0.31.3--ci.7" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CK.Ng.UserProfile.Sample.App\CK.Ng.UserProfile.Sample.App.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>False</IsPackable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="CK.AppBuilder" Version="33.0.2--ci.1" />
+        <PackageReference Include="CK.AppIdentity.Hosting" Version="0.14.1" />
+        <PackageReference Include="CK.Cris.AspNet.Engine" Version="0.55.3--ci.1" />
+        <PackageReference Include="CK.Setupable.Engine" Version="33.0.3--ci.1" />
+        <PackageReference Include="CK.SqlServer.Setup.Engine" Version="33.0.3--ci.1" />
+        <PackageReference Include="CK.TS.Angular.Engine" Version="0.31.3--ci.7" />
+        <PackageReference Include="CK.Template.Fluid.Engine" Version="0.0.1--ci.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CK.Ng.UserProfile.Sample.App\CK.Ng.UserProfile.Sample.App.csproj" />
+    </ItemGroup>
 </Project>

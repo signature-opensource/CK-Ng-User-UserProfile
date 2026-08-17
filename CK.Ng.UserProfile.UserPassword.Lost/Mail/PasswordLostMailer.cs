@@ -141,7 +141,10 @@ public class PasswordLostMailer : IPasswordLostMailer
         }
         finally
         {
-            inlineLogo?.Data?.Dispose();
+            if( inlineLogo?.Data is not null )
+            {
+                await inlineLogo.Data.DisposeAsync();
+            }
         }
     }
 }

@@ -31,11 +31,12 @@ public class PasswordLostTokenService : ISingletonAutoService
     readonly ITimeLimitedDataProtector _protector;
 
     public PasswordLostTokenService( IDataProtectionProvider dataProtectionProvider,
-                                     IApplicationIdentityService appIdentity,
-                                     IActivityMonitor monitor )
+                                     IApplicationIdentityService appIdentity )
     {
         _protector = dataProtectionProvider.CreateProtector( ProtectorPurpose ).ToTimeLimitedDataProtector();
-        DefaultLifetime = ReadLifetime( monitor, appIdentity );
+        // This service is a singleton: IActivityMonitor is scoped and cannot be injected here.
+        // The configuration is read once at construction, so a local monitor is enough.
+        DefaultLifetime = ReadLifetime( new ActivityMonitor( $"{nameof( PasswordLostTokenService )}" ), appIdentity );
     }
 
     /// <summary>
