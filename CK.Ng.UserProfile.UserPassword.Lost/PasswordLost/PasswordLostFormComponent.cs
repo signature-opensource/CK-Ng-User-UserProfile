@@ -1,16 +1,17 @@
 using CK.Core;
-using CK.Ng.UserProfile.UserPassword.Lost;
+using CK.Ng.AspNet.Auth;
+using CK.Ng.AspNet.Auth.Basic;
 using CK.TS.Angular;
 using CK.TypeScript;
 
-namespace CK.Ng.AspNet.Auth.Basic;
+namespace CK.Ng.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// Anonymous page that asks for an e-mail address and triggers the sending of the
 /// recovery link. Reached from the "Forgot your password?" link injected into the login form.
 /// <para>
-/// Declared in the CK.Ng.AspNet.Auth.Basic namespace so that the generated TypeScript lands
-/// next to basic-login-form and the authentication page components resolve unqualified.
+/// The route stays a child of the authentication page: the page is reachable at
+/// <c>/auth/password-lost</c>, which is what the login form links to.
 /// </para>
 /// </summary>
 [NgRoutedComponent<AuthenticationPageComponent>( Route = "password-lost", RegistrationMode = RouteRegistrationMode.Lazy )]

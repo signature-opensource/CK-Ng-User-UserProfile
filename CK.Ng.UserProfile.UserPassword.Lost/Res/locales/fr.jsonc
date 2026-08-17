@@ -1,0 +1,9 @@
+{
+    // French translation set for the lost password back-end messages.
+
+    "User.PasswordLostRequested": "Si cette adresse est enregistrée, vous recevrez les instructions pour réinitialiser votre mot de passe.",
+
+    "User.PasswordRecovered": "Votre mot de passe a été mis à jour.",
+    "User.PasswordRecoveryInvalidToken": "Ce lien de réinitialisation n'est plus valide. Veuillez relancer une demande de réinitialisation.",
+    "User.PasswordRecoveryFailed": "Une erreur est survenue."
+}

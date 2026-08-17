@@ -1,0 +1,4 @@
+# Mails dropped by the Smtp sender configured with UsePickupDirectory in appsettings.json.
+# The directory must exist: MailKitSender does a File.Create without creating it.
+*
+!.gitignore

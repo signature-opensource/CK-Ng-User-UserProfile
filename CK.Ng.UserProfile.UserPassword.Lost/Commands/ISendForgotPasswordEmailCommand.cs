@@ -1,4 +1,3 @@
-using CK.Core;
 using CK.Cris;
 
 namespace CK.Ng.UserProfile.UserPassword.Lost;
@@ -11,7 +10,7 @@ namespace CK.Ng.UserProfile.UserPassword.Lost;
 /// address is known: the same message is returned in all cases.
 /// </para>
 /// </summary>
-public interface ISendForgotPasswordEmailCommand : ICommand<SimpleUserMessage>, ICommandCurrentCulture
+public interface ISendForgotPasswordEmailCommand : ICommand<ICrisBasicCommandResult>, ICommandCurrentCulture
 {
     /// <summary>
     /// Gets or sets the e-mail address the recovery link must be sent to.

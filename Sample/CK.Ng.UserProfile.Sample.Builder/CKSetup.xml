@@ -4,12 +4,19 @@
         <DefaultDatabaseConnectionString>Server=.;Database=UserProfileSampleDB_LOCAL;Integrated Security=True;TrustServerCertificate=true</DefaultDatabaseConnectionString>
     </Aspect>
     <Aspect Type="CK.Setup.TypeScriptAspectConfiguration, CK.TypeScript" />
+    <!-- Merges the Res/locales sets of the packages that carry a [Globalization.LocalePackage],
+         so the UserMessage answers of the command handlers are translated back-end side.
+         Without this aspect those answers silently fall back to their English text. -->
+    <Aspect Type="CK.Setup.GlobalizationAspectConfiguration, CK.Globalization.Engine" />
     <BinPaths>
         <BinPath>
             <TypeScript IntegrationMode="Inline" TargetProjectPath="{ProjectPath}/UserProfile.Sample.Web" DefaultCulture="fr" ActiveCultures="fr-CA, de-be, nl-BE, zh">
                 <Types>
                 </Types>
             </TypeScript>
+            <!-- "fr" must be listed explicitly: unlike the TypeScript aspect, this one has no
+                 DefaultCulture attribute that would add it to the set. -->
+            <Globalization ActiveCultures="fr, fr-CA, de-be, nl-BE, zh" />
         </BinPath>
     </BinPaths>
 </Setup>

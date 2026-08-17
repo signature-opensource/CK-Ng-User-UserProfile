@@ -1,4 +1,3 @@
-using CK.Core;
 using CK.Cris;
 
 namespace CK.Ng.UserProfile.UserPassword.Lost;
@@ -10,7 +9,7 @@ namespace CK.Ng.UserProfile.UserPassword.Lost;
 /// This command is anonymous by design: the token is the only proof of identity.
 /// </para>
 /// </summary>
-public interface IRecoverPasswordCommand : ICommand<SimpleUserMessage>, ICommandCurrentCulture
+public interface IRecoverPasswordCommand : ICommand<ICrisBasicCommandResult>, ICommandCurrentCulture
 {
     /// <summary>
     /// Gets or sets the recovery token that identifies the user.

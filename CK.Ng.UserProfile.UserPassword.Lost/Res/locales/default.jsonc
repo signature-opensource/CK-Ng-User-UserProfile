@@ -1,0 +1,12 @@
+{
+    // English translation set for the lost password back-end messages.
+    // These are the fallback texts of the UserMessage produced by PasswordLostCommandHandler.
+
+    // Deliberately neutral: the same answer is returned whether the address is known or not.
+    "User.PasswordLostRequested": "If this email is registered, you will receive instructions to reset your password.",
+
+    // Recovery outcome.
+    "User.PasswordRecovered": "Your password has been updated.",
+    "User.PasswordRecoveryInvalidToken": "This reset link is no longer valid. Please start a new password reset request.",
+    "User.PasswordRecoveryFailed": "An error occurred."
+}

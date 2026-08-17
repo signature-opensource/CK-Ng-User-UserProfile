@@ -21,6 +21,7 @@ import {
   NotificationService,
   SendForgotPasswordEmailCommand
 } from '@local/ck-gen';
+import { LocaleService } from '@local/ck-gen/ts-locales/locales';
 
 @Component( {
   selector: 'ck-password-lost-form',
@@ -40,6 +41,7 @@ export class PasswordLostForm {
   readonly #crisEndpoint = inject( HttpCrisEndpoint );
   readonly #formBuilder = inject( FormBuilder );
   readonly #notifService = inject( NotificationService );
+  readonly #localeService = inject( LocaleService );
 
   protected readonly emailIcon = faEnvelope;
 
@@ -55,10 +57,15 @@ export class PasswordLostForm {
     this.submitting.set( true );
 
     try {
-      const res = await this.#crisEndpoint.sendOrThrowAsync(
-        new SendForgotPasswordEmailCommand( this.form.get( 'email' )!.value.trim() )
-      );
-      if ( res ) this.#notifService.notifyUserMessage( res );
+      // This page is anonymous: no user profile has set the ambient culture yet, so the
+      // command would default to the server culture. Carry the one the site displays,
+      // both for the answer and for the e-mail that gets rendered.
+      const cmd = new SendForgotPasswordEmailCommand( this.form.get( 'email' )!.value.trim() );
+      cmd.currentCultureName = this.#localeService.currentLocale();
+      const res = await this.#crisEndpoint.sendOrThrowAsync( cmd );
+      res?.userMessages.forEach( m => this.#notifService.notifyUserMessage( m ) );
+      // The answer is the same whether the address is known or not, so the confirmation
+      // screen is shown in both cases.
       this.submitted.set( true );
     } finally {
       this.submitting.set( false );

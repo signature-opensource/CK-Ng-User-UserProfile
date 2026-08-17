@@ -60,6 +60,14 @@ public class UserPasswordLostTests
                                                                                        typeof( IUserProfile ) );
 
         tsConfig.ActiveCultures.Add( NormalizedCultureInfo.EnsureNormalizedCultureInfo( "fr" ) );
+
+        // Back-end translations: [Globalization.LocalePackage] pulls the type in, but the engine only
+        // scans its Res/locales folder when the Globalization aspect is configured. Without this the
+        // UserMessage answers silently fall back to the English text written in the handler.
+        configuration.EnsureAspect<CK.Setup.GlobalizationAspectConfiguration>();
+        var globalization = configuration.FirstBinPath.EnsureAspect<CK.Setup.GlobalizationBinPathAspectConfiguration>();
+        globalization.ActiveCultures = "fr";
+
         var engineRes = (await configuration.RunSuccessfullyAsync());
 
         // The mailer writes to a pickup directory instead of sending: the real PasswordLostMailer
@@ -149,10 +157,15 @@ public class UserPasswordLostTests
         mails.ShouldNotBeEmpty( "The known address must have produced exactly one mail." );
         var body = File.ReadAllText( mails[0] );
         // Written by PasswordLost.Body.*.liquid: proves the templates render and that the link
-        // points to the renamed route.
-        body.ShouldContain( "/#/auth/recover-password/" );
+        // points to the renamed route. No "/#/" here: the CK Angular app uses provideRouter
+        // without withHashLocation, so a hash link lands on the home page instead.
+        body.ShouldContain( "/auth/recover-password/" );
+        body.ShouldNotContain( "/#/" );
+        // The TypeScript test carries currentCultureName = "fr" on the command, so the mailer
+        // picked the French templates: proves the culture reaches the rendering.
+        body.ShouldContain( "valable pendant" );
         // {{ validityHours }} rendered from the configured 45 minutes, floored to one hour.
-        body.ShouldContain( "1 hour(s)" );
+        body.ShouldContain( "1 heure(s)" );
         // The unknown address must not have produced anything.
         mails.Length.ShouldBe( 1 );
         #endregion

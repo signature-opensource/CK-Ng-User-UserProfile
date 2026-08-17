@@ -26,6 +26,7 @@ import {
   passwordsMatchValidator,
   RecoverPasswordCommand
 } from '@local/ck-gen';
+import { LocaleService } from '@local/ck-gen/ts-locales/locales';
 
 @Component( {
   selector: 'ck-recover-password-form',
@@ -49,6 +50,7 @@ export class RecoverPasswordForm implements OnInit {
   readonly #route = inject( ActivatedRoute );
   readonly #router = inject( Router );
   readonly #translateService = inject( TranslateService );
+  readonly #localeService = inject( LocaleService );
 
   protected readonly passwordIcon = faLock;
   protected readonly eyeIcon = faEye;
@@ -85,11 +87,19 @@ export class RecoverPasswordForm implements OnInit {
 
     const raw = this.form.getRawValue();
     try {
-      const res = await this.#crisEndpoint.sendOrThrowAsync(
-        new RecoverPasswordCommand( this.#token, raw.password )
-      );
-      if ( res ) this.#notifService.notifyUserMessage( res );
-      await this.#router.navigate( ['/auth'] );
+      // Anonymous page as well: carry the culture the site displays so the answer and the
+      // confirmation e-mail are not in the server default culture. Note that this makes Cris
+      // re-dispatch the command to the CrisBackgroundExecutor, which is why its handler uses
+      // RawCrisExecutor rather than ICrisCommandContext.
+      const cmd = new RecoverPasswordCommand( this.#token, raw.password );
+      cmd.currentCultureName = this.#localeService.currentLocale();
+      const res = await this.#crisEndpoint.sendOrThrowAsync( cmd );
+      res?.userMessages.forEach( m => this.#notifService.notifyUserMessage( m ) );
+      // Only leave the page on success: an expired or forged link must stay visible
+      // with its error rather than silently bouncing to the login page.
+      if ( res?.success ) {
+        await this.#router.navigate( ['/auth'] );
+      }
     } finally {
       this.submitting.set( false );
     }
