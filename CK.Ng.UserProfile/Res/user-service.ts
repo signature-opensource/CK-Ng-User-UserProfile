@@ -11,12 +11,18 @@ export class UserService {
     // <PreLocalVariables revert />
     #userProfile: WritableSignal<UserProfile | undefined> = signal( undefined );
     userProfile: Signal<UserProfile | undefined> = this.#userProfile.asReadonly();
+    // userProfile() is undefined both before the first read and when not authenticated: this
+    // distinguishes the two, so that a caller can wait for the profile instead of assuming there
+    // is none. It settles even when the read failed (see refreshUserProfileAsync).
+    #profileLoaded: WritableSignal<boolean> = signal( false );
+    profileLoaded: Signal<boolean> = this.#profileLoaded.asReadonly();
     // <PostLocalVariables />
 
     constructor() {
         effect( async () => {
             if ( this.#authService.authenticationInfo().level < AuthLevel.Normal ) {
                 this.#userProfile.set( undefined );
+                this.#profileLoaded.set( false );
             } else {
                 await this.refreshUserProfileAsync();
             }
@@ -25,8 +31,15 @@ export class UserService {
 
     async refreshUserProfileAsync(): Promise<void> {
         // <PreUserProfileRefresh revert />
-        const res = await this.#cris.sendOrThrowAsync( new GetUserProfileQCommand( this.#authService.authenticationInfo().user.userId ) );
-        this.#userProfile.set( res );
-        // <PostUserProfileRefresh />
+        try {
+            const res = await this.#cris.sendOrThrowAsync( new GetUserProfileQCommand( this.#authService.authenticationInfo().user.userId ) );
+            this.#userProfile.set( res );
+            // <PostUserProfileRefresh />
+        }
+        finally {
+            // Settled even on failure: anything awaiting profileLoaded (a navigation guard, typically)
+            // would otherwise wait forever and freeze the whole application.
+            this.#profileLoaded.set( true );
+        }
     }
 }
