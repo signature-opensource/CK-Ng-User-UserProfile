@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +21,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import {
   HttpCrisEndpoint,
   NotificationService,
-  PASSWORD_MIN_LENGTH,
+  PasswordStrength,
   passwordComplexityValidator,
   passwordsMatchValidator,
   SetPasswordCommand,
@@ -36,11 +36,13 @@ import {
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
+    RouterLink,
     FontAwesomeModule,
     NzAlertModule,
     NzButtonModule,
     NzFormModule,
-    NzInputModule
+    NzInputModule,
+    PasswordStrength
   ]
 } )
 export class ResetPasswordForm {
@@ -63,7 +65,7 @@ export class ResetPasswordForm {
     {
       password: new FormControl<string>( '', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength( PASSWORD_MIN_LENGTH ), passwordComplexityValidator]
+        validators: [Validators.required, passwordComplexityValidator]
       } ),
       confirmPassword: new FormControl<string>( '', { nonNullable: true, validators: [Validators.required] } )
     },

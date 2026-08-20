@@ -6,7 +6,7 @@ import { faCheck, faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { HttpCrisEndpoint, NotificationService, PASSWORD_MIN_LENGTH, passwordComplexityValidator, passwordsMatchValidator, SetPasswordCommand, UserService } from '@local/ck-gen';
+import { HttpCrisEndpoint, NotificationService, PasswordStrength, passwordComplexityValidator, passwordsMatchValidator, SetPasswordCommand, UserService } from '@local/ck-gen';
 
 @Component( {
     selector: 'ck-change-password-form',
@@ -17,7 +17,8 @@ import { HttpCrisEndpoint, NotificationService, PASSWORD_MIN_LENGTH, passwordCom
         FontAwesomeModule,
         NzButtonModule,
         NzFormModule,
-        NzInputModule
+        NzInputModule,
+        PasswordStrength
     ],
     templateUrl: './change-password-form.html'
 } )
@@ -43,8 +44,10 @@ export class ChangePasswordForm {
     // <PreLocalVariables revert />
     userProfile = linkedSignal( () => this.#userService.userProfile() );
     formGroup: FormGroup = this.#formBuilder.group( {
-        password: new FormControl( '', { nonNullable: true, validators: [Validators.required, Validators.minLength( PASSWORD_MIN_LENGTH ), passwordComplexityValidator] } ),
-        repeat: new FormControl( '', { nonNullable: true, validators: [Validators.minLength( PASSWORD_MIN_LENGTH )] } ),
+        // The length is one of PASSWORD_CRITERIA, which passwordComplexityValidator enforces: a
+        // Validators.minLength here would report the same failure twice.
+        password: new FormControl( '', { nonNullable: true, validators: [Validators.required, passwordComplexityValidator] } ),
+        repeat: new FormControl( '', { nonNullable: true, validators: [Validators.required] } ),
     }, { validators: [passwordsMatchValidator( 'password', 'repeat' )] } );
     showPassword: boolean = false;
     showRepeatPassword: boolean = false;
@@ -80,9 +83,5 @@ export class ChangePasswordForm {
             await this.setPasswordAsync();
         }
         // <PostKeyDown />
-    }
-
-    getMinLengthError(): string {
-        return this.#translateService.instant( 'CK.UserProfile.Form.PasswordLengthError', { minLength: PASSWORD_MIN_LENGTH } );
     }
 }

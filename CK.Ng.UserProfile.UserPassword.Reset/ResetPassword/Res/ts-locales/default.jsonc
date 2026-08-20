@@ -4,12 +4,11 @@
     "CK.Auth.ResetPassword.TemporaryPasswordWarning": "Your current password is a temporary one. Please choose a new password to continue.",
     "CK.Auth.ResetPassword.Password.Placeholder": "New password",
     "CK.Auth.ResetPassword.Password.Required": "Password is required.",
-    "CK.Auth.ResetPassword.Password.MinLength": "Password must be at least 8 characters long.",
-    "CK.Auth.ResetPassword.Password.Complexity": "Password must include at least three of: uppercase, lowercase, digit, special character.",
     "CK.Auth.ResetPassword.ConfirmPassword.Placeholder": "Confirm new password",
     "CK.Auth.ResetPassword.ConfirmPassword.Required": "Please confirm your password.",
     "CK.Auth.ResetPassword.ConfirmPassword.Mismatch": "Passwords do not match.",
     "CK.Auth.ResetPassword.Submit": "Update password",
     "CK.Auth.ResetPassword.Success": "Your password has been updated.",
-    "CK.Auth.ResetPassword.Failed": "Your password could not be updated."
+    "CK.Auth.ResetPassword.Failed": "Your password could not be updated.",
+    "CK.Auth.ResetPassword.Logout": "Log out"
 }

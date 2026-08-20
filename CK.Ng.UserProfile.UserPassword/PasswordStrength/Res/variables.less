@@ -1,0 +1,17 @@
+// The three strength colours. @error-color / @warn-color come from CK/Ng/Zorro/variables.less;
+// there is no CK success colour, so the ng-zorro one is used — its variables are in scope (see
+// CK/Ng/Zorro/filters/variables.less, which already relies on @text-color-secondary).
+@ck-password-strength-weak-color: @error-color;
+@ck-password-strength-medium-color: @warn-color;
+@ck-password-strength-strong-color: @success-color;
+
+@ck-password-strength-track-color: #e8e8e8;
+@ck-password-strength-track-height: 5px;
+@ck-password-strength-track-margin: 0.5rem 0 0.75rem 0;
+
+@ck-password-strength-unmet-color: @grey;
+@ck-password-strength-unmet-icon-color: @light-grey;
+@ck-password-strength-met-color: @ck-password-strength-strong-color;
+
+@ck-password-strength-font-size: @regular-font-size;
+@ck-password-strength-item-gap: 0.6rem;

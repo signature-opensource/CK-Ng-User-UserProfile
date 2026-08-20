@@ -11,6 +11,7 @@ namespace CK.Ng.UserProfile.UserPassword;
 /// </summary>
 [NgComponent]
 [Package<UserProfilePasswordPackage>]
+[Requires<PasswordStrengthComponent>]
 [RegisterTypeScriptType( typeof( ISetPasswordCommand ) )]
 public sealed class ChangePasswordFormComponent : NgComponent
 {

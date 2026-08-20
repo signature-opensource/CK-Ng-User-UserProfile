@@ -11,9 +11,14 @@ begin
     // canActivateChild is deliberately NOT set: with 'always' the parent guard already runs on every
     // navigation of the subtree, including from one child to another.
     //
+    // The reset page this guard redirects to is NOT under the private page: it is a child of the
+    // authentication page, guarded by resetPasswordPageGuard (see AuthRoutes.t). No exemption is
+    // needed here, and the "auth" route being a sibling of "" the redirection cannot loop.
+    //
     // Anchored on the children of the private page: CK.Ng.AspNet.Auth's own AppRoutes.t anchors on
     // "component: PrivatePage" and "export default", so the two transformers cannot collide
-    // whatever their application order.
+    // whatever their application order. Extending its canMatch array instead would give up exactly
+    // that property — see the ResetPasswordFormComponent history for why it was not done.
     insert """
            ,
            runGuardsAndResolvers: 'always',

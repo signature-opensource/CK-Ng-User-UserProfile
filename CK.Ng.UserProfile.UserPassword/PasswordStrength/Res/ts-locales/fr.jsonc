@@ -1,0 +1,11 @@
+{
+    "CK.UserProfile.PasswordStrength.Level.weak": "Mot de passe faible.",
+    "CK.UserProfile.PasswordStrength.Level.medium": "Mot de passe moyen.",
+    "CK.UserProfile.PasswordStrength.Level.strong": "Mot de passe fort.",
+    "CK.UserProfile.PasswordStrength.MustContain": "Doit contenir :",
+    "CK.UserProfile.PasswordStrength.Criterion.MinLength": "Au moins {{minLength}} caractères",
+    "CK.UserProfile.PasswordStrength.Criterion.Digit": "Au moins 1 chiffre",
+    "CK.UserProfile.PasswordStrength.Criterion.Lower": "Au moins 1 minuscule",
+    "CK.UserProfile.PasswordStrength.Criterion.Upper": "Au moins 1 majuscule",
+    "CK.UserProfile.PasswordStrength.Criterion.Special": "Au moins 1 caractère spécial"
+}

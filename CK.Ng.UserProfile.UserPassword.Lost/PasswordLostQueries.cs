@@ -44,7 +44,6 @@ public class PasswordLostQueries : IAutoService
                   inner join CK.tUserPassword p on p.UserId = u.UserId
               where e.EMail = @Email
                 and e.IsPrimary = 1
-                and e.ValTime > '0001-01-01'
                 and u.UserId > 1;
             """,
             new { Email = email } );

@@ -1,0 +1,11 @@
+{
+    "CK.UserProfile.PasswordStrength.Level.weak": "Weak password.",
+    "CK.UserProfile.PasswordStrength.Level.medium": "Medium password.",
+    "CK.UserProfile.PasswordStrength.Level.strong": "Strong password.",
+    "CK.UserProfile.PasswordStrength.MustContain": "Must contain:",
+    "CK.UserProfile.PasswordStrength.Criterion.MinLength": "At least {{minLength}} characters",
+    "CK.UserProfile.PasswordStrength.Criterion.Digit": "At least 1 number",
+    "CK.UserProfile.PasswordStrength.Criterion.Lower": "At least 1 lowercase letter",
+    "CK.UserProfile.PasswordStrength.Criterion.Upper": "At least 1 uppercase letter",
+    "CK.UserProfile.PasswordStrength.Criterion.Special": "At least 1 special character"
+}

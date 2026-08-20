@@ -15,6 +15,7 @@ namespace CK.Ng.UserProfile.UserPassword.Lost;
 /// </summary>
 [NgRoutedComponent<AuthenticationPageComponent>( Route = "recover-password/:token", RegistrationMode = RouteRegistrationMode.Lazy )]
 [Package<UserProfilePasswordLostPackage>]
+[Requires<PasswordStrengthComponent>]
 [RegisterTypeScriptType( typeof( IRecoverPasswordCommand ) )]
 public sealed class RecoverPasswordFormComponent : NgRoutedComponent
 {

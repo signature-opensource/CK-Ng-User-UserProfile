@@ -4,12 +4,11 @@
     "CK.Auth.ResetPassword.TemporaryPasswordWarning": "Votre mot de passe actuel est temporaire. Veuillez en choisir un nouveau pour continuer.",
     "CK.Auth.ResetPassword.Password.Placeholder": "Nouveau mot de passe",
     "CK.Auth.ResetPassword.Password.Required": "Le mot de passe est obligatoire.",
-    "CK.Auth.ResetPassword.Password.MinLength": "Le mot de passe doit contenir au moins 8 caractères.",
-    "CK.Auth.ResetPassword.Password.Complexity": "Le mot de passe doit contenir au moins trois de : majuscule, minuscule, chiffre, caractère spécial.",
     "CK.Auth.ResetPassword.ConfirmPassword.Placeholder": "Confirmer le mot de passe",
     "CK.Auth.ResetPassword.ConfirmPassword.Required": "Merci de confirmer votre mot de passe.",
     "CK.Auth.ResetPassword.ConfirmPassword.Mismatch": "Les mots de passe ne correspondent pas.",
     "CK.Auth.ResetPassword.Submit": "Mettre à jour",
     "CK.Auth.ResetPassword.Success": "Votre mot de passe a été mis à jour.",
-    "CK.Auth.ResetPassword.Failed": "Votre mot de passe n'a pas pu être mis à jour."
+    "CK.Auth.ResetPassword.Failed": "Votre mot de passe n'a pas pu être mis à jour.",
+    "CK.Auth.ResetPassword.Logout": "Se déconnecter"
 }

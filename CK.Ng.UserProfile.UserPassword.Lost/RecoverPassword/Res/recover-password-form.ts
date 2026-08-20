@@ -21,7 +21,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import {
   HttpCrisEndpoint,
   NotificationService,
-  PASSWORD_MIN_LENGTH,
+  PasswordStrength,
   passwordComplexityValidator,
   passwordsMatchValidator,
   RecoverPasswordCommand
@@ -40,7 +40,8 @@ import { LocaleService } from '@local/ck-gen/ts-locales/locales';
     NzAlertModule,
     NzButtonModule,
     NzFormModule,
-    NzInputModule
+    NzInputModule,
+    PasswordStrength
   ]
 } )
 export class RecoverPasswordForm implements OnInit {
@@ -65,7 +66,7 @@ export class RecoverPasswordForm implements OnInit {
     {
       password: new FormControl<string>( '', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength( PASSWORD_MIN_LENGTH ), passwordComplexityValidator]
+        validators: [Validators.required, passwordComplexityValidator]
       } ),
       confirmPassword: new FormControl<string>( '', { nonNullable: true, validators: [Validators.required] } )
     },
