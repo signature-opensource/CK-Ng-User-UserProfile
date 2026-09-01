@@ -21,9 +21,11 @@ used when the application provides one, and the page works without it.
 
 ## Requires.
 
-- `CK.Ng.Localization` and `CK.Ng.Cris.AspNet.Auth` (declared by
-  [`UserProfilePackage`](UserProfilePackage.cs))
-- `CK.IO.Actor` for the command definitions
+- `CK.IO.Actor` for the command definitions, `CK.Ng.Cris.AspNet.Auth`, and `CK.Ng.Zorro.Basic` which
+  supplies the `Zorro.GenericFormComponent` that `UserUpdateFormComponent` is built on.
+- [`UserProfilePackage`](UserProfilePackage.cs) also declares
+  `[Requires<LocalizationPackage, CrisAspNetAuthPackage>]`: the localization package is a composition
+  requirement, satisfied transitively rather than by a reference of its own.
 
 ## The form sends one batch command.
 
