@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Description>Banishment flow on the client side: a banished user is logged out and sent back to the authentication page, the instant the ban is pushed on the session channel, on the next reconnection when it was unreachable, or on the next navigation.</Description>
+        <Description>Banishment flow on the client side: a banished user is logged out and sent back to the authentication page, the instant the ban is pushed on the actor channel, on the next reconnection when it was unreachable, or on the next navigation.</Description>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,8 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CK.Ng.AspNet.WebSocketChannel" Version="0.31.3--ci.19" />
-        <PackageReference Include="CK.AspNet.ActorChannel" Version="0.0.0--ci.3" />
+        <!-- TODO: version of the CK-AspNet-ActorChannel release carrying CK.Ng.AspNet.ActorChannel. -->
+        <PackageReference Include="CK.Ng.AspNet.ActorChannel" Version="0.0.0--ci.TODO" />
     </ItemGroup>
 
 </Project>

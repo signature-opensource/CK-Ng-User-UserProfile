@@ -1,14 +1,12 @@
-import { effect, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
+  ActorChannel,
   AuthLevel,
-  HttpCrisEndpoint,
   NgAuthService,
   NotificationService,
-  ActorChannel,
-  UserService,
-  WSConnection
+  UserService
 } from '@local/ck-gen';
 
 /**
@@ -33,30 +31,22 @@ const BANNED_MESSAGE_TYPE = 'banned';
 @Injectable( { providedIn: 'root' } )
 export class BannedSession {
   readonly #authService = inject( NgAuthService );
-  readonly #crisEndpoint = inject( HttpCrisEndpoint );
   readonly #notifService = inject( NotificationService );
   readonly #router = inject( Router );
   readonly #translateService = inject( TranslateService );
   readonly #userService = inject( UserService );
-  readonly #wsConnection = inject( WSConnection );
+  // The one channel of the application, provided by CK.Ng.AspNet.ActorChannel, which also keeps it
+  // bound to the authenticated actor. Never construct one: a second instance would claim the same
+  // topic and silently take it from whoever registered first.
+  readonly #channel = inject( ActorChannel );
 
-  readonly #channel: ActorChannel;
   // Held while a logout is in flight: the three detections are concurrent by design and only the
   // first one may act.
   #loggingOut = false;
 
   constructor() {
-    this.#channel = new ActorChannel( this.#wsConnection, this.#crisEndpoint );
     this.#channel.onMessage( BANNED_MESSAGE_TYPE, () => void this.logoutBannedAsync() );
     this.#channel.onRegisterError( () => void this.#onRegisterRejectedAsync() );
-
-    // Nothing to watch for an anonymous visitor, and nothing left to watch after a logout. Reading
-    // the signal here is what re-claims the topic after a login. The socket itself is the
-    // application's and stays open throughout: only this feature's interest in it comes and goes.
-    effect( () => {
-      if ( this.#authService.authenticationInfo().level >= AuthLevel.Normal ) this.#channel.start();
-      else void this.#channel.stopAsync();
-    } );
   }
 
   /**
@@ -73,8 +63,10 @@ export class BannedSession {
     if ( this.#authService.authenticationInfo().level < AuthLevel.Normal ) return;
     this.#loggingOut = true;
     try {
-      // Stop first: no session message must land while the logout is in flight.
-      await this.#channel.stopAsync();
+      // The channel is deliberately left alone: it is shared, so stopping it here would release the
+      // topic for every other feature. Nothing needs to replace that call - the authentication effect
+      // of CK.Ng.AspNet.ActorChannel releases it when the level drops after the logout below, and
+      // until then the guard above plus the level test make a late message a no-op.
       this.#notifService.notifySimpleMessage( 'error', this.#translateService.instant( 'CK.Auth.Banned.Message' ) );
       await this.#authService.authService.logout();
       await this.#router.navigateByUrl( '/auth' );
