@@ -2,28 +2,18 @@ create <ts> transformer on "CK/Angular/routes.ts"
 begin
     ensure import { temporaryPasswordGuard } from "@local/ck-gen";
 
-    // The private page is the "" route, and the two properties below are both required — dropping
-    // either one is covered by a failing test in integration.spec.ts:
-    //  - canActivate alone would not re-run while the private page is retained, which is the case of
-    //    a navigation back to "" from inside the private area (the "go to home" of a logo);
-    //  - runGuardsAndResolvers: 'always' lifts exactly that restriction. The private page carries no
-    //    resolver, so re-running costs a signal read.
-    // canActivateChild is deliberately NOT set: with 'always' the parent guard already runs on every
-    // navigation of the subtree, including from one child to another.
+    // Appends into the canActivate array of the private page. The array and the
+    // runGuardsAndResolvers: 'always' that makes an appended guard re-run are both emitted upstream by
+    // CK.Ng.UserProfile (see its Res/AppRoutes.t for why); this package neither creates nor needs to
+    // know about them, and so does not depend on the other packages that append here.
+    //
+    // Both properties are covered by a failing test if either goes missing:
+    // integration.spec.ts, "registers temporaryPasswordGuard as the canActivate of the private page,
+    // re-run on every navigation". It asserts with toContain, precisely so that other guards may share
+    // the array.
     //
     // The reset page this guard redirects to is NOT under the private page: it is a child of the
     // authentication page, guarded by resetPasswordPageGuard (see AuthRoutes.t). No exemption is
     // needed here, and the "auth" route being a sibling of "" the redirection cannot loop.
-    //
-    // Anchored on the children of the private page: CK.Ng.AspNet.Auth's own AppRoutes.t anchors on
-    // "component: PrivatePage" and "export default", so the two transformers cannot collide
-    // whatever their application order. Extending its canMatch array instead would give up exactly
-    // that property — see the ResetPasswordFormComponent history for why it was not done.
-    insert """
-           ,
-           runGuardsAndResolvers: 'always',
-           canActivate: [temporaryPasswordGuard]
-
-           """
-        after last "children: rPrivatePage";
+    insert "temporaryPasswordGuard, " after single "canActivate: [";
 end

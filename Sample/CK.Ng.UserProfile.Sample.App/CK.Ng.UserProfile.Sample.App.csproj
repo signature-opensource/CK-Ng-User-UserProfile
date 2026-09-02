@@ -25,6 +25,7 @@
       
     <PackageReference Include="CK.SqlServer.Transaction" Version="12.0.1" />
       
+    <ProjectReference Include="..\..\CK.Ng.UserProfile.UserBanned\CK.Ng.UserProfile.UserBanned.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.Workspace\CK.Ng.UserProfile.Workspace.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />

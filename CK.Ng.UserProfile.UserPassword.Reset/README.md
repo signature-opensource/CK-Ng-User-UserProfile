@@ -37,9 +37,22 @@ Being outside the private page, it loses the `canMatch` that guarded it against 
 
 ## How the two guards are wired.
 
-[`AppRoutes.t`](Res/AppRoutes.t) adds `runGuardsAndResolvers: 'always'` **and**
-`canActivate: [temporaryPasswordGuard]` to the private page route. Both are required, and a failing
-test in `integration.spec.ts` covers dropping either one:
+[`AppRoutes.t`](Res/AppRoutes.t) appends `temporaryPasswordGuard` into the `canActivate` array of the
+private page - one line, and nothing else:
+
+```
+insert "temporaryPasswordGuard, " after single "canActivate: [";
+```
+
+The array itself, and the `runGuardsAndResolvers: 'always'` that makes an appended guard re-run, are
+emitted upstream by [`CK.Ng.UserProfile`](../CK.Ng.UserProfile/README.md) - see its
+[`Res/AppRoutes.t`](../CK.Ng.UserProfile/Res/AppRoutes.t) for why they are owned there. This package
+neither creates them nor needs to know which other packages append beside it.
+
+Both properties still matter to the guard, and a failing test covers dropping either one -
+`integration.spec.ts`, *"registers temporaryPasswordGuard as the canActivate of the private page,
+re-run on every navigation"*. It asserts with `toContain`, precisely so that other guards may share the
+array:
 
 - `canActivate` alone would not re-run while the private page is retained - which is exactly the case
   of a navigation back to `""` from inside the private area, the "go to home" of a logo.

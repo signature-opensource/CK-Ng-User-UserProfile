@@ -43,34 +43,19 @@ application it can no longer use.
 
 ## Why AppRoutes.t is additive.
 
-`CK.Ng.UserProfile.UserPassword.Reset` writes the whole `runGuardsAndResolvers` + `canActivate` block
-of the private page. Writing it again here would produce a duplicate key and silently drop one of the
-two guards. So this transformer inserts into the array instead:
+The guard is registered by appending into the `canActivate` array of the private page - one line:
 
 ```
 insert "bannedGuard, " after single "canActivate: [";
 ```
 
-Both guards survive, whatever order the two transformers are applied in.
+The array, and the `runGuardsAndResolvers: 'always'` that makes an appended guard re-run, are emitted
+upstream by [`CK.Ng.UserProfile`](../CK.Ng.UserProfile/README.md); see its
+[`Res/AppRoutes.t`](../CK.Ng.UserProfile/Res/AppRoutes.t) for why they are owned there rather than by
+each guard.
 
-## An undeclared dependency on CK.Ng.UserProfile.UserPassword.Reset.
+What that buys is the thing worth stating: this package does **not** depend on any other package that
+appends to the same array, nor on the order the transformers run in. Appending never creates a second
+`canActivate`, so `single` keeps matching the one the base package emitted, whatever number of
+satellites append beside it.
 
-`insert ... after single "canActivate: ["` needs that array to already exist, and `single` requires
-exactly one match. The engine does not emit it: in a configuration that references neither guard, the
-generated `CK/Angular/routes.ts` ends at `, children: rPrivatePage` with no `canActivate` at all. The
-array is created by the `AppRoutes.t` of `CK.Ng.UserProfile.UserPassword.Reset` - the only other file in
-the stack that writes `canActivate` on the app routes.
-
-Yet this package declares
-
-```csharp
-[Requires<UserProfilePackage, ActorChannelPackage, CK.Ng.AspNet.WebSocketChannel.NgWebSocketChannelPackage>]
-```
-
-with no dependency on Reset. **The dependency is real but undeclared**, and it holds today only by
-composition: the single configuration that uses this package also references
-`CK.Ng.Admin.UserManagement`, which depends on Reset, so the anchor happens to be there.
-
-Referencing this package for the banishment ejection *without* the temporary-password flow leaves the
-transformer with nothing to match. Adding `[Requires<UserProfilePasswordResetPackage>]` would state the
-constraint where it belongs - or the array should be emitted by whoever owns the private page route.

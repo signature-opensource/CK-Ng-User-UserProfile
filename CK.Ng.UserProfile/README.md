@@ -50,6 +50,36 @@ satellite.
 Each anchor exists as a `Pre`/`Post` pair; `revert` on the `Pre` half means the injected fragments are
 emitted in reverse dependency order.
 
+### The guard array of the private page is one of them.
+
+[`Res/AppRoutes.t`](Res/AppRoutes.t) puts two properties on the private page route, and the first is
+deliberately empty:
+
+```
+,
+runGuardsAndResolvers: 'always',
+canActivate: []
+```
+
+A package of this family that needs a navigation guard **appends** into that array and never creates
+it:
+
+```
+insert "<theirGuard>, " after single "canActivate: [";
+```
+
+The reason it is owned here rather than by each guard is that the route is a plain object literal:
+two packages emitting their own `canActivate` would give it that property twice, and TypeScript
+rejects that outright - `TS1117: An object literal cannot have multiple properties with the same name`.
+Appending is the only shape in which several guards can coexist, and creating the array upstream is
+what lets the appending packages depend on **this** one instead of on each other, in any number and in
+any order.
+
+`runGuardsAndResolvers: 'always'` ships with it because an appended guard needs it and should not have
+to know so: `canActivate` alone does not re-run while the private page is retained - the case of a
+navigation back to `""` from inside the private area, the "go to home" of a logo. An application that
+appends nothing pays nothing: the array is empty and the private page carries no resolver.
+
 ## A note on CK.Cris.SimpleBatch.
 
 The [`CK.Cris.SimpleBatch/`](CK.Cris.SimpleBatch) folder declares `ICommandSimpleBatch`,

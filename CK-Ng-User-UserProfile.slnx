@@ -15,6 +15,7 @@
     <Project Path="Tests/CK.Ng.UserProfile.NamedUser.Tests/CK.Ng.UserProfile.NamedUser.Tests.csproj" />
     <Project Path="Tests/CK.Ng.UserProfile.PreferredCulture.Tests/CK.Ng.UserProfile.PreferredCulture.Tests.csproj" />
     <Project Path="Tests/CK.Ng.UserProfile.Tests/CK.Ng.UserProfile.Tests.csproj" />
+    <Project Path="Tests/CK.Ng.UserProfile.UserBanned.Tests/CK.Ng.UserProfile.UserBanned.Tests.csproj" />
     <Project Path="Tests/CK.Ng.UserProfile.UserPassword.Tests/CK.Ng.UserProfile.UserPassword.Tests.csproj" />
     <Project Path="Tests/CK.Ng.UserProfile.UserPassword.Lost.Tests/CK.Ng.UserProfile.UserPassword.Lost.Tests.csproj" />
     <Project Path="Tests/CK.Ng.UserProfile.UserPassword.Reset.Tests/CK.Ng.UserProfile.UserPassword.Reset.Tests.csproj" />
