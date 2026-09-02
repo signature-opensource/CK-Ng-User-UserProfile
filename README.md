@@ -15,6 +15,7 @@ needs - the base package does not know its satellites.
 | [CK.Ng.UserProfile.UserPassword](CK.Ng.UserProfile.UserPassword/README.md) | The Security tab: change password, strength display and validators. |
 | [CK.Ng.UserProfile.UserPassword.Reset](CK.Ng.UserProfile.UserPassword.Reset/README.md) | Temporary password flow, for an authenticated user. No e-mail. |
 | [CK.Ng.UserProfile.UserPassword.Lost](CK.Ng.UserProfile.UserPassword.Lost/README.md) | Lost password flow, anonymous, with e-mail. |
+| [CK.Ng.UserProfile.UserBanned](CK.Ng.UserProfile.UserBanned/README.md) | The client side of a banishment: the banished user is ejected from the application. |
 
 `Sample/` builds a runnable application over these packages, and each `Tests/*.Tests` project carries
 a generated Angular workspace under `TSInlineTests/`.
