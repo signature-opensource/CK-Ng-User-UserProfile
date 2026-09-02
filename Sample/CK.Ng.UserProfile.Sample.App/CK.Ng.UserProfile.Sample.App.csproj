@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -16,6 +16,8 @@
     <PackageReference Include="CK.DB.AspNet.Auth" Version="31.0.3" />
     <PackageReference Include="CK.DB.User.NamedUser" Version="28.0.3" />
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="0.5.0" />
+    <!-- TODO: version of the CK-DB-User-UserBanned release carrying BannedActorValidator. -->
+    <PackageReference Include="CK.DB.User.UserBanned" Version="1.0.2--ci.TODO" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="28.0.3" />
     <PackageReference Include="CK.DB.User.UserPassword.Reset" Version="28.0.3" />
     <PackageReference Include="CK.DB.Workspace" Version="15.1.2" />

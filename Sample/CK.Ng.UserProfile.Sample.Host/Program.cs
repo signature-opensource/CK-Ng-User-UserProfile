@@ -1,3 +1,4 @@
+using CK.AspNet.WebSocketChannel;
 using CK.Core;
 using Microsoft.AspNetCore.Authentication;
 using System.Reflection;
@@ -15,6 +16,10 @@ monitor.Info( "Globalization files should have been loaded." );
 builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddHttpClient();
+// Registers the SimpleR services of the one WebSocket endpoint. Without this pair of calls the
+// client opens /ws against nothing: no connection is ever registered, so a server side push has
+// nobody to reach and the Angular side stays silent.
+builder.AddWebSocketChannel();
 
 var authBuilder = new AuthenticationBuilder( builder.Services );
 
@@ -45,6 +50,7 @@ app.UseCors( c => c.SetIsOriginAllowed( host => true )
                    .AllowCredentials() );
 app.UseAuthorization();
 app.UseStaticFiles();
+app.UseWebSocketChannel();
 app.UseCris();
 app.UseSpa( ( b ) =>
 {
