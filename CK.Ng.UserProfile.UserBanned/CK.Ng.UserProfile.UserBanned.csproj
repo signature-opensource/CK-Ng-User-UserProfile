@@ -13,9 +13,9 @@
 
     <ItemGroup>
         <!-- TODO: version of the CK-DB-User-UserBanned release carrying IUserProfile.IsBanned. -->
-        <PackageReference Include="CK.IO.User.UserBanned" Version="1.0.2--ci.2" />
+        <PackageReference Include="CK.IO.User.UserBanned" Version="1.0.2" />
         <!-- TODO: version of the CK-AspNet-ActorChannel release carrying CK.Ng.AspNet.ActorChannel. -->
-        <PackageReference Include="CK.Ng.AspNet.ActorChannel" Version="0.0.1--ci.3" />
+        <PackageReference Include="CK.Ng.AspNet.ActorChannel" Version="0.0.1" />
     </ItemGroup>
 
 </Project>
