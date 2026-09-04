@@ -43,16 +43,18 @@ satellite.
 | File | Anchors |
 |------|---------|
 | [`user-profile-page.html`](UserProfile/Res/user-profile-page.html) | `ProfilePropsRegistration`, `UserProfileTabsRegistration`, `UserProfileGeneralInfosTab` |
-| [`user-profile-page.ts`](UserProfile/Res/user-profile-page.ts) | `DependencyInjection`, `LocalVariables`, `AvatarFallbackComputing` |
-| [`user-update-form.ts`](UserUpdateForm/Res/user-update-form.ts) | `ViewChildren`, `DependencyInjection`, `InputOutput`, `IconsDefinition`, `LocalVariables`, `UpdateUserBatchCommand`, `SetUserNameCommandRegistering`, `CancelModifications`, `UserNameReset`, `UserIdentityFormControlDefinition`, `UserPreferencesFormControlDefinition`, and their `...Registration` counterparts |
+| [`user-profile-page.ts`](UserProfile/Res/user-profile-page.ts) | `DependencyInjection`, `LocalVariables`, `AvatarFallbackComputing`, plus the single points `AvatarImgSrcComputing`, `ComputeAvatarSize`, `PublicMethods` and the wrapped region `PrivateMethods` |
+| [`user-update-form.ts`](UserUpdateForm/Res/user-update-form.ts) | `ViewChildren`, `DependencyInjection`, `InputOutput`, `IconsDefinition`, `LocalVariables`, `UpdateUserBatchCommand`, `SetUserNameCommandRegistering`, `CancelModifications`, `UserNameReset`, `UserIdentityFormControlDefinition`, `UserPreferencesFormControlDefinition`, `UserNameFormControlDefinition`, and their `...Registration` counterparts |
 | [`user-service.ts`](Res/user-service.ts) | `DependencyInjection`, `LocalVariables`, `UserProfileRefresh` |
 
-Each anchor exists as a `Pre`/`Post` pair; `revert` on the `Pre` half means the injected fragments are
-emitted in reverse dependency order.
+Most anchors exist as a `Pre`/`Post` pair, and `revert` on the `Pre` half means the injected fragments
+are emitted in reverse dependency order. Not all: `AvatarImgSrcComputing`, `ComputeAvatarSize` and
+`PublicMethods` are single insertion points, and `PrivateMethods` is a wrapped region with an opening
+and a closing marker.
 
 ### The guard array of the private page is one of them.
 
-[`Res/AppRoutes.t`](Res/AppRoutes.t) puts two properties on the private page route, and the first is
+[`Res/AppRoutes.t`](Res/AppRoutes.t) puts two properties on the private page route, and the second is
 deliberately empty:
 
 ```
@@ -79,6 +81,24 @@ any order.
 to know so: `canActivate` alone does not re-run while the private page is retained - the case of a
 navigation back to `""` from inside the private area, the "go to home" of a logo. An application that
 appends nothing pays nothing: the array is empty and the private page carries no resolver.
+
+### What a package extending this one writes.
+
+No worked example here, deliberately: every package that consumes these anchors is downstream of this
+one, and showing one would put in front of the reader a type that referencing this package does not
+give them. The mechanism itself is short.
+
+An extending package writes no subclass. It drops a `.t` transformer in its own `Res/`, named after the
+file it transforms, and either injects into one of the anchors tabulated above -
+`inject """ ... """ into <AnchorName>;` - or navigates the target's syntax where no anchor sits where it
+needs one (`insert ... after *`, or `in after "@Component"` then `in first {^braces}`). One file carries
+one transformer per target language, `<ts>`, `<html>` and `<less>`, and the two mechanisms are available
+in any of them.
+
+An injected fragment may publish anchors of its own, wrapped in its own `Pre`/`Post` pair, so an
+extending package becomes an extension point in turn. That is how the batch command described above
+stays open: a fragment injected at `PostSetUserNameCommandRegistering` pushes into `batchCmd.commands`
+rather than sending a command of its own.
 
 ## A note on CK.Cris.SimpleBatch.
 

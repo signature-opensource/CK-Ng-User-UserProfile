@@ -61,6 +61,44 @@ equivalent:
 - **Whole behaviour** - provide another `IPasswordLostMailer` and substitute it with
   `[ReplaceAutoService]`.
 
+The class a consumer declares is three lines, and its only job is to be found:
+
+```csharp
+using CK.Template.Fluid;
+
+[FluidTemplatePackage]
+public sealed class MyMailTemplatesPackage : FluidTemplatePackage
+{
+}
+```
+
+The templates go anywhere under a `Res/Templates/` path in the same assembly - discovery walks the
+loaded assemblies looking for that path, so the class need not sit beside them. This package is its own
+illustration: the declaration is in `Mail/`, the templates at the package root.
+
+```
+Res/Templates/PasswordLost.Subject.en.liquid
+Res/Templates/PasswordLost.Body.en.liquid
+Res/Templates/PasswordLost.Subject.fr.liquid
+Res/Templates/PasswordLost.Body.fr.liquid
+```
+
+The **logical name is the filename minus its culture suffix and `.liquid`** - the culture is matched
+separately, which is why the mailer asks for `RenderAsync( "PasswordLost.Subject", culture, model )`.
+So `Subject`/`Body` are not free, and the culture suffix is what selects between your translations.
+This package ships that set plus the `PasswordSetConfirmation.*` four, which is the list to copy from
+when overriding.
+
+⚠️ **There is no precedence rule.** Registration is a plain dictionary assignment per culture, over an
+`AppDomain.CurrentDomain.GetAssemblies()` walk, so the **last assembly walked wins** and no conflict is
+reported. A consumer's template replaces the default because it registers under the same key, not
+because consumers outrank packages. It works in practice, but do not read it as a guarantee: two
+packages overriding the same template is silently order-dependent.
+
+Its own declaration, [`PasswordLostMailTemplatesPackage`](Mail/PasswordLostMailTemplatesPackage.cs),
+states the intent in its summary: *"A consumer can override the content by declaring its own
+`[FluidTemplatePackage]` carrying a template with the same logical name."*
+
 Reach for the first one to reword or rebrand; the second only when the dispatch itself has to change.
 The link root comes from `IFrontUrlResolver` ([default implementation](Mail/DefaultFrontUrlResolver.cs)),
 so a deployment with a front-end on another host overrides that single service rather than the mailer.
