@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Description>Banishment flow on the client side: a banished user is logged out and sent back to the authentication page, the instant the ban is pushed on the actor channel, on the next reconnection when it was unreachable, or on the next navigation.</Description>
