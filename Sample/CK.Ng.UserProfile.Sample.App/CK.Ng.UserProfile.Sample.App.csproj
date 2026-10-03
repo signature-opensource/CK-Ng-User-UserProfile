@@ -25,7 +25,7 @@
     <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="2.0.0-juliet.0.ci.5" />
     <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="2.0.0-juliet.0.ci.5" />
       
-    <PackageReference Include="CK.SqlServer.Transaction" Version="13.0.0" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="14.0.0-mike.0.ci.5" />
       
     <ProjectReference Include="..\..\CK.Ng.UserProfile.UserBanned\CK.Ng.UserProfile.UserBanned.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.Workspace\CK.Ng.UserProfile.Workspace.csproj" />
