@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.IO.Actor" Version="2.0.0-juliet.0.ci.10" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="2.0.0-juliet.0.ci.5" />
-    <PackageReference Include="CK.Ng.Zorro.Basic" Version="2.0.0-juliet.0.ci.5" />
+    <PackageReference Include="CK.IO.Actor" Version="2.0.0-juliet.0.ci.12" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Auth" Version="2.0.0-juliet.0.ci.7" />
+    <PackageReference Include="CK.Ng.Zorro.Basic" Version="2.0.0-juliet.0.ci.7" />
   </ItemGroup>
 </Project>
