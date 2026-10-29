@@ -1,32 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-
-export const PASSWORD_MIN_LENGTH = 8;
-
-/**
- * One rule a password must satisfy, both as a predicate and as something to display.
- */
-export interface PasswordCriterion {
-  /** Suffix of the translation key: `CK.UserProfile.PasswordStrength.Criterion.<key>`. */
-  readonly key: string;
-  readonly test: ( value: string ) => boolean;
-}
-
-/**
- * The password rule, in display order. This table IS the rule: `passwordComplexityValidator` and
- * the `ck-password-strength` component both read it, so what the user is shown and what blocks
- * the submission cannot drift apart.
- *
- * Note that the length is one criterion among the others: do NOT add a separate
- * `Validators.minLength( PASSWORD_MIN_LENGTH )` on a control that already carries
- * `passwordComplexityValidator`, it would report the same failure twice.
- */
-export const PASSWORD_CRITERIA: readonly PasswordCriterion[] = [
-  { key: 'MinLength', test: v => v.length >= PASSWORD_MIN_LENGTH },
-  { key: 'Digit', test: v => /\d/.test( v ) },
-  { key: 'Lower', test: v => /[a-z]/.test( v ) },
-  { key: 'Upper', test: v => /[A-Z]/.test( v ) },
-  { key: 'Special', test: v => /[^A-Za-z0-9]/.test( v ) }
-];
+import { PASSWORD_CRITERIA } from './password-rules';
 
 /**
  * Requires every criterion of {@link PASSWORD_CRITERIA}.

@@ -1,6 +1,7 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl } from '@angular/forms';
-import { PASSWORD_CRITERIA, PASSWORD_MIN_LENGTH, passwordComplexityValidator, PasswordStrength } from '@local/ck-gen';
+import { form } from '@angular/forms/signals';
+import { PASSWORD_CRITERIA, PASSWORD_MIN_LENGTH, passwordComplexity, PasswordStrength } from '@local/ck-gen';
 import { appConfig } from './app.config';
 
 // Satisfies every criterion, and is the base the samples below are derived from.
@@ -17,7 +18,11 @@ const BREAKS_ONLY: Readonly<Record<string, string>> = {
     Special: 'Abcdefg1'
 };
 
-const validate = ( value: string ) => passwordComplexityValidator( new FormControl( value ) );
+// The errors passwordComplexity puts on a password field, without the `fieldTree` signal forms add.
+// The empty value and the full error shape are pinned in password-rules.spec.ts.
+const validate = ( value: string ) =>
+    TestBed.runInInjectionContext( () => form( signal( { password: value } ), p => passwordComplexity( p.password ) ) )
+        .password().errors().map( e => ( { kind: e.kind, unmet: ( e as { unmet?: string[] } ).unmet } ) );
 
 describe( 'password criteria', () => {
     it( 'has exactly one breaking sample per criterion', () => {
@@ -26,27 +31,17 @@ describe( 'password criteria', () => {
 
     it( 'accepts a password that satisfies them all', () => {
         expect( VALID.length ).toBeGreaterThanOrEqual( PASSWORD_MIN_LENGTH );
-        expect( validate( VALID ) ).toBeNull();
         expect( PASSWORD_CRITERIA.every( c => c.test( VALID ) ) ).toBe( true );
     } );
 
-    it( 'says nothing about an empty value, which is what Validators.required is for', () => {
-        expect( validate( '' ) ).toBeNull();
-    } );
-
     // The point of the whole table: the criterion the user sees unchecked is exactly the key the
-    // validator reports. If the two ever drift apart, this is what catches it.
+    // rule reports. If the two ever drift apart, this is what catches it.
     for ( const [key, sample] of Object.entries( BREAKS_ONLY ) ) {
         it( `reports ${key}, and only it, for '${sample}'`, () => {
-            expect( validate( sample ) ).toEqual( { passwordComplexity: [key] } );
+            expect( validate( sample ) ).toEqual( [{ kind: 'passwordComplexity', unmet: [key] }] );
             expect( PASSWORD_CRITERIA.filter( c => !c.test( sample ) ).map( c => c.key ) ).toEqual( [key] );
         } );
     }
-
-    it( 'reports every unmet criterion at once, in display order', () => {
-        // 'abc': too short, no digit, no uppercase, no special.
-        expect( validate( 'abc' ) ).toEqual( { passwordComplexity: ['MinLength', 'Digit', 'Upper', 'Special'] } );
-    } );
 } );
 
 describe( 'ck-password-strength', () => {
