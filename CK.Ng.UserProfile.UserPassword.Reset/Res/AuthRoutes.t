@@ -1,4 +1,4 @@
-create <ts> transformer on "CK/Ng/AspNet/Auth/authentication-page/routes.ts"
+create <ts> transformer on "CK/Ng/Cris/AspNet/Authentication/authentication-page/routes.ts"
 begin
     ensure import { resetPasswordPageGuard } from "@local/ck-gen";
 

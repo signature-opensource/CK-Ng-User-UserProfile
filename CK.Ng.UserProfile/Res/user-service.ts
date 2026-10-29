@@ -20,7 +20,7 @@ export class UserService {
 
     constructor() {
         effect( async () => {
-            if ( this.#authService.authenticationInfo().level < AuthLevel.Normal ) {
+            if ( this.#authService.level() < AuthLevel.Normal ) {
                 this.#userProfile.set( undefined );
                 this.#profileLoaded.set( false );
             } else {
@@ -32,7 +32,7 @@ export class UserService {
     async refreshUserProfileAsync(): Promise<void> {
         // <PreUserProfileRefresh revert />
         try {
-            const res = await this.#cris.sendOrThrowAsync( new GetUserProfileQCommand( this.#authService.authenticationInfo().user.userId ) );
+            const res = await this.#cris.sendOrThrowAsync( new GetUserProfileQCommand( this.#authService.actor().actorId ) );
             this.#userProfile.set( res );
             // <PostUserProfileRefresh />
         }

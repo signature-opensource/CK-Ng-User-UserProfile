@@ -62,7 +62,7 @@ export class ChangePasswordForm {
         // <PreSetPasswordAsync revert />
         if ( this.formGroup.valid ) {
             // Changing a password requires the Critical level (a recent login): the server would refuse it.
-            if ( this.#authService.authenticationInfo().level < AuthLevel.Critical ) {
+            if ( this.#authService.level() < AuthLevel.Critical ) {
                 this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( 'CK.UserProfile.RecentLoginRequired' ) );
                 return Promise.reject();
             }

@@ -21,7 +21,7 @@ e-mail feature - consumers that do not want it simply do not reference this pack
 ## Requires.
 
 - [`UserProfilePasswordPackage`](../CK.Ng.UserProfile.UserPassword/README.md)
-- `CK.Ng.AspNet.Auth.Basic` (the login form this package extends), `CK.IO.User.UserPassword`
+- `CK.Ng.Cris.AspNet.Authentication.Basic` (the login form this package extends), `CK.IO.User.UserPassword`
 - On the server: `CK.DB.Actor.ActorEMail`, `CK.DB.User.NamedUser`, `CK.SqlServer.Dapper`,
   `CK.Mailer.MailKit`, `CK.Mail.SharedLayout`, `CK.Template.Fluid`, `CK.AppIdentity.Abstractions`,
   `CK.Globalization.StObj`, `Microsoft.AspNetCore.DataProtection`

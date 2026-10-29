@@ -1,6 +1,6 @@
 using CK.Core;
-using CK.Ng.AspNet.Auth;
-using CK.Ng.AspNet.Auth.Basic;
+using CK.Ng.Cris.AspNet.Authentication;
+using CK.Ng.Cris.AspNet.Authentication.Basic;
 using CK.TS.Angular;
 using CK.TypeScript;
 

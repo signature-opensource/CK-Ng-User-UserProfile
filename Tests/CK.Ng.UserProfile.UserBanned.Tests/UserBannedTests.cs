@@ -30,10 +30,9 @@ public class UserBannedTests
         configuration.FirstBinPath.Path = TestHelper.BinFolder;
         configuration.EnsureSqlServerConfigurationAspect();
 
-        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Cris.Auth",
-                                                          "CK.Ng.Cris.AspNet.Auth",
-                                                          "CK.DB.AspNet.Auth",
-                                                          "CK.Ng.AspNet.Auth.Basic",
+        // The application is its own AuthCenter (with its HTTP front).
+        configuration.FirstBinPath.AddAuthCenterApplication();
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           "CK.Ng.UserProfile",
                                                           "CK.Ng.UserProfile.UserBanned" ] );
 

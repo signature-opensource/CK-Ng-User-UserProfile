@@ -22,7 +22,7 @@ begin
     // navigation of the subtree, including from one child to another. And no child route matches "",
     // so canActivateChild would never fire for a landing on the private page itself.
     //
-    // Anchored on the children of the private page. CK.Ng.AspNet.Auth's own AppRoutes.t anchors on
+    // Anchored on the children of the private page. CK.Ng.Cris.AspNet.Authentication's own AppRoutes.t anchors on
     // "component: PrivatePage" and "export default", so the two transformers cannot collide whatever
     // their application order.
     insert """

@@ -60,7 +60,7 @@ export class BannedSession {
    */
   async logoutBannedAsync(): Promise<void> {
     if ( this.#loggingOut ) return;
-    if ( this.#authService.authenticationInfo().level < AuthLevel.Normal ) return;
+    if ( this.#authService.level() < AuthLevel.Normal ) return;
     this.#loggingOut = true;
     try {
       // The channel is deliberately left alone: it is shared, so stopping it here would release the

@@ -69,7 +69,7 @@ begin
             * unless another administrator is around to lift it.
             */
            async selfBanForTestAsync(): Promise<void> {
-             const userId = this.#authService.authenticationInfo().user.userId;
+             const userId = this.#authService.actor().actorId;
              if ( userId === 0 || this.selfBanPending() ) return;
              this.selfBanPending.set( true );
              try {

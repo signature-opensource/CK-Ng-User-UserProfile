@@ -20,7 +20,7 @@ describe( 'banned flow, route registration', () => {
         // Emitted by CK.Ng.UserProfile, not by this package - and load-bearing: without it the guard
         // would not re-run on a navigation back to "" from inside the private area.
         expect( privatePage!.runGuardsAndResolvers ).toBe( 'always' );
-        // The transformer must not have clobbered CK.Ng.AspNet.Auth's own guard.
+        // The transformer must not have clobbered CK.Ng.Cris.AspNet.Authentication's own guard.
         expect( privatePage!.canMatch?.length ).toBe( 1 );
     } );
 

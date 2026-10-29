@@ -26,11 +26,10 @@ public class UserPasswordTests
         configuration.FirstBinPath.Path = TestHelper.BinFolder;
         configuration.EnsureSqlServerConfigurationAspect();
 
-        configuration.FirstBinPath.Assemblies.Add( "CK.Cris.Auth" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.DB.AspNet.Auth" );
+        // The application is its own AuthCenter (with its HTTP front).
+        configuration.FirstBinPath.AddAuthCenterApplication();
         configuration.FirstBinPath.Assemblies.Add( "CK.DB.User.UserPassword" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.Cris.AspNet.Auth" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.AspNet.Auth.Basic" );
+        configuration.FirstBinPath.Assemblies.Add( "CK.Ng.Cris.AspNet.Authentication.Basic" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile.UserPassword" );
 
@@ -81,8 +80,12 @@ public class UserPasswordTests
         var map = engineRes.LoadMap();
         var builder = WebApplication.CreateSlimBuilder();
         builder.AddUnsafeAllowAllCors();
-        builder.AddWebFrontAuth( ao => ao.SlidingExpirationTime = TimeSpan.FromMinutes( 10 ) );
-        await using var server = await builder.CreateRunningAspNetServerAsync( map, app => app.UseMiddleware<CrisMiddleware>() );
+        // The Basic logins don't reach the Critical level: the change password form asks for a recent login.
+        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map, c =>
+        {
+            AuthCenterApplicationTestingExtensions.DefaultIdentity( c );
+            c["Local:AuthCenter:CriticalLifetimes:Basic"] = "00:00:00";
+        } );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
         runner.Run();

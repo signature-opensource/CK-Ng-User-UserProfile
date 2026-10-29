@@ -35,10 +35,9 @@ public class UserPasswordLostTests
         configuration.FirstBinPath.Path = TestHelper.BinFolder;
         configuration.EnsureSqlServerConfigurationAspect();
 
-        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Cris.Auth",
-                                                          "CK.Ng.Cris.AspNet.Auth",
-                                                          "CK.DB.AspNet.Auth",
-                                                          "CK.Ng.AspNet.Auth.Basic",
+        // The application is its own AuthCenter (with its HTTP front).
+        configuration.FirstBinPath.AddAuthCenterApplication();
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           "CK.DB.User.UserPassword",
                                                           // The e-mail to user resolution reads CK.tActorEMail and the
                                                           // FirstName/LastName that NamedUser adds to CK.vUser.
@@ -79,9 +78,11 @@ public class UserPasswordLostTests
 
         // PasswordLostTokenService, the front URL resolver and the mailer all read the CK-AppIdentity
         // configuration: a real host gets it from appsettings, here it is built in memory.
-        var appIdentity = ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, c =>
+        void Identity( MutableConfigurationSection c )
         {
             c["FullName"] = "Test/$UserPasswordLost";
+            // The application is its own AuthCenter.
+            c["Local:AllowFeatures"] = "AuthCenter";
             c["Local:FrontUrl"] = "http://localhost:4200";
             // Exercises the configurable lifetime rather than the 2 hours fallback.
             c["Local:PasswordLostTokenLifetime"] = "00:45:00";
@@ -89,7 +90,8 @@ public class UserPasswordLostTests
             c["Local:EmailSender:Smtp:PickupDirectory"] = pickupDirectory;
             c["Local:EmailSender:Smtp:SendEmail"] = "false";
             c["Local:EmailSender:Smtp:RequiredAuthentication"] = "false";
-        } );
+        }
+        var appIdentity = ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, Identity );
         Throw.CheckState( appIdentity != null );
 
         static void ConfigureHostServices( IServiceCollection services, ApplicationIdentityServiceConfiguration appIdentity )
@@ -139,9 +141,7 @@ public class UserPasswordLostTests
         var map = engineRes.LoadMap();
         var builder = WebApplication.CreateSlimBuilder();
         builder.AddUnsafeAllowAllCors();
-        builder.AddWebFrontAuth( ao => ao.SlidingExpirationTime = TimeSpan.FromMinutes( 10 ) );
-        ConfigureHostServices( builder.Services, appIdentity );
-        await using var server = await builder.CreateRunningAspNetServerAsync( map, app => app.UseMiddleware<CrisMiddleware>() );
+        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map, Identity );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
 

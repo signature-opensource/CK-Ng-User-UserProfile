@@ -2,6 +2,14 @@ import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 import { NgAuthService, AuthLevel, HttpCrisEndpoint, GetUserProfileQCommand } from '@local/ck-gen';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { BasicLoginCommand } from '@local/ck-gen';
+
+function basicLogin( userName: string, password: string ): BasicLoginCommand {
+    const c = new BasicLoginCommand();
+    c.userName = userName;
+    c.password = password;
+    return c;
+}
 
 if ( process.env["VSCODE_INSPECTOR_OPTIONS"] ) jest.setTimeout( 30 * 60 * 1000 ); // 30 minutes
 
@@ -24,20 +32,21 @@ describe( 'integration tests', () => {
 
     afterEach( async () => {
         await ngAuthService.authService.logout();
+        ngAuthService.authService.close();
     } );
 
     it( 'should be able to get profile', async () => {
         const authService = ngAuthService.authService;
 
-        expect( authService.authenticationInfo.level ).toBe( AuthLevel.None );
-        expect( authService.availableSchemes.length ).toBeGreaterThan( 0 );
+        expect( authService.level ).toBe( AuthLevel.None );
+        expect( ( await authService.refreshSchemesAsync() ).length ).toBeGreaterThan( 0 );
 
         expect( ngAuthService.authenticationInfo() ).toStrictEqual( authService.authenticationInfo );
-        await authService.basicLogin( 'TestUser', 'success' );
-        expect( ngAuthService.authenticationInfo().level ).toBe( AuthLevel.Normal );
+        await cris.sendOrThrowAsync( basicLogin( 'TestUser', 'success' ) );
+        expect( ngAuthService.level() ).toBeGreaterThanOrEqual( AuthLevel.Normal );
         expect( ngAuthService.authenticationInfo() ).toStrictEqual( authService.authenticationInfo );
 
-        const profile = await cris.sendOrThrowAsync( new GetUserProfileQCommand( authService.authenticationInfo.user.userId ) );
+        const profile = await cris.sendOrThrowAsync( new GetUserProfileQCommand( authService.actor.actorId ) );
         expect( profile ).not.toBeNull();
         expect( profile!.userName ).toBe( 'TestUser' );
         // No CK.DB.UserProfile.Workspace handler in this solution yet — the field is present (extended IUserProfile) but defaults to 0.

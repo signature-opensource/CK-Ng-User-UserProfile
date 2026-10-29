@@ -1,13 +1,13 @@
 using CK.Core;
 using CK.IO.User.UserBanned;
-using CK.Ng.AspNet.Auth.Basic;
-using CK.Ng.Cris.AspNet.Auth;
+using CK.Ng.Cris.AspNet.Authentication;
+using CK.Ng.Cris.AspNet.Authentication.Basic;
 using CK.TypeScript;
 
 namespace CK.Ng.UserProfile.Sample.App;
 
 [TypeScriptPackage]
-[Requires<AspNetAuthBasicPackage, CrisAspNetAuthPackage>]
+[Requires<NgCrisAuthenticationBasicPackage, NgCrisAuthenticationPackage>]
 [Requires<NamedUser.UserProfileNamedUserPackage>]
 [Requires<PreferredCulture.UserProfilePreferredCulturePackage>]
 [Requires<UserPassword.UserProfilePasswordPackage>]

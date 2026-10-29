@@ -26,11 +26,10 @@ public class PreferredCultureTests
         configuration.FirstBinPath.Path = TestHelper.BinFolder;
         configuration.EnsureSqlServerConfigurationAspect();
 
+        // The application is its own AuthCenter (with its HTTP front).
+        configuration.FirstBinPath.AddAuthCenterApplication();
         configuration.FirstBinPath.Assemblies.AddRange( [
-                "CK.Cris.Auth",
-                "CK.Ng.Cris.AspNet.Auth",
-                "CK.DB.AspNet.Auth",
-                "CK.Ng.AspNet.Auth.Basic",
+                "CK.Ng.Cris.AspNet.Authentication.Basic",
                 "CK.DB.User.UserPassword",
                 "CK.Ng.UserProfile",
                 "CK.Ng.UserProfile.PreferredCulture",
@@ -66,8 +65,7 @@ public class PreferredCultureTests
 
         var builder = WebApplication.CreateSlimBuilder();
         builder.AddUnsafeAllowAllCors();
-        builder.AddWebFrontAuth( ao => ao.SlidingExpirationTime = TimeSpan.FromMinutes( 10 ) );
-        await using var server = await builder.CreateRunningAspNetServerAsync( map, app => { app.UseMiddleware<CrisMiddleware>(); app.UseCris(); } );
+        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
         runner.Run();

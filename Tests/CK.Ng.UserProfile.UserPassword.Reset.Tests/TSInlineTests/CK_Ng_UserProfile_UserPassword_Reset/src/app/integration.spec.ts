@@ -22,6 +22,14 @@ import {
 } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { BasicLoginCommand } from '@local/ck-gen';
+
+function basicLogin( userName: string, password: string ): BasicLoginCommand {
+    const c = new BasicLoginCommand();
+    c.userName = userName;
+    c.password = password;
+    return c;
+}
 
 if ( process.env["VSCODE_INSPECTOR_OPTIONS"] ) jest.setTimeout( 30 * 60 * 1000 ); // 30 minutes
 
@@ -49,6 +57,7 @@ describe( 'temporary password flow', () => {
 
     afterEach( async () => {
         await ngAuthService.authService.logout();
+        ngAuthService.authService.close();
     } );
 
     // A single authenticated session drives the whole flow: the state carried by the profile, and the
@@ -58,12 +67,12 @@ describe( 'temporary password flow', () => {
     // sends anonymous Cris calls.
     it( 'carries IsTemporary down to the profile, and the guard acts on it', async () => {
         const authService = ngAuthService.authService;
-        await authService.basicLogin( 'TestUser', 'success' );
+        await cris.sendOrThrowAsync( basicLogin( 'TestUser', 'success' ) );
         // The host gives the Basic logins the Critical level: ISetPasswordCommand requires it.
-        expect( ngAuthService.authenticationInfo().level ).toBe( AuthLevel.Critical );
+        expect( ngAuthService.level() ).toBe( AuthLevel.Critical );
         await cris.updateAmbientValuesAsync();
 
-        const userId = authService.authenticationInfo.user.userId;
+        const userId = authService.actor.actorId;
         const userService = TestBed.inject( UserService );
 
         const readProfileAsync = async () => {
@@ -130,7 +139,7 @@ describe( 'temporary password flow, route registration', () => {
         // fail. canActivateChild is deliberately absent, 'always' already covers the children.
         expect( privatePage!.canActivate ).toContain( temporaryPasswordGuard );
         expect( privatePage!.runGuardsAndResolvers ).toBe( 'always' );
-        // CK.Ng.AspNet.Auth's own guard must still be there: the two transformers coexist.
+        // CK.Ng.Cris.AspNet.Authentication's own guard must still be there: the two transformers coexist.
         expect( privatePage!.canMatch?.length ).toBe( 1 );
     } );
 
@@ -239,7 +248,7 @@ describe( 'reset page guard', () => {
                 provideRouter( [] ),
                 {
                     provide: NgAuthService,
-                    useValue: { authenticationInfo: signal( { user: { userId } } ) }
+                    useValue: { actor: signal( { actorId: userId } ) }
                 },
                 {
                     // profileLoaded mirrors UserService: it is false while anonymous, which is why the

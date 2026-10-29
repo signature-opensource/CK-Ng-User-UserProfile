@@ -30,7 +30,7 @@ export const resetPasswordPageGuard: CanActivateFn = async ( _route: ActivatedRo
   // Tested first, and never awaited on: UserService resets profileLoaded to false as soon as the
   // authentication level drops, so awaiting it while anonymous would never settle. Same predicate
   // as the canMatch of the private page.
-  if ( authService.authenticationInfo().user.userId <= 0 ) return router.parseUrl( '/auth' );
+  if ( authService.actor().actorId <= 0 ) return router.parseUrl( '/auth' );
 
   // On a hard load (F5, typed url) the profile is still in flight: wait for it.
   if ( !userService.profileLoaded() ) {

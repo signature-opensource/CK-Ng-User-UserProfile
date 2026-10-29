@@ -27,10 +27,9 @@ public class UserPasswordResetTests
         configuration.FirstBinPath.Path = TestHelper.BinFolder;
         configuration.EnsureSqlServerConfigurationAspect();
 
-        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Cris.Auth",
-                                                          "CK.Ng.Cris.AspNet.Auth",
-                                                          "CK.DB.AspNet.Auth",
-                                                          "CK.Ng.AspNet.Auth.Basic",
+        // The application is its own AuthCenter (with its HTTP front).
+        configuration.FirstBinPath.AddAuthCenterApplication();
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           "CK.DB.User.UserPassword.Reset",
                                                           "CK.Ng.UserProfile",
                                                           "CK.Ng.UserProfile.UserPassword",
@@ -86,13 +85,9 @@ public class UserPasswordResetTests
         var map = engineRes.LoadMap();
         var builder = WebApplication.CreateSlimBuilder();
         builder.AddUnsafeAllowAllCors();
-        // ISetPasswordCommand requires the Critical level: a Basic login reaches it for 5 minutes.
-        builder.AddWebFrontAuth( ao =>
-        {
-            ao.SlidingExpirationTime = TimeSpan.FromMinutes( 10 );
-            ao.SchemesCriticalTimeSpan = new Dictionary<string, TimeSpan> { ["Basic"] = TimeSpan.FromMinutes( 5 ) };
-        } );
-        await using var server = await builder.CreateRunningAspNetServerAsync( map, app => app.UseMiddleware<CrisMiddleware>() );
+        // ISetPasswordCommand requires the Critical level: a Basic login reaches it for 5 minutes (the default Critical
+        // lifetime of the AuthCenter).
+        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
 

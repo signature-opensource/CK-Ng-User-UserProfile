@@ -23,7 +23,7 @@ has to be sent anywhere.
 - `INgPrivatePageComponent` - `AppRoutes.t` anchors on the `children: rPrivatePage` of the generated
   routes, so the private page must be in the graph. Nothing else expresses that dependency, since the
   reset form itself left the private page for the authentication page.
-- `CK.Ng.AspNet.Auth`, `CK.IO.User.UserPassword.Reset`
+- `CK.Ng.Cris.AspNet.Authentication`, `CK.IO.User.UserPassword.Reset`
 
 ## Why the reset page is not under the private page.
 

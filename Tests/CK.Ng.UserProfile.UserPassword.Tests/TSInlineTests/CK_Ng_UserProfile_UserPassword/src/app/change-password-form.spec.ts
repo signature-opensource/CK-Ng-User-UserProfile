@@ -3,6 +3,14 @@ import { NgAuthService, AuthLevel, HttpCrisEndpoint, NotificationService, SetPas
 import { ChangePasswordForm } from '@local/ck-gen/CK/Ng/UserProfile/UserPassword/change-password-form/change-password-form';
 import { TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { BasicLoginCommand } from '@local/ck-gen';
+
+function basicLogin( userName: string, password: string ): BasicLoginCommand {
+    const c = new BasicLoginCommand();
+    c.userName = userName;
+    c.password = password;
+    return c;
+}
 
 if ( process.env["VSCODE_INSPECTOR_OPTIONS"] ) jest.setTimeout( 30 * 60 * 1000 ); // 30 minutes
 
@@ -23,12 +31,13 @@ describe( 'ChangePasswordForm', () => {
 
     afterEach( async () => {
         await ngAuthService.authService.logout();
+        ngAuthService.authService.close();
     } );
 
     it( 'asks for a recent login below the Critical level and sends no password', async () => {
         // This host gives no Critical level to the Basic logins (no SchemesCriticalTimeSpan).
-        await ngAuthService.authService.basicLogin( 'TestUser', 'success' );
-        expect( ngAuthService.authenticationInfo().level ).toBe( AuthLevel.Normal );
+        await TestBed.inject( HttpCrisEndpoint ).sendOrThrowAsync( basicLogin( 'TestUser', 'success' ) );
+        expect( ngAuthService.level() ).toBe( AuthLevel.Normal );
 
         const notif = TestBed.inject( NotificationService );
         const messages: Array<[string, string]> = [];
