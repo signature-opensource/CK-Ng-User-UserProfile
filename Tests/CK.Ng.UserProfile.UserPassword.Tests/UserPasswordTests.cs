@@ -32,7 +32,6 @@ public class UserPasswordTests
         configuration.FirstBinPath.AddAuthCenterApplication();
         configuration.FirstBinPath.Assemblies.Add( "CK.DB.User.UserPassword" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.Cris.AspNet.Authentication.Basic" );
-        configuration.FirstBinPath.Assemblies.Add( "CK.Cris.Authentication.Basic" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile.UserPassword" );
 

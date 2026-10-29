@@ -31,7 +31,7 @@ public class NamedUserTests
         configuration.FirstBinPath.Assemblies.AddRange( [
                 "CK.DB.User.UserPassword",
                 "CK.DB.User.NamedUser",
-                "CK.Ng.Cris.AspNet.Authentication.Basic", "CK.Cris.Authentication.Basic",
+                "CK.Ng.Cris.AspNet.Authentication.Basic",
                 "CK.Ng.UserProfile",
                 "CK.Ng.UserProfile.NamedUser",
                 "CK.SqlServer.Transaction"

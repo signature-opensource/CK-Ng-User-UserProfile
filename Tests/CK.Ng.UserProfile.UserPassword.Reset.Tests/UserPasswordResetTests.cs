@@ -31,7 +31,7 @@ public class UserPasswordResetTests
 
         // The application is its own AuthCenter (with its HTTP front).
         configuration.FirstBinPath.AddAuthCenterApplication();
-        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic", "CK.Cris.Authentication.Basic",
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           "CK.DB.User.UserPassword.Reset",
                                                           "CK.Ng.UserProfile",
                                                           "CK.Ng.UserProfile.UserPassword",

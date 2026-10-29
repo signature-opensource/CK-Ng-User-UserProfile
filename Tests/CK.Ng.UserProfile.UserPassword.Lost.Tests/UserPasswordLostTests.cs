@@ -37,7 +37,7 @@ public class UserPasswordLostTests
 
         // The application is its own AuthCenter (with its HTTP front).
         configuration.FirstBinPath.AddAuthCenterApplication();
-        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic", "CK.Cris.Authentication.Basic",
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           "CK.DB.User.UserPassword",
                                                           // The e-mail to user resolution reads CK.tActorEMail and the
                                                           // FirstName/LastName that NamedUser adds to CK.vUser.
