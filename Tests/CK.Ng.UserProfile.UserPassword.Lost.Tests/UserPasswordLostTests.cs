@@ -37,7 +37,7 @@ public class UserPasswordLostTests
 
         // The application is its own AuthCenter (with its HTTP front).
         configuration.FirstBinPath.AddAuthCenterApplication();
-        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic", "CK.Cris.Authentication.Basic",
                                                           "CK.DB.User.UserPassword",
                                                           // The e-mail to user resolution reads CK.tActorEMail and the
                                                           // FirstName/LastName that NamedUser adds to CK.vUser.
@@ -140,7 +140,6 @@ public class UserPasswordLostTests
 
         var map = engineRes.LoadMap();
         var builder = WebApplication.CreateSlimBuilder();
-        builder.AddUnsafeAllowAllCors();
         await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map, Identity );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );

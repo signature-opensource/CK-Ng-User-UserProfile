@@ -1,3 +1,4 @@
+using CK.AppIdentity;
 using CK.Core;
 using CK.Cris;
 using CK.Cris.AspNet;
@@ -8,6 +9,7 @@ using CK.Ng.UserProfile.UserPassword.Tests.MyLayout;
 using CK.SqlServer;
 using CK.Testing;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using static CK.Testing.MonitorTestHelper;
@@ -30,6 +32,7 @@ public class UserPasswordTests
         configuration.FirstBinPath.AddAuthCenterApplication();
         configuration.FirstBinPath.Assemblies.Add( "CK.DB.User.UserPassword" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.Cris.AspNet.Authentication.Basic" );
+        configuration.FirstBinPath.Assemblies.Add( "CK.Cris.Authentication.Basic" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile" );
         configuration.FirstBinPath.Assemblies.Add( "CK.Ng.UserProfile.UserPassword" );
 
@@ -46,7 +49,12 @@ public class UserPasswordTests
         var engineRes = (await configuration.RunSuccessfullyAsync());
 
         #region Ensuring TestUser and its password...
-        var autoServices = engineRes.CreateAutomaticServices();
+        var autoServices = engineRes.CreateAutomaticServices( configureServices: services =>
+        {
+            // The application is its own AuthCenter: its identity service needs its configuration.
+            services.AddSingleton( ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, AuthCenterApplicationTestingExtensions.DefaultIdentity )! );
+            services.AddDataProtection();
+        } );
         using( var scope = autoServices.Services.CreateScope() )
         using( var ctx = new SqlStandardCallContext() )
         {
@@ -79,7 +87,6 @@ public class UserPasswordTests
 
         var map = engineRes.LoadMap();
         var builder = WebApplication.CreateSlimBuilder();
-        builder.AddUnsafeAllowAllCors();
         // The Basic logins don't reach the Critical level: the change password form asks for a recent login.
         await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map, c =>
         {

@@ -1,3 +1,4 @@
+using CK.AppIdentity;
 using CK.Core;
 using CK.Cris;
 using CK.Cris.AspNet;
@@ -7,6 +8,7 @@ using CK.Ng.UserProfile.Tests.MyLayout;
 using CK.SqlServer;
 using CK.Testing;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System.Diagnostics;
@@ -29,7 +31,7 @@ public class UserProfileTests
 
         // The application is its own AuthCenter (with its HTTP front).
         configuration.FirstBinPath.AddAuthCenterApplication();
-        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
+        configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic", "CK.Cris.Authentication.Basic",
                                                           "CK.DB.User.UserPassword",
                                                           "CK.Ng.UserProfile",
                                                           "CK.SqlServer.Transaction" ] );
@@ -44,7 +46,12 @@ public class UserProfileTests
         var engineRes = (await configuration.RunSuccessfullyAsync());
 
         #region Ensuring TestUser and its password...
-        var autoServices = engineRes.CreateAutomaticServices();
+        var autoServices = engineRes.CreateAutomaticServices( configureServices: services =>
+        {
+            // The application is its own AuthCenter: its identity service needs its configuration.
+            services.AddSingleton( ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, AuthCenterApplicationTestingExtensions.DefaultIdentity )! );
+            services.AddDataProtection();
+        } );
         using( var scope = autoServices.Services.CreateScope() )
         using( var ctx = new SqlStandardCallContext() )
         {
@@ -77,7 +84,6 @@ public class UserProfileTests
 
         var map = engineRes.LoadMap();
         var builder = WebApplication.CreateSlimBuilder();
-        builder.AddUnsafeAllowAllCors();
         await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );

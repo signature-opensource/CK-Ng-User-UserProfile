@@ -29,7 +29,7 @@ public class WorkspaceTests
         // The application is its own AuthCenter (with its HTTP front).
         configuration.FirstBinPath.AddAuthCenterApplication();
         configuration.FirstBinPath.Assemblies.AddRange( [
-                "CK.Ng.Cris.AspNet.Authentication.Basic",
+                "CK.Ng.Cris.AspNet.Authentication.Basic", "CK.Cris.Authentication.Basic",
                 "CK.DB.User.UserPassword",
                 "CK.DB.Workspace",
                 "CK.Ng.UserProfile",
@@ -63,7 +63,6 @@ public class WorkspaceTests
         #endregion
 
         var builder = WebApplication.CreateSlimBuilder();
-        builder.AddUnsafeAllowAllCors();
         await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
