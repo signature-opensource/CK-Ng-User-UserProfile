@@ -78,7 +78,6 @@ public class PasswordLostCommandHandler : IAutoService
                                                                      IRecoverPasswordCommand cmd,
                                                                      IServiceProvider services,
                                                                      RawCrisExecutor rawExecutor,
-                                                                     PocoDirectory pocoDir,
                                                                      PasswordLostTokenService tokenService,
                                                                      PasswordLostQueries queries,
                                                                      IPasswordLostMailer mailer )
@@ -104,13 +103,13 @@ public class PasswordLostCommandHandler : IAutoService
                     // the Reset package is part of the application the Poco is the merged one anyway,
                     // and its IsTemporary defaults to false — which is exactly what recovering a
                     // password means: the user chose this one, so any temporary state is cleared.
-                    var setCmd = pocoDir.Create<ISetPasswordCommand>( c =>
+                    // The nested command runs with the same culture as this one (the ICommandCurrentCulture part they share
+                    // is copied).
+                    var setCmd = cmd.Create<ISetPasswordCommand>( c =>
                     {
                         c.ActorId = userId;
                         c.UserId = userId;
                         c.Password = cmd.Password;
-                        // The nested command runs with the same culture as this one.
-                        c.CurrentCultureName = cmd.CurrentCultureName;
                     } );
 
                     // The command is executed internally on purpose: RawExecuteAsync runs neither the
