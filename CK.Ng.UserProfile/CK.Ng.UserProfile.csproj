@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.IO.Actor" Version="3.0.0-0.cris-auth.0.ci.32" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.37" />
-    <PackageReference Include="CK.Ng.Zorro.Basic" Version="3.0.0-0.cris-auth.0.ci.16" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.39" />
+    <PackageReference Include="CK.Ng.Zorro.Basic" Version="3.0.0-0.cris-auth.0.ci.17" />
   </ItemGroup>
 </Project>
