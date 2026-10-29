@@ -86,7 +86,12 @@ public class UserPasswordResetTests
         var map = engineRes.LoadMap();
         var builder = WebApplication.CreateSlimBuilder();
         builder.AddUnsafeAllowAllCors();
-        builder.AddWebFrontAuth( ao => ao.SlidingExpirationTime = TimeSpan.FromMinutes( 10 ) );
+        // ISetPasswordCommand requires the Critical level: a Basic login reaches it for 5 minutes.
+        builder.AddWebFrontAuth( ao =>
+        {
+            ao.SlidingExpirationTime = TimeSpan.FromMinutes( 10 );
+            ao.SchemesCriticalTimeSpan = new Dictionary<string, TimeSpan> { ["Basic"] = TimeSpan.FromMinutes( 5 ) };
+        } );
         await using var server = await builder.CreateRunningAspNetServerAsync( map, app => app.UseMiddleware<CrisMiddleware>() );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );

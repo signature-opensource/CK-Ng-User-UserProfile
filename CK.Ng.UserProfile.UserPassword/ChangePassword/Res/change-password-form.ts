@@ -6,7 +6,7 @@ import { faCheck, faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { HttpCrisEndpoint, NotificationService, PasswordStrength, passwordComplexityValidator, passwordsMatchValidator, SetPasswordCommand, UserService } from '@local/ck-gen';
+import { AuthLevel, HttpCrisEndpoint, NgAuthService, NotificationService, PasswordStrength, passwordComplexityValidator, passwordsMatchValidator, SetPasswordCommand, UserService } from '@local/ck-gen';
 
 @Component( {
     selector: 'ck-change-password-form',
@@ -29,6 +29,7 @@ export class ChangePasswordForm {
     readonly #cris = inject( HttpCrisEndpoint );
     readonly #notif = inject( NotificationService );
     readonly #translateService = inject( TranslateService );
+    readonly #authService = inject( NgAuthService );
     // <PostDependencyInjection />
 
     // <PreInputOutput revert />
@@ -60,6 +61,11 @@ export class ChangePasswordForm {
     async setPasswordAsync(): Promise<void> {
         // <PreSetPasswordAsync revert />
         if ( this.formGroup.valid ) {
+            // Changing a password requires the Critical level (a recent login): the server would refuse it.
+            if ( this.#authService.authenticationInfo().level < AuthLevel.Critical ) {
+                this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( 'CK.UserProfile.RecentLoginRequired' ) );
+                return Promise.reject();
+            }
             try {
                 const res = await this.#cris.sendOrThrowAsync( new SetPasswordCommand( this.userProfile()!.userId, this.formGroup.get( 'password' )!.value ) );
                 if ( res ) {

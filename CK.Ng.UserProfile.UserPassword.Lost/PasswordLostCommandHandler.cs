@@ -113,19 +113,12 @@ public class PasswordLostCommandHandler : IAutoService
                         c.CurrentCultureName = cmd.CurrentCultureName;
                     } );
 
-                    // ICrisCommandContext cannot be injected here: carrying an explicit
-                    // CurrentCultureName makes CrisAspNetService build an AmbientServiceHub, which
-                    // routes this command to the CrisBackgroundExecutor. That endpoint has no
-                    // registered CrisExecutionContext (the framework builds its own [ExcludedCKType]
-                    // JobExecutionContext there with 'new'), and resubmitting to the background
-                    // executor would deadlock: it runs a single runner by default, the very one this
-                    // handler occupies.
-                    // RawCrisExecutor is a singleton available in every endpoint, and this call is
-                    // exactly the first line of CrisExecutionContext.ExecuteRootCommandAsync. What it
-                    // leaves out is event propagation, which this flow does not need: should the flow
-                    // ever emit an event, build a CrisExecutionContext instead (its constructor is
-                    // public and takes the monitor, this scope, a DarkSideCrisEventHub and this
-                    // executor).
+                    // The command is executed internally on purpose: RawExecuteAsync runs neither the
+                    // incoming validation (the actor and the authentication level of a received command:
+                    // ISetPasswordCommand requires the Critical level of the user, who is anonymous here)
+                    // nor the event propagation, which this flow does not need. The token checked above is
+                    // the proof of identity. Should the flow ever emit an event, use the ICrisCommandContext
+                    // of the execution instead.
                     var executed = await rawExecutor.RawExecuteAsync( services, setCmd );
                     if( executed.Result is ICrisResultError error )
                     {

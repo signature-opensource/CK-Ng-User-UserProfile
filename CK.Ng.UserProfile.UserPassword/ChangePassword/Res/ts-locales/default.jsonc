@@ -6,6 +6,7 @@
     "CK.UserProfile.Form.RepeatPasswordRequired": "Please confirm your password.",
     "CK.UserProfile.Password": "Password",
     "CK.UserProfile.Password.InputPlaceholder": "Enter your new password",
+    "CK.UserProfile.RecentLoginRequired": "Changing your password requires a recent login: sign out, then sign in again.",
     "CK.UserProfile.RepeatPassword": "Confirm password",
     "CK.UserProfile.RepeatPassword.InputPlaceholder": "Confirm your new password"
 }

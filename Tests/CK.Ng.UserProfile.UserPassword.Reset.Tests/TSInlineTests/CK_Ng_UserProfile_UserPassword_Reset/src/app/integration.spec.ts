@@ -59,7 +59,8 @@ describe( 'temporary password flow', () => {
     it( 'carries IsTemporary down to the profile, and the guard acts on it', async () => {
         const authService = ngAuthService.authService;
         await authService.basicLogin( 'TestUser', 'success' );
-        expect( ngAuthService.authenticationInfo().level ).toBe( AuthLevel.Normal );
+        // The host gives the Basic logins the Critical level: ISetPasswordCommand requires it.
+        expect( ngAuthService.authenticationInfo().level ).toBe( AuthLevel.Critical );
         await cris.updateAmbientValuesAsync();
 
         const userId = authService.authenticationInfo.user.userId;
