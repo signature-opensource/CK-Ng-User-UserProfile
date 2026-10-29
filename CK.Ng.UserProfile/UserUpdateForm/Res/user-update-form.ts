@@ -1,15 +1,14 @@
-import { Component, computed, inject, linkedSignal, Signal, viewChild } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, effect, inject, linkedSignal, untracked } from '@angular/core';
+import { required } from '@angular/forms/signals';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
     NotificationService,
     CrisError,
-    FormControlConfig,
     GenericForm,
-    IFormControlConfig,
+    genericForm,
     HttpCrisEndpoint,
     SetUserNameCommand,
+    textField,
     UpdateUserCommand,
     UserService
 } from '@local/ck-gen';
@@ -20,8 +19,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 @Component({
     selector: 'ck-user-update-form',
     imports: [
-        FormsModule,
-        ReactiveFormsModule,
         TranslateModule,
         FontAwesomeModule,
         NzButtonModule,
@@ -31,7 +28,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 })
 export class UserUpdateForm {
     // <PreViewChildren revert />
-    formComponent: Signal<GenericForm | undefined> = viewChild( 'formComp' );
     // <PostViewChildren />
 
     // <PreDependencyInjection revert />
@@ -50,97 +46,77 @@ export class UserUpdateForm {
     // <PostIconsDefinition />
 
     // <PreLocalVariables revert />
-    #currentLang = toSignal( this.#translateService.onLangChange );
     userProfile = linkedSignal( () => this.#userService.userProfile() );
-    formData = computed( () => {
-        const _lang = this.#currentLang(); // Track language changes to re-generate form labels.
-        if ( this.userProfile() ) {
-            return { formControls: this.#generateUserUpdateFormConfig() }
-        }
-
-        return undefined;
-    } );
-    form = computed( () => this.formComponent()?.form() );
+    /** The field defaults are the current profile values: {@link cancelModifications} and a new profile put them back. */
+    profileForm = genericForm( () => this.#fields() );
     // <PostLocalVariables />
 
+    constructor() {
+        // Only the profile is tracked: a language change must not reset the user's edits.
+        effect( () => {
+            this.userProfile();
+            untracked( () => this.profileForm.reset() );
+        } );
+    }
+
     async updateUserAsync(): Promise<void> {
-        if ( this.formComponent() && this.form() ) {
-            const form = this.form()!;
-            if ( form.invalid ) {
-                return Promise.reject();
-            }
-
-            try {
-                // <PreUpdateUserBatchCommand revert />
-                const batchCmd = new UpdateUserCommand();
-
-                // <PreSetUserNameCommandRegistering revert />
-                if (form.get('userName')!.value !== this.userProfile()!.userName) {
-                    const userNameCmd = new SetUserNameCommand();
-
-                    userNameCmd.actorId = this.userProfile()!.userId;
-
-                    userNameCmd.userId = this.userProfile()!.userId;
-                    userNameCmd.userName = form.get( 'userName' )!.value.trim();
-                    batchCmd.commands.push( { command: userNameCmd, description: 'Setting user\'s username.' } );
-                }
-                // <PostSetUserNameCommandRegistering />
-
-                const res = await this.#cris.sendOrThrowAsync( batchCmd );
-                // <PostUpdateUserBatchCommand />
-
-                if ( res?.success ) {
-                    await this.#userService.refreshUserProfileAsync();
-                    this.#notif.notifySimpleMessage( 'success', this.#translateService.instant( 'User.UserUpdated' ) );
-                } else {
-                    this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( 'User.UserUpdateFailed' ) );
-                    return Promise.reject();
-                }
-            } catch (e) {
-                if ( e instanceof CrisError && e.errorType === 'CommunicationError' ) {
-                    this.#notif.notifyGenericCommunicationError();
-                } else {
-                    this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( 'User.UserUpdateFailed' ) );
-                }
-                return Promise.reject();
-            }
-
-            this.cancelModifications();
+        if( !this.userProfile() || this.profileForm.form().invalid() ) {
+            return Promise.reject();
         }
 
-        return Promise.reject();
+        const value = this.profileForm.model();
+        try {
+            // <PreUpdateUserBatchCommand revert />
+            const batchCmd = new UpdateUserCommand();
+
+            // <PreSetUserNameCommandRegistering revert />
+            if( value.userName !== this.userProfile()!.userName ) {
+                const userNameCmd = new SetUserNameCommand();
+
+                userNameCmd.actorId = this.userProfile()!.userId;
+
+                userNameCmd.userId = this.userProfile()!.userId;
+                userNameCmd.userName = value.userName.trim();
+                batchCmd.commands.push( { command: userNameCmd, description: 'Setting user\'s username.' } );
+            }
+            // <PostSetUserNameCommandRegistering />
+
+            const res = await this.#cris.sendOrThrowAsync( batchCmd );
+            // <PostUpdateUserBatchCommand />
+
+            if ( res?.success ) {
+                await this.#userService.refreshUserProfileAsync();
+                this.#notif.notifySimpleMessage( 'success', this.#translateService.instant( 'User.UserUpdated' ) );
+            } else {
+                this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( 'User.UserUpdateFailed' ) );
+                return Promise.reject();
+            }
+        } catch (e) {
+            if ( e instanceof CrisError && e.errorType === 'CommunicationError' ) {
+                this.#notif.notifyGenericCommunicationError();
+            } else {
+                this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( 'User.UserUpdateFailed' ) );
+            }
+            return Promise.reject();
+        }
+
+        this.cancelModifications();
     }
 
     cancelModifications(): void {
-        if ( this.formComponent() && this.form() ) {
-          // <PreCancelModifications revert />
-            this.form()!.reset();
-            this.form()!.patchValue( {
-                // <PreUserNameReset revert />
-                userName: this.userProfile()!.userName,
-                // <PostUserNameReset />
-            } );
-          // <PostCancelModifications />
-        }
+        // <PreCancelModifications revert />
+        this.profileForm.reset();
     }
 
-    #generateUserUpdateFormConfig(): { [key: string]: IFormControlConfig<unknown, unknown> } {
-        if ( !this.userProfile() ) return {};
-
+    #fields() {
         // <PreUserIdentityFormControlDefinition revert />
 
         // <PreUserNameFormControlDefinition revert />
-        const userName = new FormControlConfig(
-            'text',
-            this.#translateService.instant( 'CK.UserProfile.UserName' ),
-            this.userProfile()!.userName,
-            {
-                placeholder: this.#translateService.instant( 'CK.UserProfile.UserNamePlaceholder' ),
-                validators: [Validators.required],
-                required: false,
-                errorMessages: { 'required': this.#translateService.instant( 'CK.UserProfile.Form.UserNameRequired' ) }
-            }
-        );
+        const userName = textField( 'CK.UserProfile.UserName', this.userProfile()?.userName ?? '', {
+            placeholder: 'CK.UserProfile.UserNamePlaceholder',
+            requiredMark: false,
+            rules: p => required( p, { message: 'CK.UserProfile.Form.UserNameRequired' } )
+        } );
         // <PostUserNameFormControlDefinition />
 
         // <PostUserIdentityFormControlDefinition />

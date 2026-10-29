@@ -1,29 +1,19 @@
 create <ts> transformer
 begin
-    ensure import { SetUserNamesCommand } from '@local/ck-gen';
+    ensure import { SetUserNamesCommand, textField } from '@local/ck-gen';
 
     inject """
 
            // <PreFirstNameFormControlDefinition revert />
-           const firstName = new FormControlConfig(
-               'text',
-               this.#translateService.instant( 'CK.UserProfile.FirstName' ),
-               this.userProfile()!.firstName,
-               {
-                 placeholder: this.#translateService.instant( 'CK.UserProfile.Form.FirstName.Placeholder' )
-               }
-           );
+           const firstName = textField( 'CK.UserProfile.FirstName', this.userProfile()?.firstName ?? '', {
+               placeholder: 'CK.UserProfile.Form.FirstName.Placeholder'
+           } );
            // <PostFirstNameFormControlDefinition />
 
            // <PreLastNameFormControlDefinition revert />
-           const lastName = new FormControlConfig(
-               'text',
-               this.#translateService.instant( 'CK.UserProfile.LastName' ),
-               this.userProfile()!.lastName,
-               {
-                 placeholder: this.#translateService.instant( 'CK.UserProfile.Form.LastName.Placeholder' )
-               }
-           );
+           const lastName = textField( 'CK.UserProfile.LastName', this.userProfile()?.lastName ?? '', {
+               placeholder: 'CK.UserProfile.Form.LastName.Placeholder'
+           } );
            // <PostLastNameFormControlDefinition />
 
            """ into <PostUserIdentityFormControlDefinition>;
@@ -38,25 +28,19 @@ begin
     inject """
 
            // <PreSetUserNamesCommandRegistering />
-           if( this.userProfile()!.firstName !== form.get( 'firstName' )!.value || this.userProfile()!.lastName !== form.get( 'lastName' )!.value ) {
-               const newFirstName = form.get( 'firstName' )!.value.trim();
+           if( this.userProfile()!.firstName !== value.firstName || this.userProfile()!.lastName !== value.lastName ) {
+               const newFirstName = value.firstName.trim();
                const currentFirstName = this.userProfile()!.firstName;
-               const newLastName = form.get( 'lastName' )!.value.trim();
+               const newLastName = value.lastName.trim();
                const currentLastName = this.userProfile()!.lastName;
                const setUserNamesCmd = new SetUserNamesCommand();
 
                setUserNamesCmd.userId = this.userProfile()!.userId;
-               setUserNamesCmd.firstName = newFirstName !== currentFirstName ? newFirstName : null;
-               setUserNamesCmd.lastName = newLastName !== currentLastName ? newLastName : null;
+               // An unchanged name is sent as null (C# string?), which the generated type declares as undefined.
+               setUserNamesCmd.firstName = ( newFirstName !== currentFirstName ? newFirstName : null ) as string | undefined;
+               setUserNamesCmd.lastName = ( newLastName !== currentLastName ? newLastName : null ) as string | undefined;
                batchCmd.commands.push( { command: setUserNamesCmd, description: 'Setting user\'s first name and last name.' } );
            }
            // <PostSetUserNamesCommandRegistering />
            """ into <PostSetUserNameCommandRegistering>;
-
-    inject """
-           // <PreNamedUserReset revert />
-           firstName: this.userProfile()!.firstName,
-           lastName: this.userProfile()!.lastName,
-           // <PostNamedUserReset />
-           """ into <PostUserNameReset>;
 end
