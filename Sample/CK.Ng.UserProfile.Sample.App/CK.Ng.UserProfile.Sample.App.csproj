@@ -8,25 +8,25 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.0.ci.9" />
-    <PackageReference Include="CK.Cris.AspNet" Version="3.0.0-0.cris-auth.0.ci.46" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.Cris.AspNet" Version="3.0.0-0.cris-auth" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth.0.ci.64" />
-    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.46" />
-    <PackageReference Include="CK.Cris.Workspace" Version="18.0.0-0.cris-auth.0.ci.11" />
+    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Local" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.Cris.Workspace" Version="18.0.0-0.cris-auth" />
       
-    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.cris-auth.0.ci.17" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth.0.ci.17" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.cris-auth" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth" />
     <!-- TODO: version of the CK-DB-User-UserBanned release carrying BannedActorValidator. -->
-    <PackageReference Include="CK.DB.User.UserBanned" Version="4.0.0-0.cris-auth.0.ci.13" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.0.ci.23" />
-    <PackageReference Include="CK.DB.User.UserPassword.Reset" Version="31.0.0-0.cris-auth.0.ci.23" />
-    <PackageReference Include="CK.DB.Workspace" Version="18.0.0-0.cris-auth.0.ci.11" />
+    <PackageReference Include="CK.DB.User.UserBanned" Version="4.0.0-0.cris-auth" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth" />
+    <PackageReference Include="CK.DB.User.UserPassword.Reset" Version="31.0.0-0.cris-auth" />
+    <PackageReference Include="CK.DB.Workspace" Version="18.0.0-0.cris-auth" />
       
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="3.0.0-0.cris-auth.0.ci.21" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.46" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth" />
       
-    <PackageReference Include="CK.SqlServer.Transaction" Version="14.0.2-0.cris-auth.0.ci.3" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.cris-auth" />
       
     <ProjectReference Include="..\..\CK.Ng.UserProfile.UserBanned\CK.Ng.UserProfile.UserBanned.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.Workspace\CK.Ng.UserProfile.Workspace.csproj" />
