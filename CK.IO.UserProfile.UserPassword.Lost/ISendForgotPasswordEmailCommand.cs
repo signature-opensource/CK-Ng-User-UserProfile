@@ -1,6 +1,6 @@
 using CK.Cris;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost;
+namespace CK.IO.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// Sends the "password lost" e-mail that carries the recovery token to be used

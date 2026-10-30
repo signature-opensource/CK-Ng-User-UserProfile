@@ -35,6 +35,8 @@
     <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword\CK.Ng.UserProfile.UserPassword.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword.Lost\CK.Ng.UserProfile.UserPassword.Lost.csproj" />
+    <!-- The server side of the lost password flow: this sample is its own authentication center. -->
+    <ProjectReference Include="..\..\CK.UserProfile.UserPassword.Lost\CK.UserProfile.UserPassword.Lost.csproj" />
     <ProjectReference Include="..\..\CK.Ng.UserProfile.UserPassword.Reset\CK.Ng.UserProfile.UserPassword.Reset.csproj" />
   </ItemGroup>
 </Project>

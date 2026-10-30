@@ -1,4 +1,5 @@
 using CK.Core;
+using CK.IO.UserProfile.UserPassword.Lost;
 using CK.Ng.Cris.AspNet.Authentication;
 using CK.Ng.Cris.AspNet.Authentication.Basic;
 using CK.TS.Angular;

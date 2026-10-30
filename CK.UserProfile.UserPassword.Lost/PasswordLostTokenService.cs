@@ -3,7 +3,7 @@ using CK.Core;
 using Microsoft.AspNetCore.DataProtection;
 using System.Globalization;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost;
+namespace CK.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// Issues and validates the self-signed recovery tokens of the lost password flow.
@@ -26,7 +26,7 @@ public class PasswordLostTokenService : ISingletonAutoService
     public static readonly TimeSpan FallbackLifetime = TimeSpan.FromHours( 2 );
 
     const string ConfigurationKey = "PasswordLostTokenLifetime";
-    const string ProtectorPurpose = "CK.Ng.UserProfile.UserPassword.Lost.PasswordLostToken";
+    const string ProtectorPurpose = "CK.UserProfile.UserPassword.Lost.PasswordLostToken";
 
     readonly ITimeLimitedDataProtector _protector;
 

@@ -3,7 +3,7 @@ using CK.Mail.SharedLayout;
 using CK.Mailer;
 using CK.Template.Fluid;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost.Mail;
+namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Default <see cref="IPasswordLostMailer"/>: renders the <c>PasswordLost</c> and

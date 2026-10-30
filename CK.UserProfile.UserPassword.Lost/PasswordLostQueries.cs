@@ -3,7 +3,7 @@ using CK.DB.Actor;
 using CK.SqlServer;
 using Dapper;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost;
+namespace CK.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// The single read the lost password flow needs: resolving an e-mail address to the user it

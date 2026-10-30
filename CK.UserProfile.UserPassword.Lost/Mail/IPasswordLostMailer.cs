@@ -1,6 +1,6 @@
 using CK.Core;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost.Mail;
+namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Sends the lost password e-mails. The default implementation renders the Fluid templates

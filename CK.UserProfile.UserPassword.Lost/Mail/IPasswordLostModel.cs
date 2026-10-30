@@ -1,7 +1,7 @@
 using CK.Core;
 using CK.Template.Fluid;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost.Mail;
+namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Model of the <c>PasswordLost</c> templates: the recovery link is built as

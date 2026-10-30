@@ -1,7 +1,7 @@
 using CK.Core;
 using CK.Template.Fluid;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost.Mail;
+namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Model of the <c>PasswordSetConfirmation</c> templates, sent once the password has

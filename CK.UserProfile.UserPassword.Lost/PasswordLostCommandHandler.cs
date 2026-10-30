@@ -1,10 +1,11 @@
 using CK.Core;
 using CK.Cris;
+using CK.IO.UserProfile.UserPassword.Lost;
 using CK.IO.User.UserPassword;
-using CK.Ng.UserProfile.UserPassword.Lost.Mail;
+using CK.UserProfile.UserPassword.Lost.Mail;
 using CK.SqlServer;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost;
+namespace CK.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// Handles the two anonymous commands of the lost password flow.

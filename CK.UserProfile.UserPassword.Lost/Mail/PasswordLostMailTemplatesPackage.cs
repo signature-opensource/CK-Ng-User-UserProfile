@@ -1,6 +1,6 @@
 using CK.Template.Fluid;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost.Mail;
+namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Registers the <c>Res/Templates/*.liquid</c> resources of this package.

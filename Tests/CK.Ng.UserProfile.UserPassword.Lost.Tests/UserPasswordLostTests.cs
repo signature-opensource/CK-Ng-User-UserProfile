@@ -5,6 +5,7 @@ using CK.Cris.AspNet;
 using CK.DB.Actor.ActorEMail;
 using CK.DB.User.UserPassword;
 using CK.IO.Actor;
+using CK.IO.UserProfile.UserPassword.Lost;
 using CK.Ng.UserProfile.UserPassword.Lost.Tests.MyLayout;
 using CK.SqlServer;
 using CK.Testing;
@@ -49,7 +50,9 @@ public class UserPasswordLostTests
                                                           "CK.Mailer.MailKit",
                                                           "CK.Ng.UserProfile",
                                                           "CK.Ng.UserProfile.UserPassword",
-                                                          "CK.Ng.UserProfile.UserPassword.Lost" ] );
+                                                          "CK.Ng.UserProfile.UserPassword.Lost",
+                                                          // The server side (the handler, the token, the mails).
+                                                          "CK.UserProfile.UserPassword.Lost" ] );
 
         var tsConfig = configuration.FirstBinPath.EnsureTypeScriptConfigurationAspect( targetProjectPath,
                                                                                        typeof( IGetUserProfileQCommand ),

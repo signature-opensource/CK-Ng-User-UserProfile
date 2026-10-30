@@ -1,6 +1,6 @@
 using CK.Core;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost;
+namespace CK.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// Registers the <c>Res/locales</c> translation sets of this package: the back-end answers of the

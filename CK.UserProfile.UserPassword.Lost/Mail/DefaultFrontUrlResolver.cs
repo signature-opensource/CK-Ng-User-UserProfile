@@ -1,6 +1,6 @@
 using CK.AppIdentity;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost.Mail;
+namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Default <see cref="IFrontUrlResolver"/>: reads <c>CK-AppIdentity:Local:FrontUrl</c>

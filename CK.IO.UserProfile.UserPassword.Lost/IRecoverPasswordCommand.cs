@@ -1,6 +1,6 @@
 using CK.Cris;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost;
+namespace CK.IO.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// Recovers a lost password: sets a new password for the user identified by a

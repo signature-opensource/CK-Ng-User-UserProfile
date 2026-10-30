@@ -1,6 +1,6 @@
 using CK.Core;
 
-namespace CK.Ng.UserProfile.UserPassword.Lost.Mail;
+namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Resolves the root URL of the front-end used to build the links sent by e-mail.
