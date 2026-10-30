@@ -1,0 +1,7 @@
+{
+    "CK.UserProfile.SignInMethods.Title": "Vos méthodes de connexion",
+    "CK.UserProfile.SignInMethods.LastUsed": "dernière utilisation :",
+    "CK.UserProfile.SignInMethods.NeverUsed": "jamais",
+    "CK.UserProfile.SignInMethods.Scheme.Basic": "Mot de passe",
+    "CK.UserProfile.SignInMethods.Scheme.Passkey": "Clé d'accès"
+}

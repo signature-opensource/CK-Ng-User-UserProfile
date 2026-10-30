@@ -6,7 +6,9 @@
     "CK.UserProfile.Form.RepeatPasswordRequired": "Veuillez confirmer votre mot de passe.",
     "CK.UserProfile.Password": "Mot de passe",
     "CK.UserProfile.Password.InputPlaceholder": "Renseignez votre de mot de passe",
-    "CK.UserProfile.RecentLoginRequired": "Changer votre mot de passe nécessite une connexion récente : déconnectez-vous puis reconnectez-vous.",
+    "CK.UserProfile.PasswordAdded": "Le mot de passe a été ajouté.",
+    "CK.UserProfile.PasswordNotAdded": "Le mot de passe n'a pas été ajouté.",
+    "CK.UserProfile.RecentLoginRequired": "Cette opération nécessite une connexion récente : reconnectez-vous.",
     "CK.UserProfile.RepeatPassword": "Confirmation du mot de passe",
     "CK.UserProfile.RepeatPassword.InputPlaceholder": "Confirmez votre mot de passe"
 }

@@ -26,6 +26,14 @@
         </nz-tab>
         <!-- <PostUserProfileGeneralInfosTab /> -->
 
+        <!-- <PreUserProfileSignInMethodsTab revert /> -->
+        <nz-tab [nzTitle]="'CK.UserProfile.SignInMethods' | translate">
+            <ng-template nz-tab>
+                <ck-sign-in-methods />
+            </ng-template>
+        </nz-tab>
+        <!-- <PostUserProfileSignInMethodsTab /> -->
+
         <!-- <PostUserProfileTabsRegistration /> -->
     </nz-tabset>
 </div>

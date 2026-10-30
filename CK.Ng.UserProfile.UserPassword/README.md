@@ -1,23 +1,25 @@
 # CK.Ng.UserProfile.UserPassword
 
-Angular CKomposable package that adds the "Security" tab to the `/profile` page brought by
-[CK.Ng.UserProfile](../CK.Ng.UserProfile/README.md), where an authenticated user changes its own
-password.
+Angular CKomposable package that adds the password section to the "Sign-in methods" tab of the
+`/profile` page brought by [CK.Ng.UserProfile](../CK.Ng.UserProfile/README.md): an authenticated user
+changes its password, adds one when it has none (a user created by a remote login, a passkey-only
+user: a new sign-in method), or removes it (it migrates to another method; its last one is never
+removed). The three require a recent login (the Critical level) and are refused while impersonating.
 
 ## What it brings.
 
 | | |
 |---|---|
-| Components | [`ChangePasswordFormComponent`](ChangePassword/ChangePasswordFormComponent.cs), [`PasswordStrengthComponent`](PasswordStrength/PasswordStrengthComponent.cs) |
+| Components | [`PasswordSectionComponent`](PasswordSection/PasswordSectionComponent.cs) (the section), [`ChangePasswordFormComponent`](ChangePassword/ChangePasswordFormComponent.cs) (its `mode` input: "change" or "add"), [`PasswordStrengthComponent`](PasswordStrength/PasswordStrengthComponent.cs) |
 | Validators | [`password-validators.ts`](Res/password-validators.ts) - `PASSWORD_MIN_LENGTH`, `PASSWORD_CRITERIA`, `PasswordCriterion`, `passwordComplexityValidator`, `passwordsMatchValidator` |
-| Command | `ISetPasswordCommand` |
-| Transformer | [`user-profile-page.t`](Res/user-profile-page.t) injects the tab at `PostUserProfileGeneralInfosTab` |
-| Translations | `CK.UserProfile.Security` and the `CK.UserProfile.PasswordStrength.Criterion.*` keys |
+| Commands | `ISetPasswordCommand`, `IAddPasswordCommand`, `IRemovePasswordCommand` |
+| Transformer | [`sign-in-methods.t`](Res/sign-in-methods.t) injects the section at `PostSignInMethodsSections` |
+| Translations | the `CK.UserProfile.PasswordSection.*` and the `CK.UserProfile.PasswordStrength.Criterion.*` keys |
 
 ## Requires.
 
 - [`UserProfilePackage`](../CK.Ng.UserProfile/README.md)
-- `CK.IO.User.UserPassword` for `ISetPasswordCommand`
+- `CK.IO.User.UserPassword` for the commands
 
 ## The criteria table is the rule.
 

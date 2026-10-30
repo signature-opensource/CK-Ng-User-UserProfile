@@ -1,0 +1,16 @@
+<div class="ck-sign-in-methods">
+    <!-- <PreSignInMethodsList revert /> -->
+    <nz-list class="ck-sign-in-methods-list" nzSize="small" [nzHeader]="'CK.UserProfile.SignInMethods.Title' | translate">
+        @for( m of methods(); track m.scheme ) {
+            <nz-list-item>
+                <span class="ck-sign-in-method-name">{{ m.name }}</span>
+                <span class="ck-sign-in-method-last-used">{{ 'CK.UserProfile.SignInMethods.LastUsed' | translate }} {{ m.lastUsed }}</span>
+            </nz-list-item>
+        }
+    </nz-list>
+    <!-- <PostSignInMethodsList /> -->
+
+    <!-- <PreSignInMethodsSections revert /> -->
+
+    <!-- <PostSignInMethodsSections /> -->
+</div>

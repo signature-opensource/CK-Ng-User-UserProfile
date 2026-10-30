@@ -1,7 +1,8 @@
 # CK.Ng.UserProfile
 
 Angular CKomposable package that brings the `/profile` page. At this level, the page displays the user
-name and lets the user change it.
+name and lets the user change it, and its "Sign-in methods" tab lists the user's sign-in methods with
+their last use.
 
 Everything else - names, preferred culture, workspace, password - is added by a satellite package that
 transforms the files below. This package owns the anchors; it does not know its satellites.
@@ -11,7 +12,7 @@ transforms the files below. This package owns the anchors; it does not know its 
 | | |
 |---|---|
 | Route | `/profile`, as a child of `INgPrivatePageComponent` - see [`UserProfilePageComponent`](UserProfile/UserProfilePageComponent.cs) |
-| Components | [`UserProfilePageComponent`](UserProfile/UserProfilePageComponent.cs), [`UserUpdateFormComponent`](UserUpdateForm/UserUpdateFormComponent.cs) (built on `Zorro.GenericFormComponent`) |
+| Components | [`UserProfilePageComponent`](UserProfile/UserProfilePageComponent.cs), [`UserUpdateFormComponent`](UserUpdateForm/UserUpdateFormComponent.cs) (built on `Zorro.GenericFormComponent`), [`SignInMethodsComponent`](SignInMethods/SignInMethodsComponent.cs) (the "Sign-in methods" tab) |
 | Service | [`user-service.ts`](Res/user-service.ts) - exposes the `userProfile()` signal; registered through `provideAppInitializer` so it loads once at startup |
 | Commands | `IUpdateUserCommand`, `ISetUserNameCommand`, `IGetUserProfileQCommand` |
 | Translations | [`ts-locales/default.jsonc`](UserProfile/Res/ts-locales/default.jsonc) and `fr.jsonc`, under the `CK.UserProfile.*` key prefix |
@@ -26,6 +27,18 @@ used when the application provides one, and the page works without it.
 - [`UserProfilePackage`](UserProfilePackage.cs) also declares
   `[Requires<LocalizationPackage, NgCrisAuthenticationPackage>]`: the localization package is a composition
   requirement, satisfied transitively rather than by a reference of its own.
+
+## The "Sign-in methods" tab.
+
+[`SignInMethodsComponent`](SignInMethods/SignInMethodsComponent.cs) (`ck-sign-in-methods`) is never
+empty: it lists the schemes of the user's authentication (`authenticationInfo().unsafeActor.schemes`,
+known by the browser: the ones of the last sign-in or refresh) with their last use, the last used first.
+A scheme is displayed by its `CK.UserProfile.SignInMethods.Scheme.<scheme>` translation when there is
+one, the suffix of a remote scheme ("Google" for "Oidc.Google") otherwise.
+
+The satellite packages inject their sections (the password, the passkeys, the OpenID Connect
+identities...) at its `SignInMethodsSections` anchor, and add their component to its imports. A section
+manages its own state: it reads it from the server, and updates it after its commands.
 
 ## The form sends one batch command.
 
@@ -42,7 +55,9 @@ satellite.
 
 | File | Anchors |
 |------|---------|
-| [`user-profile-page.html`](UserProfile/Res/user-profile-page.html) | `ProfilePropsRegistration`, `UserProfileTabsRegistration`, `UserProfileGeneralInfosTab` |
+| [`user-profile-page.html`](UserProfile/Res/user-profile-page.html) | `ProfilePropsRegistration`, `UserProfileTabsRegistration`, `UserProfileGeneralInfosTab`, `UserProfileSignInMethodsTab` |
+| [`sign-in-methods.html`](SignInMethods/Res/sign-in-methods.html) | `SignInMethodsList`, `SignInMethodsSections` |
+| [`sign-in-methods.ts`](SignInMethods/Res/sign-in-methods.ts) | `DependencyInjection`, `LocalVariables`; a section's component is added to the imports with `insert "<Component>, " after single "imports: [";` |
 | [`user-profile-page.ts`](UserProfile/Res/user-profile-page.ts) | `DependencyInjection`, `LocalVariables`, `AvatarFallbackComputing`, plus the single points `AvatarImgSrcComputing`, `ComputeAvatarSize`, `PublicMethods` and the wrapped region `PrivateMethods` |
 | [`user-update-form.ts`](UserUpdateForm/Res/user-update-form.ts) | `ViewChildren`, `DependencyInjection`, `InputOutput`, `IconsDefinition`, `LocalVariables`, `UpdateUserBatchCommand`, `SetUserNameCommandRegistering`, `CancelModifications`, `UserNameReset`, `UserIdentityFormControlDefinition`, `UserPreferencesFormControlDefinition`, `UserNameFormControlDefinition`, and their `...Registration` counterparts |
 | [`user-service.ts`](Res/user-service.ts) | `DependencyInjection`, `LocalVariables`, `UserProfileRefresh` |

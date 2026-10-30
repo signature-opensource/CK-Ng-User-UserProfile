@@ -1,0 +1,13 @@
+{
+    "CK.UserProfile.PasswordSection.Title": "Password",
+    "CK.UserProfile.PasswordSection.Change": "Change your password",
+    "CK.UserProfile.PasswordSection.Add": "Add a password",
+    "CK.UserProfile.PasswordSection.SignInName": "You will sign in with your user name: {{name}}.",
+    "CK.UserProfile.PasswordSection.Remove": "Remove my password",
+    "CK.UserProfile.PasswordSection.RemoveConfirm": "Remove your password? You will sign in with your other methods.",
+    "CK.UserProfile.PasswordSection.Impersonated": "The password cannot be changed while impersonating.",
+    "CK.UserProfile.PasswordSection.LogInAgain": "Sign in again",
+    "CK.UserProfile.PasswordSection.NotAvailable": "This requires a recent login with a method that allows it.",
+    "CK.UserProfile.PasswordRemoved": "The password has been removed.",
+    "CK.UserProfile.PasswordNotRemoved": "The password has not been removed."
+}

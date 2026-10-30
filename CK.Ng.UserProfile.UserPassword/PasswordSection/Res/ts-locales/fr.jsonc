@@ -1,0 +1,13 @@
+{
+    "CK.UserProfile.PasswordSection.Title": "Mot de passe",
+    "CK.UserProfile.PasswordSection.Change": "Changer votre mot de passe",
+    "CK.UserProfile.PasswordSection.Add": "Ajouter un mot de passe",
+    "CK.UserProfile.PasswordSection.SignInName": "Vous vous connecterez avec votre nom d'utilisateur : {{name}}.",
+    "CK.UserProfile.PasswordSection.Remove": "Supprimer mon mot de passe",
+    "CK.UserProfile.PasswordSection.RemoveConfirm": "Supprimer votre mot de passe ? Vous vous connecterez avec vos autres méthodes.",
+    "CK.UserProfile.PasswordSection.Impersonated": "Le mot de passe ne peut pas être changé pendant une usurpation d'identité.",
+    "CK.UserProfile.PasswordSection.LogInAgain": "Se reconnecter",
+    "CK.UserProfile.PasswordSection.NotAvailable": "Cette opération nécessite une connexion récente avec une méthode qui le permet.",
+    "CK.UserProfile.PasswordRemoved": "Le mot de passe a été supprimé.",
+    "CK.UserProfile.PasswordNotRemoved": "Le mot de passe n'a pas été supprimé."
+}
