@@ -4,7 +4,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Description>Banishment flow on the client side: a banished user is logged out and sent back to the authentication page, the instant the ban is pushed on the actor channel, on the next reconnection when it was unreachable, or on the next navigation.</Description>
+        <Description>Banishment flow on the client side: a banished user is logged out and sent back to the authentication page on its next navigation.</Description>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,8 +14,6 @@
     <ItemGroup>
         <!-- TODO: version of the CK-DB-User-UserBanned release carrying IUserProfile.IsBanned. -->
         <PackageReference Include="CK.IO.User.UserBanned" Version="4.0.0-0.cris-auth.0.ci.10" />
-        <!-- TODO: version of the CK-AspNet-ActorChannel release carrying CK.Ng.AspNet.ActorChannel. -->
-        <PackageReference Include="CK.Ng.AspNet.ActorChannel" Version="3.0.0-0.cris-auth.0.ci.12" />
     </ItemGroup>
 
 </Project>

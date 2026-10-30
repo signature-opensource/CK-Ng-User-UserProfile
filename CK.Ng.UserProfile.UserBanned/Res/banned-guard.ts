@@ -7,9 +7,9 @@ import { BannedSession, UserService } from '@local/ck-gen';
 /**
  * Forbids every private page to a banished user and logs it out.
  *
- * This is the slowest of the three detections and the one that survives everything else: it needs no
- * socket, no push and no server round trip. Its case is the hard load - a reload or a typed URL -
- * where the profile is read again on the way in and comes back with the banishment already set.
+ * It needs no server round trip of its own: its case is the navigation, notably the hard load - a reload
+ * or a typed URL - where the profile is read again on the way in and comes back with the banishment
+ * already set.
  *
  * Registered by AppRoutes.t as a `canActivate` of the private page, which also carries
  * `runGuardsAndResolvers: 'always'` so that it runs on every navigation of the subtree, including a

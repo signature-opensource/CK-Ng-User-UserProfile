@@ -8,11 +8,9 @@ namespace CK.Ng.UserProfile.UserBanned;
 /// Brings the banishment flow to the client: as soon as a user is banished it is logged out and sent
 /// back to the authentication page, where the login is already refused by <c>CK.sAuthUserOnLogin</c>.
 /// <para>
-/// Three independent paths lead there, by decreasing speed: the push on the actor channel (the user
-/// is ejected the instant an administrator confirms the ban), the rejection of the channel
-/// registration (the case of a user that was unreachable and comes back), and the navigation guard
-/// (a hard reload or a typed URL). None of them is a security mechanism: what actually makes a
-/// banishment effective is the server refusing the commands of a banished actor.
+/// The navigation guard detects it (a navigation, a hard reload or a typed URL). This is not a security
+/// mechanism: what actually makes a banishment effective is the server refusing the commands of a
+/// banished actor and the refresh of its session.
 /// </para>
 /// <para>
 /// Same shape as <c>CK.Ng.UserProfile.UserPassword.Reset</c>: a flag on the user profile, a
@@ -20,16 +18,11 @@ namespace CK.Ng.UserProfile.UserBanned;
 /// </para>
 /// </summary>
 [TypeScriptPackage]
-[Requires<UserProfilePackage, CK.Ng.AspNet.ActorChannel.NgActorChannelPackage>]
+[Requires<UserProfilePackage>]
 // Navigation guard of the banishment flow, registered on the private page by AppRoutes.t.
 [TypeScriptFile( "banned-guard.ts", "bannedGuard" )]
-// Registers on the actor channel and owns the single logout path shared by all three detections.
+// Owns the single logout path.
 [TypeScriptFile( "banned-session.ts", "BannedSession" )]
-[NgProviderImport( "BannedSession" )]
-[NgProviderImport( "provideAppInitializer", From = "@angular/core" )]
-// Forced at startup: the channel must be listening before the user does anything, and nothing else
-// injects BannedSession until a navigation happens.
-[NgProvider( "provideAppInitializer( () => { inject( BannedSession ); } )" )]
 public class UserProfileUserBannedPackage : TypeScriptPackage
 {
 }
