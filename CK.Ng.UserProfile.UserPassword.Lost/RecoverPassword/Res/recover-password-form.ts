@@ -1,13 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { Component, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
+import { FormField, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,15 +7,18 @@ import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
 import {
+  CustomFieldContext,
+  customField,
+  GenericForm,
+  genericForm,
   HttpCrisEndpoint,
   NotificationService,
+  passwordComplexity,
+  passwordsMatch,
   PasswordStrength,
-  passwordComplexityValidator,
-  passwordsMatchValidator,
   RecoverPasswordCommand
 } from '@local/ck-gen';
 import { LocaleService } from '@local/ck-gen/ts-locales/locales';
@@ -32,21 +27,18 @@ import { LocaleService } from '@local/ck-gen/ts-locales/locales';
   selector: 'ck-recover-password-form',
   templateUrl: './recover-password-form.html',
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    FormField,
     TranslateModule,
     FontAwesomeModule,
     NzAlertModule,
     NzButtonModule,
-    NzFormModule,
     NzInputModule,
+    GenericForm,
     PasswordStrength
   ]
 } )
 export class RecoverPasswordForm implements OnInit {
   readonly #crisEndpoint = inject( HttpCrisEndpoint );
-  readonly #formBuilder = inject( FormBuilder );
   readonly #notifService = inject( NotificationService );
   readonly #route = inject( ActivatedRoute );
   readonly #router = inject( Router );
@@ -62,16 +54,26 @@ export class RecoverPasswordForm implements OnInit {
   protected readonly showPassword = signal( false );
   protected readonly showConfirmPassword = signal( false );
 
-  protected readonly form: FormGroup = this.#formBuilder.group(
-    {
-      password: new FormControl<string>( '', {
-        nonNullable: true,
-        validators: [Validators.required, passwordComplexityValidator]
-      } ),
-      confirmPassword: new FormControl<string>( '', { nonNullable: true, validators: [Validators.required] } )
-    },
-    { validators: [passwordsMatchValidator( 'password', 'confirmPassword' )] }
-  );
+  protected readonly passwordTemplate = viewChild<TemplateRef<CustomFieldContext<string>>>( 'passwordTemplate' );
+  protected readonly passwordError = viewChild<TemplateRef<CustomFieldContext<string>>>( 'passwordError' );
+  protected readonly confirmTemplate = viewChild<TemplateRef<CustomFieldContext<string>>>( 'confirmTemplate' );
+  protected readonly confirmError = viewChild<TemplateRef<CustomFieldContext<string>>>( 'confirmError' );
+
+  protected readonly form = genericForm( () => ( {
+    password: customField( 'CK.Auth.RecoverPassword.Password.Placeholder', '', {
+      template: this.passwordTemplate()!,
+      errorTemplate: this.passwordError(),
+      rules: p => {
+        required( p, { message: 'CK.Auth.RecoverPassword.Password.Required' } );
+        passwordComplexity( p );
+      }
+    } ),
+    confirmPassword: customField( 'CK.Auth.RecoverPassword.ConfirmPassword.Placeholder', '', {
+      template: this.confirmTemplate()!,
+      errorTemplate: this.confirmError(),
+      rules: p => required( p, { message: 'CK.Auth.RecoverPassword.ConfirmPassword.Required' } )
+    } )
+  } ), { rules: p => passwordsMatch( p.password, p.confirmPassword, { message: 'CK.Auth.RecoverPassword.ConfirmPassword.Mismatch' } ) } );
 
   #token = '';
 
@@ -83,16 +85,15 @@ export class RecoverPasswordForm implements OnInit {
   }
 
   async submit(): Promise<void> {
-    if ( !this.form.valid || this.submitting() ) return;
+    if ( !this.form.form().valid() || this.submitting() ) return;
     this.submitting.set( true );
 
-    const raw = this.form.getRawValue();
     try {
       // Anonymous page as well: carry the culture the site displays so the answer and the
       // confirmation e-mail are not in the server default culture. Note that this makes Cris
       // re-dispatch the command to the CrisBackgroundExecutor, which is why its handler uses
       // RawCrisExecutor rather than ICrisCommandContext.
-      const cmd = new RecoverPasswordCommand( this.#token, raw.password );
+      const cmd = new RecoverPasswordCommand( this.#token, this.form.model().password );
       cmd.currentCultureName = this.#localeService.currentLocale();
       const res = await this.#crisEndpoint.sendOrThrowAsync( cmd );
       res?.userMessages.forEach( m => this.#notifService.notifyUserMessage( m ) );

@@ -16,6 +16,7 @@ namespace CK.Ng.UserProfile.UserPassword.Lost;
 /// </summary>
 [NgRoutedComponent<AuthenticationPageComponent>( Route = "password-lost", RegistrationMode = RouteRegistrationMode.Lazy )]
 [Requires<BasicLoginFormComponent>]
+[Requires<Zorro.GenericFormComponent>]
 [Package<UserProfilePasswordLostPackage>]
 [RegisterTypeScriptType( typeof( ISendForgotPasswordEmailCommand ) )]
 public sealed class PasswordLostFormComponent : NgRoutedComponent
