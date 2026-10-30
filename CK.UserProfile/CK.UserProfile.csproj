@@ -6,9 +6,9 @@
     <Description>Server side of the user profile: the handler of IUpdateUserCommand (the batch of the profile's update form). Runs where the database is (the authentication center).</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.Actor" Version="31.0.0-0.cris-auth" />
+    <PackageReference Include="CK.DB.Actor" Version="31.0.0-0.cris-auth.0.ci.30" />
     <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.cris-auth" />
-    <PackageReference Include="CK.Cris.Executor" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.Cris.Executor" Version="3.0.0-0.cris-auth.0.ci.73" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.IO.UserProfile\CK.IO.UserProfile.csproj" />
