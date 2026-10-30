@@ -1,0 +1,61 @@
+<section class="ck-sign-in-methods-section ck-oidc-identities">
+    <h3>{{ 'CK.UserProfile.Oidc.Title' | translate }}</h3>
+    <!-- <PreOidcIdentityList revert /> -->
+    <nz-list nzSize="small" [nzLoading]="loading()">
+        @for( i of identities(); track i.schemeSuffix ) {
+            <nz-list-item class="ck-oidc-identity">
+                <img class="ck-oidc-provider-logo" [src]="providerLogoSrc( i.provider )" alt="" />
+                <div class="ck-oidc-identity-info">
+                    <span class="ck-oidc-provider">{{ i.provider }}</span>
+                    @if( i.account ) { <span class="ck-oidc-account">{{ i.account }}</span> }
+                    <span class="ck-oidc-last-login">{{ 'CK.UserProfile.Oidc.LastLogin' | translate }} {{ i.lastLogin }}</span>
+                    @if( expanded() === i.schemeSuffix ) {
+                        <dl class="ck-oidc-claims">
+                            @for( c of i.claims; track c.name ) {
+                                <dt>{{ c.name }}</dt><dd>{{ c.value }}</dd>
+                            } @empty {
+                                <dd>{{ 'CK.UserProfile.Oidc.NoClaims' | translate }}</dd>
+                            }
+                        </dl>
+                    }
+                </div>
+                <button nz-button nzType="link" class="ck-oidc-claims-toggle" (click)="toggleClaims( i )">
+                    {{ ( expanded() === i.schemeSuffix ? 'CK.UserProfile.Oidc.HideClaims' : 'CK.UserProfile.Oidc.ShowClaims' ) | translate }}
+                </button>
+                @if( !isImpersonated() ) {
+                    <button nz-button nzType="link" nzDanger class="ck-oidc-unlink" [disabled]="!isCritical() || busy()"
+                            nz-popconfirm [nzPopconfirmTitle]="'CK.UserProfile.Oidc.UnlinkConfirm' | translate: { provider: i.provider }"
+                            (nzOnConfirm)="unlinkAsync( i )">
+                        {{ 'CK.UserProfile.Oidc.Unlink' | translate }}
+                    </button>
+                }
+            </nz-list-item>
+        } @empty {
+            <nz-list-item class="ck-oidc-empty">{{ 'CK.UserProfile.Oidc.Empty' | translate }}</nz-list-item>
+        }
+    </nz-list>
+    <!-- <PostOidcIdentityList /> -->
+    @if( !isImpersonated() ) {
+        @if( !isCritical() && ( identities().length > 0 || linkable().length > 0 ) ) {
+            <p class="ck-oidc-hint">
+                @if( canReachCritical() ) {
+                    {{ 'CK.UserProfile.Oidc.RecentLoginRequired' | translate }}
+                    <a class="ck-oidc-login" (click)="logInAgain()">{{ 'CK.UserProfile.Oidc.LogInAgain' | translate }}</a>
+                }
+            </p>
+        }
+        <!-- <PreOidcLink revert /> -->
+        @if( linkable().length > 0 ) {
+            <div class="ck-oidc-link">
+                <span>{{ 'CK.UserProfile.Oidc.LinkAnother' | translate }}</span>
+                @for( s of linkable(); track s ) {
+                    <button nz-button nzType="default" class="ck-oidc-link-button" [disabled]="!isCritical()" (click)="linkAsync( s )">
+                        <img class="ck-oidc-provider-logo" [src]="providerLogoSrc( providerName( s ) )" alt="" />
+                        {{ providerName( s ) }}
+                    </button>
+                }
+            </div>
+        }
+        <!-- <PostOidcLink /> -->
+    }
+</section>

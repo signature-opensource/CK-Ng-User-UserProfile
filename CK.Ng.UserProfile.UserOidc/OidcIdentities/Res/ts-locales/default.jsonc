@@ -1,0 +1,21 @@
+{
+    "CK.UserProfile.Oidc.Title": "Linked accounts",
+    "CK.UserProfile.Oidc.Empty": "No linked account",
+    "CK.UserProfile.Oidc.LastLogin": "Last sign-in:",
+    "CK.UserProfile.Oidc.Never": "never",
+    "CK.UserProfile.Oidc.ShowClaims": "What the provider shared",
+    "CK.UserProfile.Oidc.HideClaims": "Hide",
+    "CK.UserProfile.Oidc.NoClaims": "Nothing is known.",
+    "CK.UserProfile.Oidc.Unlink": "Unlink",
+    "CK.UserProfile.Oidc.UnlinkConfirm": "Unlink your {{provider}} account? It will no longer sign you in.",
+    "CK.UserProfile.Oidc.Unlinked": "The account has been unlinked.",
+    "CK.UserProfile.Oidc.Failed": "The operation failed.",
+    "CK.UserProfile.Oidc.RecentLoginRequired": "Linking or unlinking an account requires a recent login.",
+    "CK.UserProfile.Oidc.LogInAgain": "Sign in again",
+    "CK.UserProfile.Oidc.LinkAnother": "Link an account:",
+    "CK.UserProfile.Oidc.Linked": "Your {{provider}} account is linked: you can sign in with it.",
+    "CK.UserProfile.Oidc.LinkFailed": "The account has not been linked.",
+    "CK.UserProfile.Oidc.Error.Authentication.IdentityBoundToAnotherUser": "This account is already used by another user.",
+    "CK.UserProfile.Oidc.Error.Authentication.BindingSessionEnded": "Your session has ended: sign in again.",
+    "CK.UserProfile.Oidc.Error.Authentication.PopupBlocked": "The popup has been blocked by the browser."
+}

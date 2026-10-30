@@ -1,0 +1,21 @@
+{
+    "CK.UserProfile.Oidc.Title": "Comptes liés",
+    "CK.UserProfile.Oidc.Empty": "Aucun compte lié",
+    "CK.UserProfile.Oidc.LastLogin": "Dernière connexion :",
+    "CK.UserProfile.Oidc.Never": "jamais",
+    "CK.UserProfile.Oidc.ShowClaims": "Ce que le fournisseur a partagé",
+    "CK.UserProfile.Oidc.HideClaims": "Masquer",
+    "CK.UserProfile.Oidc.NoClaims": "Rien n'est connu.",
+    "CK.UserProfile.Oidc.Unlink": "Délier",
+    "CK.UserProfile.Oidc.UnlinkConfirm": "Délier votre compte {{provider}} ? Il ne vous permettra plus de vous connecter.",
+    "CK.UserProfile.Oidc.Unlinked": "Le compte a été délié.",
+    "CK.UserProfile.Oidc.Failed": "L'opération a échoué.",
+    "CK.UserProfile.Oidc.RecentLoginRequired": "Lier ou délier un compte nécessite une connexion récente.",
+    "CK.UserProfile.Oidc.LogInAgain": "Se reconnecter",
+    "CK.UserProfile.Oidc.LinkAnother": "Lier un compte :",
+    "CK.UserProfile.Oidc.Linked": "Votre compte {{provider}} est lié : vous pouvez vous connecter avec.",
+    "CK.UserProfile.Oidc.LinkFailed": "Le compte n'a pas été lié.",
+    "CK.UserProfile.Oidc.Error.Authentication.IdentityBoundToAnotherUser": "Ce compte est déjà utilisé par un autre utilisateur.",
+    "CK.UserProfile.Oidc.Error.Authentication.BindingSessionEnded": "Votre session est terminée : reconnectez-vous.",
+    "CK.UserProfile.Oidc.Error.Authentication.PopupBlocked": "La fenêtre a été bloquée par le navigateur."
+}

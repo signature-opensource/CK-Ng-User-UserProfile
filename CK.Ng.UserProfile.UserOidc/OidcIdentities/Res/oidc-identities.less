@@ -1,0 +1,46 @@
+.ck-oidc-identities {
+    .ck-oidc-provider-logo {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    .ck-oidc-identity-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .ck-oidc-provider {
+        font-weight: 500;
+    }
+
+    .ck-oidc-last-login,
+    .ck-oidc-hint {
+        opacity: 0.65;
+    }
+
+    .ck-oidc-claims {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 2px 12px;
+        margin: 8px 0 0 0;
+        word-break: break-all;
+
+        dt {
+            font-weight: 500;
+        }
+
+        dd {
+            margin: 0;
+        }
+    }
+
+    .ck-oidc-link {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+    }
+}
