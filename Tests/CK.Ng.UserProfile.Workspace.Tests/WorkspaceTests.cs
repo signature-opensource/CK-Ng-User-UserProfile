@@ -33,6 +33,8 @@ public class WorkspaceTests
                 "CK.DB.User.UserPassword",
                 "CK.DB.Workspace",
                 "CK.Ng.UserProfile",
+                // The IUpdateUserCommand handler.
+                "CK.UserProfile",
                 "CK.Ng.UserProfile.Workspace",
                 "CK.SqlServer.Transaction"
             ] );

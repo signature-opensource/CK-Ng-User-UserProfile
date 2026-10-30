@@ -9,4 +9,8 @@
     <PackageReference Include="CK.Ng.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.44" />
     <PackageReference Include="CK.Ng.Zorro.Basic" Version="3.0.0-0.cris-auth.0.ci.19" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- The commands of the profile (IUpdateUserCommand), handled where the database is (CK.UserProfile). -->
+    <ProjectReference Include="..\CK.IO.UserProfile\CK.IO.UserProfile.csproj" />
+  </ItemGroup>
 </Project>

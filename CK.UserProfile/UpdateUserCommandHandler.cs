@@ -2,19 +2,32 @@ using CK.Core;
 using CK.Cris;
 using CK.DB.Actor;
 using CK.IO.Actor;
-using CK.IO.UserProfile.Workspace;
 using CK.SqlServer;
 
-namespace CK.Ng.UserProfile.Workspace.Tests;
+namespace CK.UserProfile;
 
+/// <summary>
+/// Handles the <see cref="IUpdateUserCommand"/> of the user profile's update form: its batched commands are executed
+/// in order, in the same command context and in one transaction. The first failure throws (the transaction is rolled
+/// back); each executed command's result is in the <see cref="IUpdateUserCommandResult"/>.
+/// </summary>
 [RealObject]
-public class TestCommandHandler : IRealObject
+public class UpdateUserCommandHandler : IRealObject
 {
+    /// <summary>
+    /// Executes the batched commands.
+    /// </summary>
+    /// <param name="ctx">The transaction call context.</param>
+    /// <param name="cmd">The batch command.</param>
+    /// <param name="table">The user table (its database holds the transaction).</param>
+    /// <param name="commandCtx">The command context that executes the batched commands.</param>
+    /// <param name="pocoDir">The poco directory.</param>
+    /// <returns>The result of the batch.</returns>
     [CommandHandler]
     public async Task<IUpdateUserCommandResult> UpdateUserAsync( ISqlTransactionCallContext ctx,
                                                                  IUpdateUserCommand cmd,
                                                                  UserTable table,
-                                                                 CrisBackgroundExecutor exec,
+                                                                 ICrisCommandContext commandCtx,
                                                                  PocoDirectory pocoDir )
     {
         var result = cmd.CreateResult<IUpdateUserCommandResult>();
@@ -22,25 +35,17 @@ public class TestCommandHandler : IRealObject
         {
             foreach( var batched in cmd.Commands )
             {
-                var execCmd = exec.Submit( ctx.Monitor, batched.Command, incomingValidationCheck: true );
-                var executedCommand = await execCmd.ExecutedCommand;
-
-                // upcoming:
-                // var executedCommand = await execCmd.SuccessfulCommand;
-                // -> throws if not successful
-
+                var executedCommand = await commandCtx.ExecuteAsync( batched.Command );
                 if( executedCommand.Result is ICrisResultError err )
                 {
                     throw new CKException( err.Errors.FirstOrDefault().Text ?? "Error while handling Cris command, missing message." );
                 }
-
                 var cmdResult = pocoDir.Create<IPocoCommandExecutedCommandResult>();
                 cmdResult.Initialize( executedCommand );
                 result.Results.Add( cmdResult );
             }
             transaction.Commit();
         }
-
         return result;
     }
 }

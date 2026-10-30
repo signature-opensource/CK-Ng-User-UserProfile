@@ -22,7 +22,7 @@ used when the application provides one, and the page works without it.
 
 ## Requires.
 
-- `CK.IO.Actor` for the command definitions, `CK.Ng.Cris.AspNet.Authentication`, and `CK.Ng.Zorro.Basic` which
+- `CK.IO.Actor` and [`CK.IO.UserProfile`](../CK.IO.UserProfile/README.md) for the command definitions, `CK.Ng.Cris.AspNet.Authentication`, and `CK.Ng.Zorro.Basic` which
   supplies the `Zorro.GenericFormComponent` that `UserUpdateFormComponent` is built on.
 - [`UserProfilePackage`](UserProfilePackage.cs) also declares
   `[Requires<LocalizationPackage, NgCrisAuthenticationPackage>]`: the localization package is a composition
@@ -115,11 +115,9 @@ extending package becomes an extension point in turn. That is how the batch comm
 stays open: a fragment injected at `PostSetUserNameCommandRegistering` pushes into `batchCmd.commands`
 rather than sending a command of its own.
 
-## A note on CK.Cris.SimpleBatch.
+## The commands and their handler.
 
-The [`CK.Cris.SimpleBatch/`](CK.Cris.SimpleBatch) folder declares `ICommandSimpleBatch`,
-`ISimpleBatchCommandResultPart` and `IUpdateUserCommand` in the `CK.Cris` and `CK.IO.Actor`
-namespaces - not in this package namespace. It is a staging area: the code comments say as much
-(*"Will disappear once we have [Abstract], [Virtual], [Primary], [Secondary]"*), and `ITestBatchCommand`
-/ `ITestCommand` next to them are scaffolding, not API. Expect this folder to move to CK-Cris; do not
-build on the test interfaces.
+The profile's commands (`IUpdateUserCommand` and its simple batch) are declared by
+[CK.IO.UserProfile](../CK.IO.UserProfile/README.md), and `IUpdateUserCommand` is handled by
+[CK.UserProfile](../CK.UserProfile/README.md), where the database is. This package doesn't bring the
+handler: a single-process application (its own authentication center) references both.

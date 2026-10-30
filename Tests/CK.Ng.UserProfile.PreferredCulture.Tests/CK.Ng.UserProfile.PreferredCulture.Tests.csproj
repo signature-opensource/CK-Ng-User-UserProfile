@@ -23,5 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.UserProfile.PreferredCulture\CK.Ng.UserProfile.PreferredCulture.csproj" />
+    <ProjectReference Include="..\..\CK.UserProfile\CK.UserProfile.csproj" />
   </ItemGroup>
 </Project>

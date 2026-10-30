@@ -23,6 +23,7 @@
     <Project Path="Tests/CK.Ng.UserProfile.UserPassword.Reset.Tests/CK.Ng.UserProfile.UserPassword.Reset.Tests.csproj" />
     <Project Path="Tests/CK.Ng.UserProfile.Workspace.Tests/CK.Ng.UserProfile.Workspace.Tests.csproj" />
   </Folder>
+  <Project Path="CK.IO.UserProfile/CK.IO.UserProfile.csproj" />
   <Project Path="CK.IO.UserProfile.UserPassword.Lost/CK.IO.UserProfile.UserPassword.Lost.csproj" />
   <Project Path="CK.Ng.UserProfile.NamedUser/CK.Ng.UserProfile.NamedUser.csproj" />
   <Project Path="CK.Ng.UserProfile.PreferredCulture/CK.Ng.UserProfile.PreferredCulture.csproj" />
@@ -33,6 +34,7 @@
   <Project Path="CK.Ng.UserProfile.UserPassword.Lost/CK.Ng.UserProfile.UserPassword.Lost.csproj" />
   <Project Path="CK.Ng.UserProfile.UserPassword.Reset/CK.Ng.UserProfile.UserPassword.Reset.csproj" />
   <Project Path="CK.Ng.UserProfile.Workspace/CK.Ng.UserProfile.Workspace.csproj" />
+  <Project Path="CK.UserProfile/CK.UserProfile.csproj" />
   <Project Path="CK.UserProfile.UserPassword.Lost/CK.UserProfile.UserPassword.Lost.csproj" />
   <Project Path="CK.Ng.UserProfile/CK.Ng.UserProfile.csproj" />
 </Solution>

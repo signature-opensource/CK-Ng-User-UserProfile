@@ -22,5 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CK.Ng.UserProfile.NamedUser\CK.Ng.UserProfile.NamedUser.csproj" />
+    <ProjectReference Include="..\..\CK.UserProfile\CK.UserProfile.csproj" />
   </ItemGroup>
 </Project>

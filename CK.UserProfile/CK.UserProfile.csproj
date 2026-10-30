@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>Server side of the user profile: the handler of IUpdateUserCommand (the batch of the profile's update form). Runs where the database is (the authentication center).</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CK.DB.Actor" Version="31.0.0-0.cris-auth.0.ci.25" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="14.0.2-0.cris-auth.0.ci.3" />
+    <PackageReference Include="CK.Cris.Executor" Version="3.0.0-0.cris-auth.0.ci.68" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CK.IO.UserProfile\CK.IO.UserProfile.csproj" />
+  </ItemGroup>
+</Project>

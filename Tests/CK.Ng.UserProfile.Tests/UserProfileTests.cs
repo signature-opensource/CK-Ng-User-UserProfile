@@ -34,6 +34,8 @@ public class UserProfileTests
         configuration.FirstBinPath.Assemblies.AddRange( [ "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           "CK.DB.User.UserPassword",
                                                           "CK.Ng.UserProfile",
+                                                          // The IUpdateUserCommand handler.
+                                                          "CK.UserProfile",
                                                           "CK.SqlServer.Transaction" ] );
 
         var tsConfig = configuration.FirstBinPath.EnsureTypeScriptConfigurationAspect( targetProjectPath,

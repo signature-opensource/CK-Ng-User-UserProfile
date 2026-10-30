@@ -33,6 +33,8 @@ public class NamedUserTests
                 "CK.DB.User.NamedUser",
                 "CK.Ng.Cris.AspNet.Authentication.Basic",
                 "CK.Ng.UserProfile",
+                // The IUpdateUserCommand handler.
+                "CK.UserProfile",
                 "CK.Ng.UserProfile.NamedUser",
                 "CK.SqlServer.Transaction"
             ] );

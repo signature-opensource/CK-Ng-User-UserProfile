@@ -32,6 +32,8 @@ public class PreferredCultureTests
                 "CK.Ng.Cris.AspNet.Authentication.Basic",
                 "CK.DB.User.UserPassword",
                 "CK.Ng.UserProfile",
+                // The IUpdateUserCommand handler.
+                "CK.UserProfile",
                 "CK.Ng.UserProfile.PreferredCulture",
                 "CK.DB.User.PreferredCulture",
                 "CK.SqlServer.Transaction"
