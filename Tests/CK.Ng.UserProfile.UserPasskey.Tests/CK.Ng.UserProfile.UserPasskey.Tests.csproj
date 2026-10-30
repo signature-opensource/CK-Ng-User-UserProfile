@@ -10,10 +10,10 @@
     <PackageReference Include="CK.DB.Tests.NUnit" Version="36.0.0-0.cris-auth" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth" />
     <PackageReference Include="CK.DB.User.UserPasskey" Version="0.0.0-0.cris-auth" />
-    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Passkey" Version="3.0.0-0.cris-auth" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth" />
-    <PackageReference Include="CK.Testing.AppIdentity.Cris.AuthCenter" Version="3.0.0-0.cris-auth" />
-    <PackageReference Include="CK.Cris.AspNet.Engine" Version="3.0.0-0.cris-auth" />
+    <PackageReference Include="CK.AppIdentity.Cris.AuthCenter.Passkey" Version="3.0.0-0.cris-auth.0.ci.67" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.53" />
+    <PackageReference Include="CK.Testing.AppIdentity.Cris.AuthCenter" Version="3.0.0-0.cris-auth.0.ci.67" />
+    <PackageReference Include="CK.Cris.AspNet.Engine" Version="3.0.0-0.cris-auth.0.ci.53" />
     <PackageReference Include="CK.Testing.SqlServerEngine" Version="36.0.0-0.cris-auth" />
     <PackageReference Include="CK.Testing.TypeScriptEngine" Version="3.0.0-0.cris-auth" />
     <PackageReference Include="CK.TS.Angular.Engine" Version="3.0.0-0.cris-auth" />
