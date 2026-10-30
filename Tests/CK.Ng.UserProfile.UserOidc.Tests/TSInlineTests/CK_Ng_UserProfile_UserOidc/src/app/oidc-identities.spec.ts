@@ -28,7 +28,7 @@ describe( 'OidcIdentities', () => {
         await TestBed.inject( HttpCrisEndpoint ).sendOrThrowAsync( basicLogin( 'TestUser', 'success' ) );
         expect( ngAuthService.level() ).toBe( AuthLevel.Critical );
         jest.spyOn( TestBed.inject( NotificationService ), 'notifySimpleMessage' ).mockImplementation( () => {} );
-    } );
+    }, 30000 ); // The login of the setup: a loaded machine can exceed the default 5 seconds.
 
     afterEach( async () => {
         await ngAuthService.authService.logout();

@@ -25,7 +25,7 @@ describe( 'The Sign-in methods tab and its password section', () => {
         await ngAuthService.authService.isInitialized;
         await TestBed.inject( HttpCrisEndpoint ).updateAmbientValuesAsync();
         await TestBed.inject( HttpCrisEndpoint ).sendOrThrowAsync( basicLogin( 'TestUser', 'success' ) );
-    } );
+    }, 30000 ); // The login of the setup: a loaded machine can exceed the default 5 seconds.
 
     afterEach( async () => {
         await ngAuthService.authService.logout();
