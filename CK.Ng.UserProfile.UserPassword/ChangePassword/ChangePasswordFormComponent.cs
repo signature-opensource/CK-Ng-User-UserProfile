@@ -12,6 +12,7 @@ namespace CK.Ng.UserProfile.UserPassword;
 [NgComponent]
 [Package<UserProfilePasswordPackage>]
 [Requires<PasswordStrengthComponent>]
+[Requires<Zorro.GenericFormComponent>]
 [RegisterTypeScriptType( typeof( ISetPasswordCommand ) )]
 public sealed class ChangePasswordFormComponent : NgComponent
 {
