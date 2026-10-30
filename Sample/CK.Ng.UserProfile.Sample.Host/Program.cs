@@ -1,4 +1,3 @@
-using CK.AspNet.WebSocketChannel;
 using CK.Core;
 using Microsoft.AspNetCore.DataProtection;
 using System.Reflection;
@@ -16,11 +15,6 @@ monitor.Info( "Globalization files should have been loaded." );
 builder.Services.AddControllers();
 builder.Services.AddCors();
 builder.Services.AddHttpClient();
-// Registers the SimpleR services of the one WebSocket endpoint. Without this pair of calls the
-// client opens /ws against nothing: no connection is ever registered, so a server side push has
-// nobody to reach and the Angular side stays silent.
-builder.AddWebSocketChannel();
-
 // This application is its own AuthCenter (its "Local" allows the "AuthCenter" feature, see appsettings.json) and its
 // HTTP front: the session commands on "/.cris/auth", the other commands on "/.cris".
 builder.Services.AddDataProtection();
@@ -43,7 +37,6 @@ app.UseCors( c => c.SetIsOriginAllowed( host => true )
                    .AllowCredentials() );
 app.UseAuthorization();
 app.UseStaticFiles();
-app.UseWebSocketChannel();
 app.UseCrisAuthentication();
 app.UseCris();
 app.UseSpa( ( b ) =>

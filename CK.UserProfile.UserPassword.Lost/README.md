@@ -15,9 +15,10 @@ commands reach this handler by location transparency.
 | Mail | [`IPasswordLostMailer`](Mail/IPasswordLostMailer.cs) and its default implementation, [`IFrontUrlResolver`](Mail/IFrontUrlResolver.cs), the Fluid templates of [Res/Templates](Res/Templates) |
 | Translations | [`Res/locales`](Res/locales) for the back-end `UserMessage` answers - see below |
 
-The handler is an auto service, found when this assembly is in the application: a package that
-requires it (and keeps the assembly reference) requires
-[`PasswordLostLocalePackage`](PasswordLostLocalePackage.cs).
+The handler is an auto service, found when this assembly is in the application: an application that
+references this project but uses none of its types keeps the reference with
+`[assembly: CK.Setup.PreserveAssemblyReference( typeof( PasswordLostCommandHandler ) )]` (the compiler
+drops an unused reference).
 
 ## Requires.
 

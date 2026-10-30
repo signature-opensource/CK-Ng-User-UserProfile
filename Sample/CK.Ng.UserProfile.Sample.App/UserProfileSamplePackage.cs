@@ -12,8 +12,6 @@ namespace CK.Ng.UserProfile.Sample.App;
 [Requires<PreferredCulture.UserProfilePreferredCulturePackage>]
 [Requires<UserPassword.UserProfilePasswordPackage>]
 [Requires<UserPassword.Lost.UserProfilePasswordLostPackage>]
-// The server side of the lost password flow (its handler): this sample is its own authentication center.
-[Requires<CK.UserProfile.UserPassword.Lost.PasswordLostLocalePackage>]
 [Requires<UserPassword.Reset.UserProfilePasswordResetPackage>]
 [Requires<Workspace.UserProfileWorkspacePackage>]
 // LOCAL TEST ONLY, to be removed with the "Ban me" button of Res/private-page.t: the command it

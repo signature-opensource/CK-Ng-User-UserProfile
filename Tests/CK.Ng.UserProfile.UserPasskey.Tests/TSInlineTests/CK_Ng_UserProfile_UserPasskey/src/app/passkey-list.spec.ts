@@ -51,6 +51,7 @@ describe( 'PasskeyList', () => {
 
         // At the Critical level, the passkey is deleted (the user keeps its password).
         await list.deleteAsync( list.passkeys()[0] );
-        expect( list.passkeys() ).toEqual( [] );
+        // (The array comes from another realm: toEqual( [] ) compares the prototypes.)
+        expect( list.passkeys().length ).toBe( 0 );
     } );
 } );
