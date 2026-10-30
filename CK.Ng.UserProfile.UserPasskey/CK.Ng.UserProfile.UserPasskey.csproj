@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- The commands (handled by CK.DB.User.UserPasskey, where the database is). -->
-    <PackageReference Include="CK.IO.User.UserPasskey" Version="0.0.0-0.cris-auth.0.ci.14" />
+    <PackageReference Include="CK.IO.User.UserPasskey" Version="0.0.0-0.cris-auth.0.ci.15" />
     <!-- The registration button and the passkey HTTP front. -->
     <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Passkey" Version="3.0.0-0.cris-auth.0.ci.46" />
   </ItemGroup>
