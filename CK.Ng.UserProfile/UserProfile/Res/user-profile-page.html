@@ -15,7 +15,9 @@
     }
 </div>
 <div class="ck-user-profile-right-card">
-    <nz-tabset nzSize="large" class="ck-user-profile-tabset">
+    <!-- Not animated: the animated tabs need the Angular animations (an application without them shows every pane);
+         the inactive panes are hidden by their class. -->
+    <nz-tabset nzSize="large" class="ck-user-profile-tabset" [nzAnimated]="false">
         <!-- <PreUserProfileTabsRegistration revert /> -->
 
         <!-- <PreUserProfileGeneralInfosTab revert /> -->
