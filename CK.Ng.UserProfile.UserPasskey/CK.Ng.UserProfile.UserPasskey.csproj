@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>The passkey section of the "Sign-in methods" tab of the user profile page: list, rename, delete and add the user's passkeys.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- The commands (handled by CK.DB.User.UserPasskey, where the database is). -->
+    <PackageReference Include="CK.IO.User.UserPasskey" Version="0.0.0-0.cris-auth.0.ci.12" />
+    <!-- The registration button and the passkey HTTP front. -->
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Passkey" Version="3.0.0-0.cris-auth.0.ci.44" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
+  </ItemGroup>
+</Project>

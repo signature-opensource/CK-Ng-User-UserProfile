@@ -1,0 +1,52 @@
+<section class="ck-sign-in-methods-section ck-passkey-list">
+    <h3>{{ 'CK.UserProfile.Passkeys.Title' | translate }}</h3>
+    <!-- <PrePasskeyList revert /> -->
+    <nz-list nzSize="small" [nzLoading]="loading()">
+        @for( p of passkeys(); track p.passkeyId ) {
+            <nz-list-item class="ck-passkey">
+                @if( editingId() === p.passkeyId ) {
+                    <input nz-input class="ck-passkey-name-input" [(ngModel)]="editedName" [maxlength]="128"
+                           (keydown.enter)="renameAsync( p )" (keydown.escape)="cancelRename()" />
+                    <button nz-button nzType="primary" [disabled]="!isValidName( editedName )" (click)="renameAsync( p )">{{ 'CK.UserProfile.Passkeys.Save' | translate }}</button>
+                    <button nz-button nzType="link" (click)="cancelRename()">{{ 'CK.UserProfile.Passkeys.Cancel' | translate }}</button>
+                } @else {
+                    <div class="ck-passkey-info">
+                        <span class="ck-passkey-name">{{ p.name }}</span>
+                        <span class="ck-passkey-details">
+                            @if( model( p ) ) { {{ 'CK.UserProfile.Passkeys.Model' | translate }} {{ model( p ) }} · }
+                            @if( p.backupState ) { {{ 'CK.UserProfile.Passkeys.Synced' | translate }} · }
+                            {{ 'CK.UserProfile.Passkeys.Created' | translate }} {{ formatDate( p.creationDate ) }} ·
+                            {{ 'CK.UserProfile.Passkeys.LastUsed' | translate }} {{ formatDate( p.lastUsedTime ) }}
+                        </span>
+                    </div>
+                    <button nz-button nzType="link" class="ck-passkey-rename" (click)="startRename( p )">{{ 'CK.UserProfile.Passkeys.Rename' | translate }}</button>
+                    @if( !isImpersonated() ) {
+                        <button nz-button nzType="link" nzDanger class="ck-passkey-delete" [disabled]="!isCritical()"
+                                nz-popconfirm [nzPopconfirmTitle]="'CK.UserProfile.Passkeys.DeleteConfirm' | translate"
+                                (nzOnConfirm)="deleteAsync( p )">
+                            {{ 'CK.UserProfile.Passkeys.Delete' | translate }}
+                        </button>
+                    }
+                }
+            </nz-list-item>
+        } @empty {
+            <nz-list-item class="ck-passkey-empty">{{ 'CK.UserProfile.Passkeys.Empty' | translate }}</nz-list-item>
+        }
+    </nz-list>
+    <!-- <PostPasskeyList /> -->
+    @if( !isImpersonated() && !isCritical() && passkeys().length > 0 ) {
+        <p class="ck-passkey-hint">
+            @if( canReachCritical() ) {
+                {{ 'CK.UserProfile.Passkeys.DeleteRequiresRecentLogin' | translate }}
+                <a class="ck-passkey-login" (click)="logInAgain()">{{ 'CK.UserProfile.Passkeys.LogInAgain' | translate }}</a>
+            }
+        </p>
+    }
+    <!-- <PrePasskeyAdd revert /> -->
+    <div class="ck-passkey-add">
+        <input nz-input class="ck-passkey-new-name" [(ngModel)]="newName" [maxlength]="128"
+               [placeholder]="'CK.UserProfile.Passkeys.NewNamePlaceholder' | translate" />
+        <ck-passkey-registration-button [passkeyName]="newName" (registered)="onRegistered()" />
+    </div>
+    <!-- <PostPasskeyAdd /> -->
+</section>

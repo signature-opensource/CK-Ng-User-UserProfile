@@ -1,0 +1,20 @@
+{
+    "CK.UserProfile.Passkeys.Title": "Clés d'accès",
+    "CK.UserProfile.Passkeys.Empty": "Aucune clé d'accès",
+    "CK.UserProfile.Passkeys.Model": "Modèle",
+    "CK.UserProfile.Passkeys.Synced": "Synchronisée",
+    "CK.UserProfile.Passkeys.Created": "Créée le",
+    "CK.UserProfile.Passkeys.LastUsed": "Dernière utilisation",
+    "CK.UserProfile.Passkeys.Never": "jamais",
+    "CK.UserProfile.Passkeys.Rename": "Renommer",
+    "CK.UserProfile.Passkeys.Save": "Enregistrer",
+    "CK.UserProfile.Passkeys.Cancel": "Annuler",
+    "CK.UserProfile.Passkeys.Delete": "Supprimer",
+    "CK.UserProfile.Passkeys.DeleteConfirm": "Supprimer cette clé d'accès ? Elle ne vous permettra plus de vous connecter.",
+    "CK.UserProfile.Passkeys.DeleteRequiresRecentLogin": "Supprimer une clé d'accès nécessite une connexion récente.",
+    "CK.UserProfile.Passkeys.LogInAgain": "Se reconnecter",
+    "CK.UserProfile.Passkeys.NewNamePlaceholder": "Nom de la nouvelle clé (facultatif)",
+    "CK.UserProfile.Passkeys.Renamed": "La clé d'accès a été renommée.",
+    "CK.UserProfile.Passkeys.Deleted": "La clé d'accès a été supprimée.",
+    "CK.UserProfile.Passkeys.Failed": "L'opération a échoué."
+}

@@ -1,0 +1,20 @@
+{
+    "CK.UserProfile.Passkeys.Title": "Passkeys",
+    "CK.UserProfile.Passkeys.Empty": "No passkey yet",
+    "CK.UserProfile.Passkeys.Model": "Model",
+    "CK.UserProfile.Passkeys.Synced": "Synchronized",
+    "CK.UserProfile.Passkeys.Created": "Created",
+    "CK.UserProfile.Passkeys.LastUsed": "Last used",
+    "CK.UserProfile.Passkeys.Never": "never",
+    "CK.UserProfile.Passkeys.Rename": "Rename",
+    "CK.UserProfile.Passkeys.Save": "Save",
+    "CK.UserProfile.Passkeys.Cancel": "Cancel",
+    "CK.UserProfile.Passkeys.Delete": "Delete",
+    "CK.UserProfile.Passkeys.DeleteConfirm": "Delete this passkey? It will no longer sign you in.",
+    "CK.UserProfile.Passkeys.DeleteRequiresRecentLogin": "Deleting a passkey requires a recent login.",
+    "CK.UserProfile.Passkeys.LogInAgain": "Sign in again",
+    "CK.UserProfile.Passkeys.NewNamePlaceholder": "Name of the new passkey (optional)",
+    "CK.UserProfile.Passkeys.Renamed": "The passkey has been renamed.",
+    "CK.UserProfile.Passkeys.Deleted": "The passkey has been deleted.",
+    "CK.UserProfile.Passkeys.Failed": "The operation failed."
+}
