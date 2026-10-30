@@ -19,8 +19,8 @@ renames, deletes and adds its passkeys.
 | Delete (with a confirmation) | `IDeletePasskeyCommand` | Critical, not while impersonating |
 | Add (an optional name next to the registration button) | the `ck-passkey-registration-button` of `CK.Ng.Cris.AspNet.Authentication.Passkey` | Critical, not while impersonating |
 
-Below the Critical level, the section offers to sign in again (`NgAuthService.navigateToCriticalLogin()`)
-when one of the user's methods can elevate it. The server refuses the deletion of the user's last
+Below the Critical level, the section offers to sign in again in a popup (`NgAuthService.elevateToCritical()`:
+the profile stays on its tab) when one of the user's methods can elevate it. The server refuses the deletion of the user's last
 sign-in method: its message is displayed. The model is the authenticator's AAGUID, in a short form (a
 name table of the authenticators is out of scope).
 

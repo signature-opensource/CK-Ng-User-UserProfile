@@ -5,6 +5,8 @@ Angular CKomposable package that adds the password section to the "Sign-in metho
 changes its password, adds one when it has none (a user created by a remote login, a passkey-only
 user: a new sign-in method), or removes it (it migrates to another method; its last one is never
 removed). The three require a recent login (the Critical level) and are refused while impersonating.
+Below the Critical level, the section offers to sign in again in a popup (`NgAuthService.elevateToCritical()`: the
+profile stays on its tab) when one of the user's methods can elevate it.
 
 ## What it brings.
 

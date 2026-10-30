@@ -118,8 +118,12 @@ export class PasskeyList implements OnInit {
         await this.refreshAsync();
     }
 
-    logInAgain(): void {
-        void this.#auth.navigateToCriticalLogin();
+    // A login in a popup: the page keeps its state (the profile stays on this tab).
+    async logInAgain(): Promise<void> {
+        const auth = this.#auth.authService;
+        if( !await this.#auth.elevateToCritical() && auth.remoteLoginError !== 'Authentication.PopupClosed' ) {
+            this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( auth.remoteLoginError ?? 'Login.RemoteLoginFailed' ) );
+        }
     }
 
     // Sends a command whose result is an ICrisBasicCommandResult: its messages are in the caller's language.

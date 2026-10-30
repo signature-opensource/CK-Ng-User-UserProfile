@@ -21,8 +21,8 @@ methods" tab of the `/profile` page brought by [CK.Ng.UserProfile](../CK.Ng.User
 Linking is a remote login in a popup that binds the identity to the user instead of signing in
 (`IStartLoginCommand.BindToCurrentActor`): the session is unchanged. The authentication center refuses
 an identity already used by another user; the server refuses to unlink the user's last sign-in method.
-Below the Critical level, the section offers to sign in again (`NgAuthService.navigateToCriticalLogin()`)
-when one of the user's methods can elevate it.
+Below the Critical level, the section offers to sign in again in a popup (`NgAuthService.elevateToCritical()`:
+the profile stays on its tab) when one of the user's methods can elevate it.
 
 ## Requires.
 

@@ -92,8 +92,12 @@ export class OidcIdentities implements OnInit {
         this.expanded.set( this.expanded() === i.schemeSuffix ? undefined : i.schemeSuffix );
     }
 
-    logInAgain(): void {
-        void this.#auth.navigateToCriticalLogin();
+    // A login in a popup: the page keeps its state (the profile stays on this tab).
+    async logInAgain(): Promise<void> {
+        const auth = this.#auth.authService;
+        if( !await this.#auth.elevateToCritical() && auth.remoteLoginError !== 'Authentication.PopupClosed' ) {
+            this.#notif.notifySimpleMessage( 'error', this.#translateService.instant( auth.remoteLoginError ?? 'Login.RemoteLoginFailed' ) );
+        }
     }
 
     async unlinkAsync( i: OidcIdentityView ): Promise<void> {
