@@ -6,6 +6,6 @@
     <Description>The commands of the user profile: IUpdateUserCommand, the simple batch of the profile's update form (ICommandSimpleBatch).</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.IO.Actor" Version="3.0.0-0.cris-auth.0.ci.39" />
+    <PackageReference Include="CK.IO.Actor" Version="3.0.0-0.cris-auth.0.ci.40" />
   </ItemGroup>
 </Project>
