@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.IO.Actor" Version="3.0.0-0.cris-auth.0.ci.38" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.56" />
-    <PackageReference Include="CK.Ng.Zorro.Basic" Version="3.0.0-0.cris-auth.0.ci.29" />
+    <PackageReference Include="CK.IO.Actor" Version="3.0.0-0.cris-auth.0.ci.39" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication" Version="3.0.0-0.cris-auth.0.ci.57" />
+    <PackageReference Include="CK.Ng.Zorro.Basic" Version="3.0.0-0.cris-auth.0.ci.30" />
   </ItemGroup>
   <ItemGroup>
     <!-- The commands of the profile (IUpdateUserCommand), handled where the database is (CK.UserProfile). -->
