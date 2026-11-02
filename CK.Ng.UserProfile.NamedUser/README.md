@@ -24,7 +24,7 @@ No component, no service of its own: this package is only
 | Target of the base package | File | Anchors used |
 |---|---|---|
 | `user-profile-page.html` / `.ts` | [user-profile-page.t](Res/user-profile-page.t) | `PreProfilePropsRegistration`, `PreAvatarFallbackComputing` |
-| `user-update-form.ts` | [user-update-form.t](Res/user-update-form.t) | `PostUserIdentityFormControlDefinition`, `PostUserIdentityFormControlRegistration`, `PostSetUserNameCommandRegistering`, `PostUserNameReset` |
+| `user-update-form.ts` | [user-update-form.t](Res/user-update-form.t) | `PostUserIdentityFormControlDefinition`, `PostUserIdentityFormControlRegistration`, `PostSetUserNameCommandRegistering` |
 | `user-info-box` | [user-info-box.t](Res/user-info-box.t) | `PreDependencyInjection`, `PreAvatarFallbackComputing` |
 
 ## Translations.
