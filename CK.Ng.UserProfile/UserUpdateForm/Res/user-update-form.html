@@ -1,11 +1,12 @@
-@if( formData() ) {
-    <ck-generic-form #formComp class="ck-update-user-inner-form" [inputFormData]="formData()!"></ck-generic-form>
+@if( userProfile() ) {
+    @let unchangedOrInvalid = profileForm.form().invalid() || !profileForm.form().dirty();
+    <ck-generic-form class="ck-update-user-inner-form" [form]="profileForm" />
     <div class="ck-update-user-actions">
-        <button nz-button (click)="cancelModifications()" nzDanger nzType="link" [disabled]="form() && (form()!.invalid || form()!.pristine)">
+        <button nz-button (click)="cancelModifications()" nzDanger nzType="link" [disabled]="unchangedOrInvalid">
             <fa-icon [icon]="cancelIcon" class="ck-btn-icon"></fa-icon>
             {{ 'Button.Cancel' | translate }}
         </button>
-        <button nz-button nzType="primary" (click)="updateUserAsync()" [disabled]="form() && (form()!.invalid || form()!.pristine)">
+        <button nz-button nzType="primary" (click)="updateUserAsync()" [disabled]="unchangedOrInvalid">
             <fa-icon [icon]="checkIcon" class="ck-btn-icon"></fa-icon>
             {{ 'Button.Update' | translate }}
         </button>

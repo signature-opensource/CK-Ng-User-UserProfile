@@ -1,13 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { Component, inject, signal, TemplateRef, viewChild } from '@angular/core';
+import { FormField, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,15 +7,18 @@ import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
 import {
+  CustomFieldContext,
+  customField,
+  GenericForm,
+  genericForm,
   HttpCrisEndpoint,
   NotificationService,
+  passwordComplexity,
+  passwordsMatch,
   PasswordStrength,
-  passwordComplexityValidator,
-  passwordsMatchValidator,
   SetPasswordCommand,
   UserService
 } from '@local/ck-gen';
@@ -32,22 +27,19 @@ import {
   selector: 'ck-reset-password-form',
   templateUrl: './reset-password-form.html',
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    FormField,
     TranslateModule,
     RouterLink,
     FontAwesomeModule,
     NzAlertModule,
     NzButtonModule,
-    NzFormModule,
     NzInputModule,
+    GenericForm,
     PasswordStrength
   ]
 } )
 export class ResetPasswordForm {
   readonly #crisEndpoint = inject( HttpCrisEndpoint );
-  readonly #formBuilder = inject( FormBuilder );
   readonly #notifService = inject( NotificationService );
   readonly #router = inject( Router );
   readonly #translateService = inject( TranslateService );
@@ -61,26 +53,35 @@ export class ResetPasswordForm {
   protected readonly showPassword = signal( false );
   protected readonly showConfirmPassword = signal( false );
 
-  protected readonly form: FormGroup = this.#formBuilder.group(
-    {
-      password: new FormControl<string>( '', {
-        nonNullable: true,
-        validators: [Validators.required, passwordComplexityValidator]
-      } ),
-      confirmPassword: new FormControl<string>( '', { nonNullable: true, validators: [Validators.required] } )
-    },
-    { validators: [passwordsMatchValidator( 'password', 'confirmPassword' )] }
-  );
+  protected readonly passwordTemplate = viewChild<TemplateRef<CustomFieldContext<string>>>( 'passwordTemplate' );
+  protected readonly passwordError = viewChild<TemplateRef<CustomFieldContext<string>>>( 'passwordError' );
+  protected readonly confirmTemplate = viewChild<TemplateRef<CustomFieldContext<string>>>( 'confirmTemplate' );
+  protected readonly confirmError = viewChild<TemplateRef<CustomFieldContext<string>>>( 'confirmError' );
+
+  protected readonly form = genericForm( () => ( {
+    password: customField( 'CK.Auth.ResetPassword.Password.Placeholder', '', {
+      template: this.passwordTemplate()!,
+      errorTemplate: this.passwordError(),
+      rules: p => {
+        required( p, { message: 'CK.Auth.ResetPassword.Password.Required' } );
+        passwordComplexity( p );
+      }
+    } ),
+    confirmPassword: customField( 'CK.Auth.ResetPassword.ConfirmPassword.Placeholder', '', {
+      template: this.confirmTemplate()!,
+      errorTemplate: this.confirmError(),
+      rules: p => required( p, { message: 'CK.Auth.ResetPassword.ConfirmPassword.Required' } )
+    } )
+  } ), { rules: p => passwordsMatch( p.password, p.confirmPassword, { message: 'CK.Auth.ResetPassword.ConfirmPassword.Mismatch' } ) } );
 
   async submit(): Promise<void> {
-    if ( !this.form.valid || this.submitting() ) return;
+    if ( !this.form.form().valid() || this.submitting() ) return;
     this.submitting.set( true );
 
-    const raw = this.form.getRawValue();
     try {
       const userId = this.#userService.userProfile()!.userId;
       // isTemporary defaults to false: the user chose this password, so the temporary state is cleared.
-      const res = await this.#crisEndpoint.sendOrThrowAsync( new SetPasswordCommand( userId, raw.password ) );
+      const res = await this.#crisEndpoint.sendOrThrowAsync( new SetPasswordCommand( userId, this.form.model().password ) );
       if ( res?.success ) {
         // Refreshing the profile clears isTemporaryPassword, which releases the navigation guard.
         await this.#userService.refreshUserProfileAsync();

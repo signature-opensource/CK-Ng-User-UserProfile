@@ -26,7 +26,7 @@ No component of its own: this package is only [transformers](Res) plus a transla
 | Target of the base package | File | Anchors used |
 |---|---|---|
 | `user-profile-page.html` / `.ts` | [user-profile-page.t](Res/user-profile-page.t) | `PostProfilePropsRegistration`, `PostLocalVariables` |
-| `user-update-form.ts` | [user-update-form.t](Res/user-update-form.t) | `PreViewChildren`, `PreUserPreferencesFormControlDefinition`, `PreUserPreferencesFormControlRegistration`, `PostSetUserNameCommandRegistering`, `PostCancelModifications` |
+| `user-update-form.ts` | [user-update-form.t](Res/user-update-form.t) | `PreViewChildren`, `PreUserPreferencesFormControlDefinition`, `PreUserPreferencesFormControlRegistration`, `PostSetUserNameCommandRegistering` |
 | `user-service.ts` | [user-service.t](Res/user-service.t) | `PreDependencyInjection`, `PostUserProfileRefresh` |
 
 ## Translations.

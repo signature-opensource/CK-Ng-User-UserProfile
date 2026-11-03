@@ -21,6 +21,7 @@ namespace CK.Ng.UserProfile.UserPassword.Reset;
 [NgRoutedComponent<AuthenticationPageComponent>( Route = "reset-password", RegistrationMode = RouteRegistrationMode.Lazy )]
 [Package<UserProfilePasswordResetPackage>]
 [Requires<PasswordStrengthComponent>]
+[Requires<Zorro.GenericFormComponent>]
 public sealed class ResetPasswordFormComponent : NgRoutedComponent
 {
 }

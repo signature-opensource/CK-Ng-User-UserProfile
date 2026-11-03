@@ -1,7 +1,6 @@
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 import { NgAuthService, AuthLevel, HttpCrisEndpoint, NotificationService, BasicLoginCommand, RemovePasswordCommand, SignInMethods, PasswordSection } from '@local/ck-gen';
 import { TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
 function basicLogin( userName: string, password: string ): BasicLoginCommand {
     const c = new BasicLoginCommand();
@@ -19,7 +18,7 @@ describe( 'The Sign-in methods tab and its password section', () => {
     beforeEach( async () => {
         await TestBed.configureTestingModule(
             {
-                providers: [...CKGenAppModule.Providers, provideNoopAnimations()]
+                providers: [...CKGenAppModule.Providers]
             } ).compileComponents();
         ngAuthService = TestBed.inject( NgAuthService );
         await ngAuthService.authService.isInitialized;

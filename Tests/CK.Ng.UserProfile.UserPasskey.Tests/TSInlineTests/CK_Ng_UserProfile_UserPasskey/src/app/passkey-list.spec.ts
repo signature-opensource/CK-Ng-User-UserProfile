@@ -1,6 +1,5 @@
 import { CKGenAppModule } from '@local/ck-gen/CK/Angular/CKGenAppModule';
 import { TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { AuthLevel, BasicLoginCommand, HttpCrisEndpoint, NgAuthService, NotificationService, PasskeyList } from '@local/ck-gen';
 
 function basicLogin( userName: string, password: string ): BasicLoginCommand {
@@ -19,7 +18,7 @@ describe( 'PasskeyList', () => {
     beforeEach( async () => {
         await TestBed.configureTestingModule(
             {
-                providers: [...CKGenAppModule.Providers, provideNoopAnimations()]
+                providers: [...CKGenAppModule.Providers]
             } ).compileComponents();
         ngAuthService = TestBed.inject( NgAuthService );
         await ngAuthService.authService.isInitialized;

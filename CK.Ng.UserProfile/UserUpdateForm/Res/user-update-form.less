@@ -9,6 +9,12 @@ ck-user-update-form {
     width: 80%;
     height: 100%;
     overflow-y: auto;
+
+    // GenericForm's vertical items have no bottom margin; this form keeps ng-zorro's item spacing.
+    // An item showing an ng-zorro error tip (ant-form-item-with-help) keeps the zero margin, the tip fills that space.
+    .generic-form-item.vertical:not(.ant-form-item-with-help) {
+        margin-bottom: @form-item-margin-bottom;
+    }
 }
 
 .ck-update-user-actions {
