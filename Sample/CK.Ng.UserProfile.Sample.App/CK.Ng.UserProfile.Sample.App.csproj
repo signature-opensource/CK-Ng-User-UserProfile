@@ -28,7 +28,7 @@
     <PackageReference Include="CK.DB.Workspace" Version="18.0.0-0.cris-auth.0.ci.23" />
       
     <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="3.0.0-0.cris-auth.0.ci.42" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.71" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.70" />
       
     <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.cris-auth.0.ci.6" />
       
