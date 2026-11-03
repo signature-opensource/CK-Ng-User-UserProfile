@@ -3,10 +3,10 @@
     "CK.Ng.UserProfile.Sample.Host": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5000",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5400",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "DOTNET_ENVIRONMENT": "Development"
       }
     }
   }

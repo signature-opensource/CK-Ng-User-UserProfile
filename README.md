@@ -27,3 +27,10 @@ needs - the base package does not know its satellites.
 
 `Sample/` builds a runnable application over these packages, and each `Tests/*.Tests` project carries
 a generated Angular workspace under `TSInlineTests/`.
+
+The sample is one party that is its own AuthCenter: `CK.Ng.UserProfile.Sample.App` (its packages),
+`CK.Ng.UserProfile.Sample.Builder` (the database, the generated code and the `ck-gen` of the client
+application) and `CK.Ng.UserProfile.Sample.Host` (a CK.AppHost host: its `appsettings.json` and a one-line
+`Program.cs`). Its web server is the "HttpEndpoint" feature on `http://localhost:5400`, and its Angular
+client application, `Clients/App` of the host, is served on `/` (in Development, through its dev server on
+port 4400). After a build, `#Dev/Start.ps1` starts it.

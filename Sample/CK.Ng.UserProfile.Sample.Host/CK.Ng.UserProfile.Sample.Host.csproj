@@ -1,20 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <!-- It's a mess. See https://github.com/dotnet/project-system/issues/3619 -->
+    <!-- The content root is the current directory: "dotnet run" and Visual Studio start the host in its folder. -->
     <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <!-- CKBuild: the application built on its StObjMap. -->
-    <PackageReference Include="CK.AspNet" Version="24.0.0-0.cris-auth.0.ci.29" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.3.1" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.14" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="10.0.14" />
+    <!-- The whole bootstrap of the host: Program.cs is one line. -->
+    <PackageReference Include="CK.AppHost" Version="24.0.0-0.cris-auth.0.ci.30" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.UserProfile.Sample.App\CK.Ng.UserProfile.Sample.App.csproj" />
+    <!-- Orders the builds: the builder writes the generated code in $StObjGen after its own build. -->
+    <ProjectReference Include="..\CK.Ng.UserProfile.Sample.Builder\CK.Ng.UserProfile.Sample.Builder.csproj" ReferenceOutputAssembly="false" Private="false" />
   </ItemGroup>
 </Project>

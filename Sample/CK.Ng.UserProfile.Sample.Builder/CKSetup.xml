@@ -10,7 +10,8 @@
     <Aspect Type="CK.Setup.GlobalizationAspectConfiguration, CK.Globalization.Engine" />
     <BinPaths>
         <BinPath>
-            <TypeScript IntegrationMode="Inline" TargetProjectPath="{ProjectPath}/UserProfile.Sample.Web" DefaultCulture="fr" ActiveCultures="fr-CA, de-be, nl-BE, zh">
+            <!-- The client application "App" (Clients/App of the host), served by the host (CK.TS.AspNet.Clients) on "/". -->
+            <TypeScript Name="App" Kind="DefaultApp" DevServerPort="4400" IntegrationMode="Inline" DefaultCulture="fr" ActiveCultures="fr-CA, de-be, nl-BE, zh">
                 <Types>
                 </Types>
             </TypeScript>
