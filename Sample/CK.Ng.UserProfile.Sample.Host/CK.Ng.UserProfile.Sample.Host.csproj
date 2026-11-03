@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <!-- The content root is the current directory: "dotnet run" and Visual Studio start the host in its folder. -->
-    <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
