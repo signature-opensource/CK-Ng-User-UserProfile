@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.cris-auth.0.ci.29" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.0.ci.35" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.cris-auth.0.ci.36" />
     <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.cris-auth.0.ci.72" />
     <PackageReference Include="CK.DB.Tests.NUnit" Version="36.0.0-0.cris-auth.0.ci.35" />
     <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.cris-auth.0.ci.6" />
