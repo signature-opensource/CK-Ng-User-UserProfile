@@ -38,7 +38,9 @@ describe( 'ck-password-lost-form', () => {
         await TestBed.configureTestingModule( {
             providers: [
                 ...appConfig.providers,
-                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send } },
+                // The AuthService of the Cris authentication hooks the endpoint and refreshes its session through sendAsync:
+                // with no result, it stays anonymous.
+                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
                 { provide: NotificationService, useValue: { notifyUserMessage: jest.fn() } }
             ],
             imports: [PasswordLostForm]

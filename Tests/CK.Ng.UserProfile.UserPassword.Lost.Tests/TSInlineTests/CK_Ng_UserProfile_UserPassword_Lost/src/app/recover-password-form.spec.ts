@@ -49,7 +49,9 @@ describe( 'ck-recover-password-form', () => {
             providers: [
                 ...appConfig.providers,
                 { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap( token ? { token } : {} ) } } },
-                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send } },
+                // The AuthService of the Cris authentication hooks the endpoint and refreshes its session through sendAsync:
+                // with no result, it stays anonymous.
+                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
                 { provide: NotificationService, useValue: { notifyUserMessage: jest.fn() } }
             ],
             imports: [RecoverPasswordForm]

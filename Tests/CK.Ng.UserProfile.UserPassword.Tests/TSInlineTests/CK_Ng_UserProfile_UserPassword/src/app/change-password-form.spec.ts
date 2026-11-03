@@ -56,7 +56,9 @@ describe( 'ck-change-password-form', () => {
                 { provide: UserService, useValue: { userProfile: signal( new UserProfile( 7, 'Alice' ) ) } },
                 // Changing a password requires the Critical level (see change-password-form.critical.spec.ts).
                 { provide: NgAuthService, useValue: { level: signal( AuthLevel.Critical ) } },
-                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send } },
+                // The AuthService of the Cris authentication hooks the endpoint and refreshes its session through sendAsync:
+                // with no result, it stays anonymous.
+                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
                 { provide: NotificationService, useValue: { notifySimpleMessage, notifyGenericCommunicationError: jest.fn() } }
             ],
             imports: [ChangePasswordForm]

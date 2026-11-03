@@ -47,7 +47,9 @@ describe( 'ck-user-update-form', () => {
             providers: [
                 ...appConfig.providers,
                 { provide: UserService, useValue: { userProfile: profile, refreshUserProfileAsync: jest.fn().mockResolvedValue( undefined ) } },
-                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send } },
+                // The AuthService of the Cris authentication hooks the endpoint and refreshes its session through sendAsync:
+                // with no result, it stays anonymous.
+                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
                 { provide: NotificationService, useValue: { notifySimpleMessage: jest.fn(), notifyGenericCommunicationError: jest.fn() } }
             ],
             imports: [UserUpdateForm]
