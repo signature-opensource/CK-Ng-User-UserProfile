@@ -27,6 +27,10 @@ public class PasswordLostQueries : IAutoService
     /// link must not be sent to an address that cannot be used to log in.
     /// </para>
     /// <para>
+    /// CK.DB.Actor.ActorEMail guarantees that the primary address is validated as soon as the user has a validated
+    /// one: requiring it refuses only the users that have no validated address at all.
+    /// </para>
+    /// <para>
     /// The user must also be a password user: sending a "reset your password" link to an account
     /// that authenticates only through an external provider would be misleading.
     /// </para>
@@ -46,6 +50,7 @@ public class PasswordLostQueries : IAutoService
                   inner join CK.tUserPassword p on p.UserId = u.UserId
               where e.EMail = @Email
                 and e.IsPrimary = 1
+                and e.ValTime > '0001-01-01'
                 and u.UserId > 1;
             """,
             new { Email = email } );

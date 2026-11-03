@@ -1,6 +1,7 @@
 using CK.AppIdentity;
 using CK.Core;
 using CK.Cris;
+using CK.DB.Actor.ActorEMail;
 using CK.DB.User.UserPassword;
 using CK.IO.UserProfile.UserPassword.Lost;
 using CK.SqlServer;
@@ -9,17 +10,22 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Shouldly;
 using static CK.Testing.MonitorTestHelper;
+using PasswordLostQueries = CK.UserProfile.UserPassword.Lost.PasswordLostQueries;
+using PasswordLostTokenService = CK.UserProfile.UserPassword.Lost.PasswordLostTokenService;
 
 namespace CK.Ng.UserProfile.UserPassword.Lost.Tests;
 
 /// <summary>
-/// The recovery token is single use without storage: it is bound to the password it was issued for.
+/// The server side of the lost password flow, without the browser: the recovery token is single use without storage
+/// (it is bound to the password it was issued for), and the recovery mail goes only to a validated primary address.
 /// </summary>
 [TestFixture]
 public class PasswordLostTokenTests
 {
-    [Test]
-    public async Task a_recovery_token_dies_with_its_first_use_and_with_any_password_change_Async()
+    AutomaticServices _services;
+
+    [OneTimeSetUp]
+    public async Task SetupAsync()
     {
         var configuration = TestHelper.CreateDefaultEngineConfiguration();
         configuration.FirstBinPath.Path = TestHelper.BinFolder;
@@ -43,23 +49,33 @@ public class PasswordLostTokenTests
             c["Local:EmailSender:Smtp:RequiredAuthentication"] = "false";
         } );
         Throw.CheckState( appIdentity != null );
-        var autoServices = engineRes.CreateAutomaticServices( configureServices: services =>
+        _services = engineRes.CreateAutomaticServices( configureServices: services =>
         {
             services.AddSingleton( appIdentity );
             services.AddDataProtection();
         } );
         // The mail sender is a feature of the party: the identity service must be started.
-        await autoServices.Services.GetRequiredService<ApplicationIdentityService>().StartAndInitializeAsync();
+        await _services.Services.GetRequiredService<ApplicationIdentityService>().StartAndInitializeAsync();
+    }
 
-        using var scope = autoServices.Services.CreateScope();
+    [OneTimeTearDown]
+    public async Task TeardownAsync()
+    {
+        if( _services.Services != null ) await _services.DisposeAsync();
+    }
+
+    [Test]
+    public async Task a_recovery_token_dies_with_its_first_use_and_with_any_password_change_Async()
+    {
+        using var scope = _services.Services.CreateScope();
         using var ctx = new SqlStandardCallContext();
         var services = scope.ServiceProvider;
         var pocoDir = services.GetRequiredService<PocoDirectory>();
         var executor = services.GetRequiredService<CrisBackgroundExecutor>();
         var userTable = services.GetRequiredService<DB.Actor.UserTable>();
         var pwdTable = services.GetRequiredService<UserPasswordTable>();
-        var tokenService = services.GetRequiredService<global::CK.UserProfile.UserPassword.Lost.PasswordLostTokenService>();
-        var queries = services.GetRequiredService<global::CK.UserProfile.UserPassword.Lost.PasswordLostQueries>();
+        var tokenService = services.GetRequiredService<PasswordLostTokenService>();
+        var queries = services.GetRequiredService<PasswordLostQueries>();
 
         var userId = await userTable.CreateUserAsync( ctx, 1, $"PasswordLostToken-{Guid.NewGuid():N}" );
         await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, userId, "initial", DB.Auth.UCLMode.CreateOrUpdate );
@@ -95,5 +111,32 @@ public class PasswordLostTokenTests
         // A fresh token works.
         (await RecoverAsync( await IssueTokenAsync(), "final" )).ShouldBeTrue();
         (await pwdTable.LoginUserAsync( ctx, userId, "final" )).IsSuccess.ShouldBeTrue();
+    }
+
+    [Test]
+    public async Task the_recovery_mail_goes_only_to_a_validated_primary_address_Async()
+    {
+        using var scope = _services.Services.CreateScope();
+        using var ctx = new SqlStandardCallContext();
+        var services = scope.ServiceProvider;
+        var userTable = services.GetRequiredService<DB.Actor.UserTable>();
+        var pwdTable = services.GetRequiredService<UserPasswordTable>();
+        var emailTable = services.GetRequiredService<ActorEMailTable>();
+        var queries = services.GetRequiredService<PasswordLostQueries>();
+
+        var userId = await userTable.CreateUserAsync( ctx, 1, $"PasswordLostMail-{Guid.NewGuid():N}" );
+        await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, userId, "initial", DB.Auth.UCLMode.CreateOrUpdate );
+        var first = $"{Guid.NewGuid():N}@first.com";
+        var second = $"{Guid.NewGuid():N}@second.com";
+
+        // The only address is not validated: it is the primary one, but no recovery link is sent to it.
+        await emailTable.AddEMailAsync( ctx, 1, userId, first, isPrimary: true );
+        (await queries.FindPasswordUserByEmailAsync( ctx, first )).ShouldBeNull();
+
+        // A second address is validated: it becomes the primary one (CK.DB.Actor.ActorEMail), and the recovery uses it.
+        await emailTable.AddEMailAsync( ctx, 1, userId, second, isPrimary: false );
+        await emailTable.ValidateEMailAsync( ctx, 1, userId, second );
+        (await queries.FindPasswordUserByEmailAsync( ctx, second )).ShouldNotBeNull().UserId.ShouldBe( userId );
+        (await queries.FindPasswordUserByEmailAsync( ctx, first )).ShouldBeNull( "Not the primary one, and not validated." );
     }
 }
