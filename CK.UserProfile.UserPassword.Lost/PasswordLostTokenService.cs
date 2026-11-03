@@ -2,20 +2,23 @@ using CK.AppIdentity;
 using CK.Core;
 using Microsoft.AspNetCore.DataProtection;
 using System.Globalization;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace CK.UserProfile.UserPassword.Lost;
 
 /// <summary>
 /// Issues and validates the self-signed recovery tokens of the lost password flow.
 /// <para>
-/// The token carries the user identifier and is protected by ASP.NET Core Data Protection with a
-/// bounded lifetime: nothing is persisted, so validating it needs no database access at all. The
-/// produced string is URL-safe base64 and goes straight into the <c>recover-password/:token</c>
-/// route segment.
+/// The token carries the user identifier and a fingerprint of the user's current password hash, protected by
+/// ASP.NET Core Data Protection with a bounded lifetime: nothing is persisted. The produced string is URL-safe
+/// base64 and goes straight into the <c>recover-password/:token</c> route segment.
 /// </para>
 /// <para>
-/// Consequence of not persisting anything: a token cannot be revoked and stays usable until it
-/// expires. <see cref="DefaultLifetime"/> should therefore be kept short.
+/// The fingerprint makes the token single use without storage: it is valid only while the password is the one it
+/// was issued for. A recovery changes the password, so the link dies with its first use; so does every other link
+/// issued before a password change. A token that has not been used stays valid until it expires:
+/// <see cref="DefaultLifetime"/> should be kept short.
 /// </para>
 /// </summary>
 public class PasswordLostTokenService : ISingletonAutoService
@@ -54,50 +57,66 @@ public class PasswordLostTokenService : ISingletonAutoService
     /// Creates a recovery token for a user.
     /// </summary>
     /// <param name="userId">The user identifier. Must be positive.</param>
+    /// <param name="passwordHash">The user's current password hash (<c>CK.tUserPassword.PwdHash</c>).</param>
     /// <param name="lifetime">
     /// Overrides <see cref="DefaultLifetime"/> for this token. Must be positive when specified.
     /// </param>
     /// <returns>The token to send by e-mail.</returns>
-    public string CreateToken( int userId, TimeSpan? lifetime = null )
+    public string CreateToken( int userId, byte[] passwordHash, TimeSpan? lifetime = null )
     {
         Throw.CheckOutOfRangeArgument( userId > 0 );
+        Throw.CheckNotNullArgument( passwordHash );
         Throw.CheckOutOfRangeArgument( lifetime is null || lifetime.Value > TimeSpan.Zero );
-        return _protector.Protect( userId.ToString( CultureInfo.InvariantCulture ), lifetime ?? DefaultLifetime );
+        var payload = $"{userId.ToString( CultureInfo.InvariantCulture )}:{GetPasswordFingerprint( passwordHash )}";
+        return _protector.Protect( payload, lifetime ?? DefaultLifetime );
     }
 
     /// <summary>
-    /// Validates a recovery token and extracts the user identifier it carries.
+    /// Validates a recovery token: it must be authentic, not expired, and issued for the user's current password.
     /// </summary>
     /// <param name="monitor">The monitor to use.</param>
     /// <param name="token">The token to validate.</param>
-    /// <param name="userId">The user identifier when this method returns true, 0 otherwise.</param>
-    /// <returns>True if the token is valid and not expired.</returns>
-    public bool TryReadToken( IActivityMonitor monitor, string? token, out int userId )
+    /// <param name="getPasswordHashAsync">
+    /// Reads the current password hash of the user designated by the token (null when the user has no password).
+    /// </param>
+    /// <returns>The user identifier, or 0 when the token is invalid, expired or already used.</returns>
+    public async Task<int> ReadTokenAsync( IActivityMonitor monitor, string? token, Func<int, Task<byte[]?>> getPasswordHashAsync )
     {
-        userId = 0;
         if( string.IsNullOrWhiteSpace( token ) )
         {
             monitor.Warn( "Empty password recovery token." );
-            return false;
+            return 0;
         }
+        string payload;
         try
         {
-            var payload = _protector.Unprotect( token );
-            if( !int.TryParse( payload, NumberStyles.Integer, CultureInfo.InvariantCulture, out userId ) || userId <= 0 )
-            {
-                monitor.Error( $"Invalid payload in password recovery token. (Payload: {payload})" );
-                userId = 0;
-                return false;
-            }
-            return true;
+            payload = _protector.Unprotect( token );
         }
         catch( Exception ex )
         {
             // Tampered, forged or expired token: Unprotect throws in all these cases.
             monitor.Warn( "Could not validate the password recovery token.", ex );
-            return false;
+            return 0;
         }
+        var sep = payload.IndexOf( ':' );
+        if( sep <= 0
+            || !int.TryParse( payload.AsSpan( 0, sep ), NumberStyles.Integer, CultureInfo.InvariantCulture, out var userId )
+            || userId <= 0 )
+        {
+            monitor.Error( $"Invalid payload in password recovery token. (Payload: {payload})" );
+            return 0;
+        }
+        var currentHash = await getPasswordHashAsync( userId ).ConfigureAwait( false );
+        if( currentHash == null || payload.AsSpan( sep + 1 ).SequenceEqual( GetPasswordFingerprint( currentHash ) ) is false )
+        {
+            monitor.Warn( $"The password recovery token was issued for another password: it has been used, or the password changed since. (UserId: {userId})" );
+            return 0;
+        }
+        return userId;
     }
+
+    // The fingerprint is inside the protected payload: it is neither readable nor forgeable by the token's holder.
+    static string GetPasswordFingerprint( byte[] passwordHash ) => Convert.ToBase64String( SHA256.HashData( passwordHash ) );
 
     static TimeSpan ReadLifetime( IActivityMonitor monitor, IApplicationIdentityService appIdentity )
     {

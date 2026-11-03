@@ -6,8 +6,9 @@ using Dapper;
 namespace CK.UserProfile.UserPassword.Lost;
 
 /// <summary>
-/// The single read the lost password flow needs: resolving an e-mail address to the user it
-/// identifies, along with the names used to personalize the e-mail.
+/// The reads of the lost password flow: resolving an e-mail address to the user it identifies (with the names
+/// used to personalize the e-mail and the password hash the recovery token is bound to), and the current
+/// password hash of a user.
 /// </summary>
 public class PasswordLostQueries : IAutoService
 {
@@ -39,6 +40,7 @@ public class PasswordLostQueries : IAutoService
                         ,u.UserName
                         ,FirstName = isnull( u.FirstName, '' )
                         ,LastName = isnull( u.LastName, '' )
+                        ,PasswordHash = p.PwdHash
               from CK.vUser u
                   inner join CK.tActorEMail e on e.ActorId = u.UserId
                   inner join CK.tUserPassword p on p.UserId = u.UserId
@@ -47,6 +49,18 @@ public class PasswordLostQueries : IAutoService
                 and u.UserId > 1;
             """,
             new { Email = email } );
+    }
+
+    /// <summary>
+    /// Reads the current password hash of a user: a recovery token is valid only while it is the one the token
+    /// was issued for.
+    /// </summary>
+    /// <returns>The password hash, or null when the user has no password.</returns>
+    public Task<byte[]?> GetPasswordHashAsync( ISqlCallContext ctx, int userId )
+    {
+        return ctx[_userTable].QuerySingleOrDefaultAsync<byte[]?>(
+            "select PwdHash from CK.tUserPassword where UserId = @UserId and UserId > 1;",
+            new { UserId = userId } );
     }
 
     /// <summary>
@@ -79,6 +93,7 @@ public class PasswordLostQueries : IAutoService
         public string UserName { get; init; } = string.Empty;
         public string FirstName { get; init; } = string.Empty;
         public string LastName { get; init; } = string.Empty;
+        public byte[] PasswordHash { get; init; } = [];
     }
 
     /// <summary>

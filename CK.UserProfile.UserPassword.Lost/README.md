@@ -40,7 +40,9 @@ known address is an account enumeration oracle.
 
 `IRecoverPasswordCommand` takes the token and the new password. The token is the only proof of
 identity, which is why it is generated through `Microsoft.AspNetCore.DataProtection` and carries its
-own validity - announced in the mail body.
+own validity - announced in the mail body. **It is single use, without storage:** it carries a fingerprint
+of the user's current password hash and is accepted only while the password is unchanged, so the recovery
+kills it, and so does any other password change.
 
 ## Two translation sets, for two different consumers.
 

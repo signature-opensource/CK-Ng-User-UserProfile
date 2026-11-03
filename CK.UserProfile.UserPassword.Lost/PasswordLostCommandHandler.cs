@@ -49,7 +49,7 @@ public class PasswordLostCommandHandler : IAutoService
                     }
                     else
                     {
-                        var token = tokenService.CreateToken( user.UserId );
+                        var token = tokenService.CreateToken( user.UserId, user.PasswordHash );
                         await mailer.SendPasswordLostAsync( ctx.Monitor, email, token, tokenService.DefaultLifetime, user.FirstName, user.LastName );
                         ctx.Monitor.Info( $"Password recovery link sent. (UserId: {user.UserId})" );
                     }
@@ -88,7 +88,9 @@ public class PasswordLostCommandHandler : IAutoService
             var res = cmd.CreateResult();
             try
             {
-                if( !tokenService.TryReadToken( ctx.Monitor, cmd.Token, out var userId ) )
+                // The token is bound to the current password: it dies with the recovery (single use).
+                var userId = await tokenService.ReadTokenAsync( ctx.Monitor, cmd.Token, id => queries.GetPasswordHashAsync( ctx, id ) );
+                if( userId == 0 )
                 {
                     collector.Error( "This reset link is no longer valid. Please start a new password reset request.",
                                      "User.PasswordRecoveryInvalidToken" );
