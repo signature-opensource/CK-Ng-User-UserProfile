@@ -33,7 +33,7 @@ public class UserPasskeyTests
         configuration.FirstBinPath.Assemblies.AddRange( [ "CK.DB.User.UserPassword",
                                                           "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           // The passkey scheme family and its provider.
-                                                          "CK.AppIdentity.Cris.AuthCenter.Passkey",
+                                                          "CK.AppIdentity.AuthCenter.Passkey",
                                                           "CK.DB.User.UserPasskey",
                                                           "CK.Ng.UserProfile",
                                                           "CK.Ng.UserProfile.UserPasskey" ] );

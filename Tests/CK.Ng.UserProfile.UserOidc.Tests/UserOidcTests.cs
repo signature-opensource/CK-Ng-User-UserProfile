@@ -32,7 +32,7 @@ public class UserOidcTests
         configuration.FirstBinPath.Assemblies.AddRange( [ "CK.DB.User.UserPassword",
                                                           "CK.Ng.Cris.AspNet.Authentication.Basic",
                                                           // The OpenID Connect scheme family and its provider.
-                                                          "CK.AppIdentity.Cris.AuthCenter.Oidc",
+                                                          "CK.AppIdentity.AuthCenter.Oidc",
                                                           "CK.DB.User.UserOidc",
                                                           "CK.Ng.UserProfile",
                                                           "CK.Ng.UserProfile.UserOidc" ] );
