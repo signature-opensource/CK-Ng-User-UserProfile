@@ -87,7 +87,8 @@ public class UserPasskeyTests
             c["Local:AuthCenter:CriticalLifetimes:Basic"] = "00:05:00";
             c["Local:AuthCenter:Passkey:RpId"] = "localhost";
             c["Local:AuthCenter:Passkey:RpName"] = "Test";
-            c["Local:AuthCenter:Passkey:Origins:0"] = "http://localhost";
+            // The passkey origins are the ones of the parties: here, the application is its own front.
+            c["Local:PublicUrl"] = "http://localhost";
         } );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
