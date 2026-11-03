@@ -1,3 +1,4 @@
+using CK.AppIdentity;
 using CK.Core;
 using CK.Mail.SharedLayout;
 using CK.Mailer;
@@ -18,11 +19,11 @@ public class PasswordLostMailer : IPasswordLostMailer
     readonly IDefaultEmailSender _emailSender;
     readonly IMailBrandingProvider _brandingProvider;
     readonly CurrentCultureInfo _currentCulture;
-    readonly string _frontUrl;
+    readonly CurrentLocalParty _localParty;
 
     public PasswordLostMailer( IFluidTemplateService fluid,
                                PocoDirectory pocoDir,
-                               IFrontUrlResolver frontUrlResolver,
+                               CurrentLocalParty localParty,
                                IDefaultEmailSender emailSender,
                                IMailBrandingProvider brandingProvider,
                                CurrentCultureInfo currentCulture )
@@ -32,15 +33,38 @@ public class PasswordLostMailer : IPasswordLostMailer
         _emailSender = emailSender;
         _brandingProvider = brandingProvider;
         _currentCulture = currentCulture;
-        _frontUrl = frontUrlResolver.ResolveFrontUrl();
+        _localParty = localParty;
     }
 
-    public async Task SendPasswordLostAsync( IActivityMonitor monitor, string destination, string token, TimeSpan validity, string firstName, string lastName )
+    // The links target the client applications of the caller party: what it states about itself, never the request.
+    bool TryGetClientUrls( IActivityMonitor monitor, int callerPartyId, string mail, out string clientUrl, out IParty party )
     {
+        party = _localParty.LocalParty.FindCallerParty( callerPartyId )!;
+        clientUrl = party?.Description.GetClientApplicationUrl()!;
+        if( party == null || clientUrl == null )
+        {
+            monitor.Error( $"No {mail} e-mail sent: the party through which the user acts ({party?.FullName.Path ?? $"#{callerPartyId}"}) has no public URL or no default client application." );
+            return false;
+        }
+        return true;
+    }
+
+    static void SetClientUrls( IParty party, IDictionary<string, string> clientUrls )
+    {
+        foreach( var a in party.Description.ClientApplications )
+        {
+            clientUrls[a.Name] = party.Description.GetClientApplicationUrl( a.Name )!;
+        }
+    }
+
+    public async Task<bool> SendPasswordLostAsync( IActivityMonitor monitor, string destination, string token, TimeSpan validity, string firstName, string lastName, int callerPartyId )
+    {
+        if( !TryGetClientUrls( monitor, callerPartyId, "password lost", out var clientUrl, out var party ) ) return false;
         var culture = _currentCulture.CurrentCulture.PrimaryCulture;
         var model = _pocoDir.Create<IPasswordLostModel>( m =>
         {
-            m.FrontUrl = _frontUrl;
+            m.ClientUrl = clientUrl;
+            SetClientUrls( party, m.ClientUrls );
             m.Token = token;
             // Whole hours, rounded down so the mail never announces more than the token grants.
             // A sub-hour lifetime is an edge case: announce one hour rather than zero.
@@ -50,29 +74,33 @@ public class PasswordLostMailer : IPasswordLostMailer
         } );
 
         var subject = await _fluid.RenderAsync( "PasswordLost.Subject", culture, model );
-        var (html, inlineLogo) = await RenderWithLayoutAsync( "PasswordLost.Body", culture, model );
+        var (html, inlineLogo) = await RenderWithLayoutAsync( "PasswordLost.Body", culture, model, clientUrl );
 
         await SendAsync( monitor, destination, subject, html, inlineLogo );
 
-        monitor.Info( $"Password lost e-mail sent. (Email: {destination}, Culture: {culture.Name})" );
+        monitor.Info( $"Password lost e-mail sent. (Email: {destination}, Culture: {culture.Name}, Party: {party.FullName})" );
+        return true;
     }
 
-    public async Task SendPasswordSetConfirmationAsync( IActivityMonitor monitor, string destination, string firstName, string lastName )
+    public async Task<bool> SendPasswordSetConfirmationAsync( IActivityMonitor monitor, string destination, string firstName, string lastName, int callerPartyId )
     {
+        if( !TryGetClientUrls( monitor, callerPartyId, "password set confirmation", out var clientUrl, out var party ) ) return false;
         var culture = _currentCulture.CurrentCulture.PrimaryCulture;
         var model = _pocoDir.Create<IPasswordSetConfirmationModel>( m =>
         {
-            m.FrontUrl = _frontUrl;
+            m.ClientUrl = clientUrl;
+            SetClientUrls( party, m.ClientUrls );
             m.FirstName = firstName;
             m.LastName = lastName;
         } );
 
         var subject = await _fluid.RenderAsync( "PasswordSetConfirmation.Subject", culture, model );
-        var (html, inlineLogo) = await RenderWithLayoutAsync( "PasswordSetConfirmation.Body", culture, model );
+        var (html, inlineLogo) = await RenderWithLayoutAsync( "PasswordSetConfirmation.Body", culture, model, clientUrl );
 
         await SendAsync( monitor, destination, subject, html, inlineLogo );
 
-        monitor.Info( $"Password set confirmation e-mail sent. (Email: {destination}, Culture: {culture.Name})" );
+        monitor.Info( $"Password set confirmation e-mail sent. (Email: {destination}, Culture: {culture.Name}, Party: {party.FullName})" );
+        return true;
     }
 
     /// <summary>
@@ -84,7 +112,8 @@ public class PasswordLostMailer : IPasswordLostMailer
     /// </summary>
     async Task<(string Html, Attachment? InlineLogo)> RenderWithLayoutAsync( string bodyTemplateName,
                                                                              NormalizedCultureInfo culture,
-                                                                             object model )
+                                                                             object model,
+                                                                             string clientUrl )
     {
         var branding = _brandingProvider.GetBranding();
         var ambient = new Dictionary<string, object> { ["branding"] = branding };
@@ -108,23 +137,23 @@ public class PasswordLostMailer : IPasswordLostMailer
         }
         else
         {
-            logoUrl = ResolveLogoUrl( branding.LogoUrl, _frontUrl );
+            logoUrl = ResolveLogoUrl( branding.LogoUrl, clientUrl );
         }
 
-        var layoutModel = new { bodyHtml, frontUrl = _frontUrl, logoUrl, branding };
+        var layoutModel = new { bodyHtml, clientUrl, logoUrl, branding };
         var html = await _fluid.RenderAsync( "_DefaultMailLayout", culture, layoutModel );
         return (html, inlineLogo);
     }
 
     /// <summary>
-    /// Resolves the branding logo URL against the front URL: absolute URLs are returned verbatim,
-    /// a relative path gets the front URL prepended, an empty value stays empty.
+    /// Resolves the branding logo URL against the client application URL: absolute URLs are returned verbatim,
+    /// a relative path gets the client application URL prepended, an empty value stays empty.
     /// </summary>
-    static string ResolveLogoUrl( string logoUrl, string frontUrl )
+    static string ResolveLogoUrl( string logoUrl, string clientUrl )
     {
         if( string.IsNullOrEmpty( logoUrl ) ) return string.Empty;
         if( logoUrl.Contains( "://", StringComparison.Ordinal ) ) return logoUrl;
-        return string.IsNullOrEmpty( frontUrl ) ? logoUrl : frontUrl + logoUrl;
+        return string.IsNullOrEmpty( clientUrl ) ? logoUrl : clientUrl + logoUrl;
     }
 
     async Task SendAsync( IActivityMonitor monitor, string destination, string subject, string htmlBody, Attachment? inlineLogo )

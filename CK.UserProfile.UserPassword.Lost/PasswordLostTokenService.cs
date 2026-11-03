@@ -10,8 +10,9 @@ namespace CK.UserProfile.UserPassword.Lost;
 /// <summary>
 /// Issues and validates the self-signed recovery tokens of the lost password flow.
 /// <para>
-/// The token carries the user identifier and a fingerprint of the user's current password hash, protected by
-/// ASP.NET Core Data Protection with a bounded lifetime: nothing is persisted. The produced string is URL-safe
+/// The token carries the user identifier, the party through which it was issued (its PartyActorId) and a fingerprint of
+/// the user's current password hash, protected by ASP.NET Core Data Protection with a bounded lifetime: nothing is
+/// persisted. It is redeemed only through the party that issued it. The produced string is URL-safe
 /// base64 and goes straight into the <c>recover-password/:token</c> route segment.
 /// </para>
 /// <para>
@@ -58,29 +59,33 @@ public class PasswordLostTokenService : ISingletonAutoService
     /// </summary>
     /// <param name="userId">The user identifier. Must be positive.</param>
     /// <param name="passwordHash">The user's current password hash (<c>CK.tUserPassword.PwdHash</c>).</param>
+    /// <param name="issuingPartyId">The PartyActorId of the party through which the user acts (the caller party).</param>
     /// <param name="lifetime">
     /// Overrides <see cref="DefaultLifetime"/> for this token. Must be positive when specified.
     /// </param>
     /// <returns>The token to send by e-mail.</returns>
-    public string CreateToken( int userId, byte[] passwordHash, TimeSpan? lifetime = null )
+    public string CreateToken( int userId, byte[] passwordHash, int issuingPartyId, TimeSpan? lifetime = null )
     {
         Throw.CheckOutOfRangeArgument( userId > 0 );
         Throw.CheckNotNullArgument( passwordHash );
+        Throw.CheckOutOfRangeArgument( issuingPartyId >= 0 );
         Throw.CheckOutOfRangeArgument( lifetime is null || lifetime.Value > TimeSpan.Zero );
-        var payload = $"{userId.ToString( CultureInfo.InvariantCulture )}:{GetPasswordFingerprint( passwordHash )}";
+        var payload = $"{userId.ToString( CultureInfo.InvariantCulture )}:{issuingPartyId.ToString( CultureInfo.InvariantCulture )}:{GetPasswordFingerprint( passwordHash )}";
         return _protector.Protect( payload, lifetime ?? DefaultLifetime );
     }
 
     /// <summary>
-    /// Validates a recovery token: it must be authentic, not expired, and issued for the user's current password.
+    /// Validates a recovery token: it must be authentic, not expired, issued through the caller party and for the user's
+    /// current password.
     /// </summary>
     /// <param name="monitor">The monitor to use.</param>
     /// <param name="token">The token to validate.</param>
+    /// <param name="callerPartyId">The PartyActorId of the party through which the token is redeemed.</param>
     /// <param name="getPasswordHashAsync">
     /// Reads the current password hash of the user designated by the token (null when the user has no password).
     /// </param>
     /// <returns>The user identifier, or 0 when the token is invalid, expired or already used.</returns>
-    public async Task<int> ReadTokenAsync( IActivityMonitor monitor, string? token, Func<int, Task<byte[]?>> getPasswordHashAsync )
+    public async Task<int> ReadTokenAsync( IActivityMonitor monitor, string? token, int callerPartyId, Func<int, Task<byte[]?>> getPasswordHashAsync )
     {
         if( string.IsNullOrWhiteSpace( token ) )
         {
@@ -98,16 +103,22 @@ public class PasswordLostTokenService : ISingletonAutoService
             monitor.Warn( "Could not validate the password recovery token.", ex );
             return 0;
         }
-        var sep = payload.IndexOf( ':' );
-        if( sep <= 0
-            || !int.TryParse( payload.AsSpan( 0, sep ), NumberStyles.Integer, CultureInfo.InvariantCulture, out var userId )
-            || userId <= 0 )
+        var parts = payload.Split( ':', 3 );
+        if( parts.Length != 3
+            || !int.TryParse( parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var userId )
+            || userId <= 0
+            || !int.TryParse( parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out var partyId ) )
         {
             monitor.Error( $"Invalid payload in password recovery token. (Payload: {payload})" );
             return 0;
         }
+        if( partyId != callerPartyId )
+        {
+            monitor.Warn( $"The password recovery token is redeemed through another party than the one that issued it. (UserId: {userId}, IssuingPartyId: {partyId}, CallerPartyId: {callerPartyId})" );
+            return 0;
+        }
         var currentHash = await getPasswordHashAsync( userId ).ConfigureAwait( false );
-        if( currentHash == null || payload.AsSpan( sep + 1 ).SequenceEqual( GetPasswordFingerprint( currentHash ) ) is false )
+        if( currentHash == null || parts[2] != GetPasswordFingerprint( currentHash ) )
         {
             monitor.Warn( $"The password recovery token was issued for another password: it has been used, or the password changed since. (UserId: {userId})" );
             return 0;

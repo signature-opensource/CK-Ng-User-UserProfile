@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CK.Core;
 using CK.Template.Fluid;
 
@@ -5,13 +6,22 @@ namespace CK.UserProfile.UserPassword.Lost.Mail;
 
 /// <summary>
 /// Model of the <c>PasswordLost</c> templates: the recovery link is built as
-/// <c>{{ frontUrl }}/#/auth/recover-password/{{ token }}</c>.
+/// <c>{{ clientUrl }}/auth/recover-password/{{ token }}</c>.
 /// </summary>
 [FluidTemplate( "PasswordLost" )]
 public interface IPasswordLostModel : IPoco
 {
-    /// <summary>Root URL of the front-end (no trailing slash), e.g. <c>http://localhost:4200</c>.</summary>
-    string FrontUrl { get; set; }
+    /// <summary>
+    /// The URL (without trailing slash) of the default client application of the party through which the user acts:
+    /// <c>https://acme.com</c>.
+    /// </summary>
+    string ClientUrl { get; set; }
+
+    /// <summary>
+    /// The URL (without trailing slash) of each client application of this party, by name: a template that targets
+    /// another client application than the default one uses it (<c>{{ clientUrls.MiniApp }}</c>).
+    /// </summary>
+    IDictionary<string, string> ClientUrls { get; }
 
     /// <summary>The recovery token appended to the URL.</summary>
     string Token { get; set; }

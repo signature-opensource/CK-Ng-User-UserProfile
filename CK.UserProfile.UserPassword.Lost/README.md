@@ -12,7 +12,7 @@ commands reach this handler by location transparency.
 | | |
 |---|---|
 | Handler | [`PasswordLostCommandHandler`](PasswordLostCommandHandler.cs), [`PasswordLostTokenService`](PasswordLostTokenService.cs), [`PasswordLostQueries`](PasswordLostQueries.cs) |
-| Mail | [`IPasswordLostMailer`](Mail/IPasswordLostMailer.cs) and its default implementation, [`IFrontUrlResolver`](Mail/IFrontUrlResolver.cs), the Fluid templates of [Res/Templates](Res/Templates) |
+| Mail | [`IPasswordLostMailer`](Mail/IPasswordLostMailer.cs) and its default implementation, the Fluid templates of [Res/Templates](Res/Templates) |
 | Translations | [`Res/locales`](Res/locales) for the back-end `UserMessage` answers - see below |
 
 The handler is an auto service, found when this assembly is in the application: an application that
@@ -42,7 +42,8 @@ known address is an account enumeration oracle.
 identity, which is why it is generated through `Microsoft.AspNetCore.DataProtection` and carries its
 own validity - announced in the mail body. **It is single use, without storage:** it carries a fingerprint
 of the user's current password hash and is accepted only while the password is unchanged, so the recovery
-kills it, and so does any other password change.
+kills it, and so does any other password change. **It is bound to the party through which the user acts**
+(the caller party of the command, `AuthenticationInfo.CallerPartyId`): it is redeemed only through this party.
 
 ## Two translation sets, for two different consumers.
 
@@ -109,5 +110,10 @@ states the intent in its summary: *"A consumer can override the content by decla
 `[FluidTemplatePackage]` carrying a template with the same logical name."*
 
 Reach for the first one to reword or rebrand; the second only when the dispatch itself has to change.
-The link root comes from `IFrontUrlResolver` ([default implementation](Mail/DefaultFrontUrlResolver.cs)),
-so a deployment with a front-end on another host overrides that single service rather than the mailer.
+**The links target the client application of the party through which the user acts**: the URL that this party
+states about itself (its description, see
+[CK.AppIdentity](https://github.com/signature-opensource/CK-AppIdentity/blob/stable/CK.AppIdentity/README.md#the-description-of-a-party):
+its public URL and its client applications), never the request (a link built from the `Host` header of a request is the
+password reset poisoning attack). The models give `ClientUrl` (the default client application) and `ClientUrls` (by
+name): a template that targets another client application uses `{{ clientUrls.Name }}`. When the party has no client
+application URL, no mail is sent and an error is logged; the anonymous command answers the same.

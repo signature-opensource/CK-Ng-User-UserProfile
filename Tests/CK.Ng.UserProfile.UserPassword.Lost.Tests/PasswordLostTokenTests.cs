@@ -36,12 +36,14 @@ public class PasswordLostTokenTests
                                                           "CK.DB.User.NamedUser",
                                                           "CK.Mailer.MailKit",
                                                           "CK.UserProfile.UserPassword.Lost" ] );
+        configuration.FirstBinPath.Types.Add( typeof( TestClientApplication ) );
         var engineRes = await configuration.RunSuccessfullyAsync();
 
         var appIdentity = ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, c =>
         {
             c["FullName"] = "Test/$PasswordLostToken";
             c["Local:AllowFeatures"] = "AuthCenter";
+            c["Local:PublicUrl"] = "https://front.example.com";
             // The recovery sends a confirmation mail: it is dropped in a pickup directory.
             c["Local:EmailSender:Smtp:UsePickupDirectory"] = "true";
             c["Local:EmailSender:Smtp:PickupDirectory"] = TestHelper.TestProjectFolder.Combine( "obj/MailPickupToken" ).Path;
@@ -80,7 +82,8 @@ public class PasswordLostTokenTests
         var userId = await userTable.CreateUserAsync( ctx, 1, $"PasswordLostToken-{Guid.NewGuid():N}" );
         await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, userId, "initial", DB.Auth.UCLMode.CreateOrUpdate );
 
-        async Task<string> IssueTokenAsync() => tokenService.CreateToken( userId, (await queries.GetPasswordHashAsync( ctx, userId ))! );
+        // The commands are executed without caller party (0: the local party, its PartyActorId is not known here).
+        async Task<string> IssueTokenAsync( int partyId = 0 ) => tokenService.CreateToken( userId, (await queries.GetPasswordHashAsync( ctx, userId ))!, partyId );
 
         async Task<bool> RecoverAsync( string token, string password )
         {
@@ -107,6 +110,9 @@ public class PasswordLostTokenTests
         await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, userId, "changed", DB.Auth.UCLMode.CreateOrUpdate );
         (await RecoverAsync( older, "attacker" )).ShouldBeFalse( "The password changed since the token was issued." );
         (await pwdTable.LoginUserAsync( ctx, userId, "changed" )).IsSuccess.ShouldBeTrue();
+
+        // A token issued through another party is refused.
+        (await RecoverAsync( await IssueTokenAsync( partyId: 3712 ), "attacker" )).ShouldBeFalse( "Issued through another party." );
 
         // A fresh token works.
         (await RecoverAsync( await IssueTokenAsync(), "final" )).ShouldBeTrue();

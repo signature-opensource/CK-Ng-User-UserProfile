@@ -8,7 +8,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="CK.AppBuilder" Version="36.0.0-0.cris-auth.0.ci.26" />
-        <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.0.ci.24" />
+        <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.0.ci.26" />
         <PackageReference Include="CK.Globalization.Engine" Version="3.0.0-0.cris-auth.0.ci.19" />
         <PackageReference Include="CK.Cris.AspNet.Engine" Version="3.0.0-0.cris-auth.0.ci.73" />
         <PackageReference Include="CK.Setupable.Engine" Version="36.0.0-0.cris-auth.0.ci.35" />

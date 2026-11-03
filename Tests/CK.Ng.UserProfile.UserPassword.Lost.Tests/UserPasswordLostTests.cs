@@ -70,6 +70,7 @@ public class UserPasswordLostTests
         var globalization = configuration.FirstBinPath.EnsureAspect<CK.Setup.GlobalizationBinPathAspectConfiguration>();
         globalization.ActiveCultures = "fr";
 
+        configuration.FirstBinPath.Types.Add( typeof( TestClientApplication ) );
         var engineRes = (await configuration.RunSuccessfullyAsync());
 
         // The mailer writes to a pickup directory instead of sending: the real PasswordLostMailer
@@ -86,7 +87,8 @@ public class UserPasswordLostTests
             c["FullName"] = "Test/$UserPasswordLost";
             // The application is its own AuthCenter.
             c["Local:AllowFeatures"] = "AuthCenter";
-            c["Local:FrontUrl"] = "http://localhost:4200";
+            // The links of the mails target the default client application of the party (TestClientApplication).
+            c["Local:PublicUrl"] = "https://front.example.com";
             // Exercises the configurable lifetime rather than the 2 hours fallback.
             c["Local:PasswordLostTokenLifetime"] = "00:45:00";
             c["Local:EmailSender:Smtp:UsePickupDirectory"] = "true";
@@ -161,7 +163,7 @@ public class UserPasswordLostTests
         // Written by PasswordLost.Body.*.liquid: proves the templates render and that the link
         // points to the renamed route. No "/#/" here: the CK Angular app uses provideRouter
         // without withHashLocation, so a hash link lands on the home page instead.
-        body.ShouldContain( "/auth/recover-password/" );
+        body.ShouldContain( "https://front.example.com/auth/recover-password/" );
         body.ShouldNotContain( "/#/" );
         // The TypeScript test carries currentCultureName = "fr" on the command, so the mailer
         // picked the French templates: proves the culture reaches the rendering.

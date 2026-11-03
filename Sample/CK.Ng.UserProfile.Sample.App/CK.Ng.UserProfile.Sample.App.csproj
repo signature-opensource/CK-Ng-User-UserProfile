@@ -8,7 +8,7 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.0.ci.24" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.cris-auth.0.ci.26" />
     <PackageReference Include="CK.Cris.AspNet" Version="3.0.0-0.cris-auth.0.ci.73" />
     <!-- This application is a party whose web server is the "HttpEndpoint" feature (see appsettings.json of the host). -->
     <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="24.0.0-0.cris-auth.0.ci.31" />
