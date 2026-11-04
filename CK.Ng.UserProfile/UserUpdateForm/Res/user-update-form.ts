@@ -1,6 +1,6 @@
 import { Component, effect, inject, linkedSignal, untracked } from '@angular/core';
 import { required } from '@angular/forms/signals';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
     NotificationService,
     CrisError,
@@ -19,7 +19,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 @Component({
     selector: 'ck-user-update-form',
     imports: [
-        TranslateModule,
+        TranslatePipe,
         FontAwesomeModule,
         NzButtonModule,
         GenericForm

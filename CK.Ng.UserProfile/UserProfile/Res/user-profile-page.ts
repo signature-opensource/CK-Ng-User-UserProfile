@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, linkedSignal } from '@angular/core';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { SignInMethods, UserService, UserUpdateForm } from '@local/ck-gen';
 
 @Component( {
@@ -9,7 +9,7 @@ import { SignInMethods, UserService, UserUpdateForm } from '@local/ck-gen';
     imports: [
         NzAvatarModule,
         NzTabsModule,
-        TranslateModule,
+        TranslatePipe,
         UserUpdateForm,
         SignInMethods
     ],

@@ -1,5 +1,5 @@
 import { Component, computed, inject, linkedSignal, OnInit, signal } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { AuthLevel, ChangePasswordForm, HttpCrisEndpoint, NgAuthService, NotificationService, RemovePasswordCommand, UserService } from '@local/ck-gen';
@@ -7,7 +7,7 @@ import { AuthLevel, ChangePasswordForm, HttpCrisEndpoint, NgAuthService, Notific
 @Component( {
     selector: 'ck-password-section',
     imports: [
-        TranslateModule,
+        TranslatePipe,
         NzButtonModule,
         NzPopconfirmModule,
         ChangePasswordForm

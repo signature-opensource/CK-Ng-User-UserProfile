@@ -34,14 +34,14 @@ begin
     ensure import { NgAuthService } from '@local/ck-gen';
     ensure import { SetUserBannedCommand } from '@local/ck-gen';
     ensure import { DateTime } from 'luxon';
-    ensure import { TranslateModule } from '@ngx-translate/core';
+    ensure import { TranslatePipe } from '@ngx-translate/core';
     ensure import { Router } from '@angular/router';
 
     in after "@Component" 
         in first {^braces}
             in after "imports:"
                 in first {^[]}
-                    replace "RouterOutlet" with "RouterOutlet, Layout, TranslateModule";
+                    replace "RouterOutlet" with "RouterOutlet, Layout, TranslatePipe";
 
     inject """
            readonly #router = inject( Router );

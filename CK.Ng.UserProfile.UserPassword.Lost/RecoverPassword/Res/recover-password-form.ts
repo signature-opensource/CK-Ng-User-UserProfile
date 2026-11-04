@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
 import { FormField, required } from '@angular/forms/signals';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +28,7 @@ import { LocaleService } from '@local/ck-gen/ts-locales/locales';
   templateUrl: './recover-password-form.html',
   imports: [
     FormField,
-    TranslateModule,
+    TranslatePipe,
     FontAwesomeModule,
     NzAlertModule,
     NzButtonModule,

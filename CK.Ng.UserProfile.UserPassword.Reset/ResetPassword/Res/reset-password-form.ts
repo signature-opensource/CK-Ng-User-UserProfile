@@ -1,7 +1,7 @@
 import { Component, inject, signal, TemplateRef, viewChild } from '@angular/core';
 import { FormField, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +28,7 @@ import {
   templateUrl: './reset-password-form.html',
   imports: [
     FormField,
-    TranslateModule,
+    TranslatePipe,
     RouterLink,
     FontAwesomeModule,
     NzAlertModule,

@@ -1,6 +1,6 @@
 import { Component, inject, signal, TemplateRef, viewChild } from '@angular/core';
 import { email, FormField, required } from '@angular/forms/signals';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
@@ -23,7 +23,7 @@ import { LocaleService } from '@local/ck-gen/ts-locales/locales';
   templateUrl: './password-lost-form.html',
   imports: [
     FormField,
-    TranslateModule,
+    TranslatePipe,
     FontAwesomeModule,
     NzButtonModule,
     NzInputModule,

@@ -1,8 +1,9 @@
 import { Component, computed, inject } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NgAuthService } from '@local/ck-gen';
 import { DateTime } from 'luxon';
+import { LocaleService } from '@local/ck-gen/ts-locales/locales';
 
 /**
  * A sign-in method of the user: its scheme ("Basic", "Passkey", "Oidc.Google"...) and its last use.
@@ -12,7 +13,7 @@ export type SignInMethod = { scheme: string, name: string, lastUsed: string };
 @Component( {
     selector: 'ck-sign-in-methods',
     imports: [
-        TranslateModule,
+        TranslatePipe,
         NzListModule
     ],
     templateUrl: './sign-in-methods.html'
@@ -21,6 +22,8 @@ export class SignInMethods {
     // <PreDependencyInjection revert />
     readonly #authService = inject( NgAuthService );
     readonly #translateService = inject( TranslateService );
+    // The dates follow the locale of the application.
+    readonly #locale = inject( LocaleService );
     // <PostDependencyInjection />
 
     // <PreLocalVariables revert />
@@ -55,6 +58,6 @@ export class SignInMethods {
         // The min value: never used (a method added after the last sign-in, for instance).
         return lastUsed.year <= 1
                 ? this.#translateService.instant( 'CK.UserProfile.SignInMethods.NeverUsed' )
-                : lastUsed.setLocale( this.#translateService.currentLang ?? 'en' ).toLocaleString( DateTime.DATETIME_MED );
+                : lastUsed.setLocale( this.#locale.currentLocale() ).toLocaleString( DateTime.DATETIME_MED );
     }
 }

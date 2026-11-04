@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,7 +11,7 @@ export type PasswordStrengthLevel = 'weak' | 'medium' | 'strong';
 @Component( {
   selector: 'ck-password-strength',
   templateUrl: './password-strength.html',
-  imports: [TranslateModule, FontAwesomeModule]
+  imports: [TranslatePipe, FontAwesomeModule]
 } )
 export class PasswordStrength {
   /**

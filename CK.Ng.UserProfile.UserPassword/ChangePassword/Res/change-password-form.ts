@@ -1,5 +1,5 @@
 import { Component, linkedSignal, inject, input, output, TemplateRef, viewChild } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FormField, required } from '@angular/forms/signals';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { AddPasswordCommand, AuthLevel, CustomFieldContext, customField, Generic
     selector: 'ck-change-password-form',
     imports: [
         FormField,
-        TranslateModule,
+        TranslatePipe,
         FontAwesomeModule,
         NzButtonModule,
         NzInputModule,

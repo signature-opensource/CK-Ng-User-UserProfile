@@ -1,10 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { AuthLevel, GetOidcIdentitiesQCommand, HttpCrisEndpoint, NgAuthService, NotificationService, UnlinkOidcIdentityCommand, UserOidcIdentity } from '@local/ck-gen';
 import { DateTime } from 'luxon';
+import { LocaleService } from '@local/ck-gen/ts-locales/locales';
 
 /**
  * An OpenID Connect identity of the user, ready to display.
@@ -25,7 +26,7 @@ export type OidcIdentityView = {
 @Component( {
     selector: 'ck-oidc-identities',
     imports: [
-        TranslateModule,
+        TranslatePipe,
         NzButtonModule,
         NzListModule,
         NzPopconfirmModule
@@ -38,6 +39,8 @@ export class OidcIdentities implements OnInit {
     readonly #cris = inject( HttpCrisEndpoint );
     readonly #notif = inject( NotificationService );
     readonly #translateService = inject( TranslateService );
+    // The dates follow the locale of the application.
+    readonly #locale = inject( LocaleService );
     // <PostDependencyInjection />
 
     // <PreLocalVariables revert />
@@ -163,7 +166,7 @@ export class OidcIdentities implements OnInit {
         const account = [claims['email'], claims['preferred_username'], claims['name']].find( v => typeof v === 'string' && v.length > 0 ) as string | undefined;
         const lastLogin = i.lastLoginTime.year <= 1
                             ? this.#translateService.instant( 'CK.UserProfile.Oidc.Never' )
-                            : i.lastLoginTime.setLocale( this.#translateService.currentLang ?? 'en' ).toLocaleString( DateTime.DATETIME_MED );
+                            : i.lastLoginTime.setLocale( this.#locale.currentLocale() ).toLocaleString( DateTime.DATETIME_MED );
         return {
             schemeSuffix: i.schemeSuffix,
             provider: i.schemeSuffix || 'OpenID',

@@ -15,5 +15,5 @@ begin
         in first {^braces}
             in after "imports:"
                 in first {^[]}
-                    replace "TranslateModule" with "TranslateModule, RouterLink";
+                    replace "TranslatePipe" with "TranslatePipe, RouterLink";
 end

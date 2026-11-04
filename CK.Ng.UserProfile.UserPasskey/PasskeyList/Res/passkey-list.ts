@@ -1,18 +1,19 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { AuthLevel, DeletePasskeyCommand, GetPasskeysQCommand, HttpCrisEndpoint, NgAuthService, NotificationService, PasskeyRegistrationButton, RenamePasskeyCommand, UserPasskey } from '@local/ck-gen';
 import { DateTime } from 'luxon';
+import { LocaleService } from '@local/ck-gen/ts-locales/locales';
 
 @Component( {
     selector: 'ck-passkey-list',
     imports: [
         FormsModule,
-        TranslateModule,
+        TranslatePipe,
         NzButtonModule,
         NzInputModule,
         NzListModule,
@@ -27,6 +28,8 @@ export class PasskeyList implements OnInit {
     readonly #cris = inject( HttpCrisEndpoint );
     readonly #notif = inject( NotificationService );
     readonly #translateService = inject( TranslateService );
+    // The dates follow the locale of the application.
+    readonly #locale = inject( LocaleService );
     // <PostDependencyInjection />
 
     // <PreLocalVariables revert />
@@ -67,7 +70,7 @@ export class PasskeyList implements OnInit {
     formatDate( d: DateTime ): string {
         return d.year <= 1
                 ? this.#translateService.instant( 'CK.UserProfile.Passkeys.Never' )
-                : d.setLocale( this.#translateService.currentLang ?? 'en' ).toLocaleString( DateTime.DATETIME_MED );
+                : d.setLocale( this.#locale.currentLocale() ).toLocaleString( DateTime.DATETIME_MED );
     }
 
     /** The model of the authenticator: a short form of its AAGUID (a name table of the authenticators is out of scope). */
