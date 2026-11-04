@@ -37,7 +37,7 @@ describe( 'ck-user-update-form with NamedUser', () => {
                 { provide: UserService, useValue: { userProfile: signal( new UserProfile( 7, 'Alice', 'Ann', 'Lee' ) ), refreshUserProfileAsync: jest.fn().mockResolvedValue( undefined ) } },
                 // The AuthService of the Cris authentication hooks the endpoint and refreshes its session through sendAsync:
                 // with no result, it stays anonymous.
-                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
+                { provide: HttpCrisEndpoint, useValue: { ambientValuesOverride: {}, sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
                 { provide: NotificationService, useValue: { notifySimpleMessage: jest.fn(), notifyGenericCommunicationError: jest.fn() } }
             ],
             imports: [UserUpdateForm]

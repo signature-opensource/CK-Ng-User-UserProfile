@@ -58,7 +58,7 @@ describe( 'ck-change-password-form', () => {
                 { provide: NgAuthService, useValue: { level: signal( AuthLevel.Critical ) } },
                 // The AuthService of the Cris authentication hooks the endpoint and refreshes its session through sendAsync:
                 // with no result, it stays anonymous.
-                { provide: HttpCrisEndpoint, useValue: { sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
+                { provide: HttpCrisEndpoint, useValue: { ambientValuesOverride: {}, sendOrThrowAsync: send, addHook: jest.fn(), sendAsync: jest.fn().mockResolvedValue( {} ) } },
                 { provide: NotificationService, useValue: { notifySimpleMessage, notifyGenericCommunicationError: jest.fn() } }
             ],
             imports: [ChangePasswordForm]
