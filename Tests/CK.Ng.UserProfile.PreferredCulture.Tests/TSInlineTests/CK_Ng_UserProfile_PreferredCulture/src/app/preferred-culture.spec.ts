@@ -6,6 +6,7 @@ import { LOCALE_ID } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { AppComponent } from './app.component';
+import { firstValueFrom } from 'rxjs';
 
 function basicLogin( userName: string, password: string ): BasicLoginCommand {
     const c = new BasicLoginCommand();
@@ -48,10 +49,18 @@ describe( 'The preferred culture', () => {
         await userService.refreshUserProfileAsync();
         expect( userService.userProfile()!.extendedCultureId ).toBe( locales['fr'].id );
 
-        expect( localeService.currentLocale() ).toBe( 'fr' );
-        expect( TestBed.inject( TranslateService ).getCurrentLang() ).toBe( 'fr' );
-        expect( TestBed.inject( NzI18nService ).getLocale().locale ).toBe( locales['fr'].zorro.locale );
-        expect( TestBed.inject( LOCALE_ID ).toString() ).toBe( 'fr' );
-        expect( cris.ambientValuesOverride.currentCultureName ).toBe( 'fr' );
+        // ngx-translate switches its current language once the translations of the language are loaded, and
+        // LocaleService.setLocale doesn't wait for it: on a loaded machine, they may not be loaded yet.
+        const translate = TestBed.inject( TranslateService );
+        if( translate.getCurrentLang() !== 'fr' ) await firstValueFrom( translate.onLangChange );
+
+        // One comparison: a failure shows every holder of the culture.
+        expect( {
+            locale: localeService.currentLocale(),
+            translate: translate.getCurrentLang(),
+            zorro: TestBed.inject( NzI18nService ).getLocale().locale,
+            localeId: TestBed.inject( LOCALE_ID ).toString(),
+            commands: cris.ambientValuesOverride.currentCultureName
+        } ).toEqual( { locale: 'fr', translate: 'fr', zorro: locales['fr'].zorro.locale, localeId: 'fr', commands: 'fr' } );
     } );
 } );
