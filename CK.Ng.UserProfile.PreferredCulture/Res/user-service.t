@@ -1,19 +1,20 @@
 create <ts> transformer
 begin
-    ensure import { TranslateService } from '@ngx-translate/core';
-    ensure import { locales, DEFAULT_LOCALE_INFO } from '@local/ck-gen/ts-locales/locales';
+    ensure import { LocaleService, locales, DEFAULT_LOCALE_INFO } from '@local/ck-gen/ts-locales/locales';
 
     inject """
-           readonly #translateService = inject( TranslateService );
+           readonly #localeService = inject( LocaleService );
 
            """ into <PreDependencyInjection>;
 
     inject """
-           
-            const prefCulture = Object.values( locales ).find( l => l.id === res?.extendedCultureId )?.ngxTranslate ?? DEFAULT_LOCALE_INFO.ngxTranslate;
-            this.#cris.ambientValuesOverride.currentCultureName = prefCulture;
-            if ( this.#translateService.getCurrentLang() !== prefCulture ) {
-                this.#translateService.use( prefCulture );
+
+            // The preferred culture is the locale of the application: LocaleService.setLocale sets ngx-translate, ng-zorro
+            // and LOCALE_ID. The commands follow at once (CK.Ng.Cris.AspNet also makes them follow the LocaleService).
+            const prefLocale = Object.values( locales ).find( l => l.id === res?.extendedCultureId ) ?? DEFAULT_LOCALE_INFO;
+            this.#cris.ambientValuesOverride.currentCultureName = prefLocale.name;
+            if ( this.#localeService.currentLocale() !== prefLocale.name ) {
+                await this.#localeService.setLocale( prefLocale.name );
             }
 
            """ into <PostUserProfileRefresh>;

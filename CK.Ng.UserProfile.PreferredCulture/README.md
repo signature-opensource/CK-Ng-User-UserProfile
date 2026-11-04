@@ -10,9 +10,10 @@ Angular CKomposable package that adds the preferred language to the `/profile` p
 - A form control on the update form, and the `SetUserExtendedCultureCommand` pushed into the profile
   update batch.
 - **A side effect on the whole application**: it transforms `user-service.ts` so that, whenever the
-  user profile is loaded or refreshed, the Cris `currentCultureName` ambient value and the
-  ngx-translate current language are switched to the user preferred culture. Referencing this package
-  therefore makes the UI follow the stored preference, not only display it.
+  user profile is loaded or refreshed, the user preferred culture becomes the locale of the application:
+  `LocaleService.setLocale` switches ngx-translate, ng-zorro and `LOCALE_ID` (the Angular pipes), and the Cris
+  `currentCultureName` ambient value is set at once. Referencing this package therefore makes the UI follow the
+  stored preference, not only display it.
 
 No component of its own: this package is only [transformers](Res) plus a translation key.
 
