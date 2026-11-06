@@ -273,3 +273,6 @@ CodeCakeBuilder/[Rr]eleases/
 # and yarn/unplugged since we don't use Zero-Install.
 **/.yarn/install-state.gz
 **/.yarn/unplugged
+
+# The install marker of the CK.TypeScript engine (it describes the local install).
+**/.yarn/ck-install-state
