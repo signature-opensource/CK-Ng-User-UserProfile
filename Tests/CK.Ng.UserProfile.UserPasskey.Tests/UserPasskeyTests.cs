@@ -79,9 +79,8 @@ public class UserPasskeyTests
         }
 
         var map = engineRes.LoadMap();
-        var builder = WebApplication.CreateSlimBuilder();
         // The Basic logins reach the Critical level: the section's Critical operations are tested.
-        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map, c =>
+        await using var server = await map.CreateRunningAuthCenterApplicationAsync( c =>
         {
             AuthCenterApplicationTestingExtensions.DefaultIdentity( c );
             c["Local:AuthCenter:CriticalLifetimes:Basic"] = "00:05:00";

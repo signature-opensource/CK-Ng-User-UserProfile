@@ -74,8 +74,7 @@ public class NamedUserTests
             await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, idUser, "success", DB.Auth.UCLMode.CreateOrUpdate );
         }
         #endregion
-        var builder = WebApplication.CreateSlimBuilder();
-        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map );
+        await using var server = await map.CreateRunningAuthCenterApplicationAsync();
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
         runner.Run();

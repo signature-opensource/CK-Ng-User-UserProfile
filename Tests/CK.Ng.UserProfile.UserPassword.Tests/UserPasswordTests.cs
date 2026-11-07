@@ -85,9 +85,8 @@ public class UserPasswordTests
         #endregion
 
         var map = engineRes.LoadMap();
-        var builder = WebApplication.CreateSlimBuilder();
         // The Basic logins don't reach the Critical level: the change password form asks for a recent login.
-        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map, c =>
+        await using var server = await map.CreateRunningAuthCenterApplicationAsync( c =>
         {
             AuthCenterApplicationTestingExtensions.DefaultIdentity( c );
             c["Local:AuthCenter:CriticalLifetimes:Basic"] = "00:00:00";

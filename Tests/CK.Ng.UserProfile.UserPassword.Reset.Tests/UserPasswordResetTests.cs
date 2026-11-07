@@ -90,10 +90,9 @@ public class UserPasswordResetTests
         #endregion
 
         var map = engineRes.LoadMap();
-        var builder = WebApplication.CreateSlimBuilder();
         // ISetPasswordCommand requires the Critical level: a Basic login reaches it for 5 minutes (the default Critical
         // lifetime of the AuthCenter).
-        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map );
+        await using var server = await map.CreateRunningAuthCenterApplicationAsync();
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
 

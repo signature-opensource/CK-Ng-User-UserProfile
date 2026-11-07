@@ -144,8 +144,7 @@ public class UserPasswordLostTests
         #endregion
 
         var map = engineRes.LoadMap();
-        var builder = WebApplication.CreateSlimBuilder();
-        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map, Identity );
+        await using var server = await map.CreateRunningAuthCenterApplicationAsync( Identity );
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
 

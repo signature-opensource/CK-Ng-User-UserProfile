@@ -64,8 +64,7 @@ public class WorkspaceTests
         }
         #endregion
 
-        var builder = WebApplication.CreateSlimBuilder();
-        await using var server = await builder.CreateRunningAuthCenterApplicationAsync( map );
+        await using var server = await map.CreateRunningAuthCenterApplicationAsync();
         await using var runner = TestHelper.CreateTypeScriptRunner( targetProjectPath, server.ServerAddress );
         await TestHelper.SuspendAsync( resume => resume );
         runner.Run();
