@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.IO.User.NamedUser" Version="31.0.0-0.cris-auth.1.ci.39" />
+    <PackageReference Include="CK.IO.User.NamedUser" Version="31.0.0-0.cris-auth.1.ci.40" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
