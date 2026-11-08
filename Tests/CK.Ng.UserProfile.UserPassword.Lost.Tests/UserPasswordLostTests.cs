@@ -70,7 +70,7 @@ public class UserPasswordLostTests
         var globalization = configuration.FirstBinPath.EnsureAspect<CK.Setup.GlobalizationBinPathAspectConfiguration>();
         globalization.ActiveCultures = "fr";
 
-        configuration.FirstBinPath.Types.Add( typeof( TestClientApplication ) );
+        configuration.FirstBinPath.Types.Add( typeof( TestClientApplicationFeatureDriver ) );
         var engineRes = (await configuration.RunSuccessfullyAsync());
 
         // The mailer writes to a pickup directory instead of sending: the real PasswordLostMailer
@@ -87,7 +87,7 @@ public class UserPasswordLostTests
             c["FullName"] = "Test/$UserPasswordLost";
             // The application is its own AuthCenter.
             c["Local:AllowFeatures"] = "AuthCenter";
-            // The links of the mails target the default client application of the party (TestClientApplication).
+            // The links of the mails target the default client application of the party (TestClientApplicationFeatureDriver).
             c["Local:PublicUrl"] = "https://front.example.com";
             // Exercises the configurable lifetime rather than the 2 hours fallback.
             c["Local:PasswordLostTokenLifetime"] = "00:45:00";

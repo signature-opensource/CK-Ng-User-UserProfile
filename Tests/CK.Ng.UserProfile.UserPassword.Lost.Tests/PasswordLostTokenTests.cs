@@ -36,7 +36,7 @@ public class PasswordLostTokenTests
                                                           "CK.DB.User.NamedUser",
                                                           "CK.Mailer.MailKit",
                                                           "CK.UserProfile.UserPassword.Lost" ] );
-        configuration.FirstBinPath.Types.Add( typeof( TestClientApplication ) );
+        configuration.FirstBinPath.Types.Add( typeof( TestClientApplicationFeatureDriver ) );
         var engineRes = await configuration.RunSuccessfullyAsync();
 
         var appIdentity = ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, c =>
