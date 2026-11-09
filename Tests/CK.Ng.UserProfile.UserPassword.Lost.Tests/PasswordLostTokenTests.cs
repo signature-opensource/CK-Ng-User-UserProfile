@@ -82,8 +82,8 @@ public class PasswordLostTokenTests
         var userId = await userTable.CreateUserAsync( ctx, 1, $"PasswordLostToken-{Guid.NewGuid():N}" );
         await pwdTable.CreateOrUpdatePasswordUserAsync( ctx, 1, userId, "initial", DB.Auth.UCLMode.CreateOrUpdate );
 
-        // The commands are executed without caller party (0: the local party, its PartyActorId is not known here).
-        async Task<string> IssueTokenAsync( int partyId = 0 ) => tokenService.CreateToken( userId, (await queries.GetPasswordHashAsync( ctx, userId ))!, partyId );
+        // The commands are executed without caller party (null: they are submitted to the background executor here).
+        async Task<string> IssueTokenAsync( string? partyFullName = null ) => tokenService.CreateToken( userId, (await queries.GetPasswordHashAsync( ctx, userId ))!, partyFullName );
 
         async Task<bool> RecoverAsync( string token, string password )
         {
@@ -112,7 +112,7 @@ public class PasswordLostTokenTests
         (await pwdTable.LoginUserAsync( ctx, userId, "changed" )).IsSuccess.ShouldBeTrue();
 
         // A token issued through another party is refused.
-        (await RecoverAsync( await IssueTokenAsync( partyId: 3712 ), "attacker" )).ShouldBeFalse( "Issued through another party." );
+        (await RecoverAsync( await IssueTokenAsync( partyFullName: "Test/$Other" ), "attacker" )).ShouldBeFalse( "Issued through another party." );
 
         // A fresh token works.
         (await RecoverAsync( await IssueTokenAsync(), "final" )).ShouldBeTrue();

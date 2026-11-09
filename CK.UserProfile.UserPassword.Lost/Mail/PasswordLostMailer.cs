@@ -37,13 +37,13 @@ public class PasswordLostMailer : IPasswordLostMailer
     }
 
     // The links target the client applications of the caller party: what it states about itself, never the request.
-    bool TryGetClientUrls( IActivityMonitor monitor, int callerPartyId, string mail, out string clientUrl, out IParty party )
+    bool TryGetClientUrls( IActivityMonitor monitor, string? callerPartyFullName, string mail, out string clientUrl, out IParty party )
     {
-        party = _localParty.LocalParty.FindCallerParty( callerPartyId )!;
+        party = _localParty.LocalParty.FindCallerParty( callerPartyFullName )!;
         clientUrl = party?.Description.GetClientApplicationUrl()!;
         if( party == null || clientUrl == null )
         {
-            monitor.Error( $"No {mail} e-mail sent: the party through which the user acts ({party?.FullName.Path ?? $"#{callerPartyId}"}) has no public URL or no default client application." );
+            monitor.Error( $"No {mail} e-mail sent: the party through which the user acts ('{callerPartyFullName}') has no public URL or no default client application." );
             return false;
         }
         return true;
@@ -57,9 +57,9 @@ public class PasswordLostMailer : IPasswordLostMailer
         }
     }
 
-    public async Task<bool> SendPasswordLostAsync( IActivityMonitor monitor, string destination, string token, TimeSpan validity, string firstName, string lastName, int callerPartyId )
+    public async Task<bool> SendPasswordLostAsync( IActivityMonitor monitor, string destination, string token, TimeSpan validity, string firstName, string lastName, string? callerPartyFullName )
     {
-        if( !TryGetClientUrls( monitor, callerPartyId, "password lost", out var clientUrl, out var party ) ) return false;
+        if( !TryGetClientUrls( monitor, callerPartyFullName, "password lost", out var clientUrl, out var party ) ) return false;
         var culture = _currentCulture.CurrentCulture.PrimaryCulture;
         var model = _pocoDir.Create<IPasswordLostModel>( m =>
         {
@@ -82,9 +82,9 @@ public class PasswordLostMailer : IPasswordLostMailer
         return true;
     }
 
-    public async Task<bool> SendPasswordSetConfirmationAsync( IActivityMonitor monitor, string destination, string firstName, string lastName, int callerPartyId )
+    public async Task<bool> SendPasswordSetConfirmationAsync( IActivityMonitor monitor, string destination, string firstName, string lastName, string? callerPartyFullName )
     {
-        if( !TryGetClientUrls( monitor, callerPartyId, "password set confirmation", out var clientUrl, out var party ) ) return false;
+        if( !TryGetClientUrls( monitor, callerPartyFullName, "password set confirmation", out var clientUrl, out var party ) ) return false;
         var culture = _currentCulture.CurrentCulture.PrimaryCulture;
         var model = _pocoDir.Create<IPasswordSetConfirmationModel>( m =>
         {

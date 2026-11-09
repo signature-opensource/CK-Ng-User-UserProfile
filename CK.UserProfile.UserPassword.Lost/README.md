@@ -43,7 +43,7 @@ identity, which is why it is generated through `Microsoft.AspNetCore.DataProtect
 own validity - announced in the mail body. **It is single use, without storage:** it carries a fingerprint
 of the user's current password hash and is accepted only while the password is unchanged, so the recovery
 kills it, and so does any other password change. **It is bound to the party through which the user acts**
-(the caller party of the command, `AuthenticationInfo.CallerPartyId`): it is redeemed only through this party.
+(the caller party of the command, `AuthenticationInfo.CallerPartyFullName`): it is redeemed only through this party.
 
 ## Two translation sets, for two different consumers.
 

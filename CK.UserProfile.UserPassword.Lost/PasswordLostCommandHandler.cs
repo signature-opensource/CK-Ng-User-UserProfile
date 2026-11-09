@@ -51,8 +51,8 @@ public class PasswordLostCommandHandler : IAutoService
                     else
                     {
                         // The token and the link are the ones of the party through which the user acts.
-                        var token = tokenService.CreateToken( user.UserId, user.PasswordHash, authentication.CallerPartyId );
-                        if( await mailer.SendPasswordLostAsync( ctx.Monitor, email, token, tokenService.DefaultLifetime, user.FirstName, user.LastName, authentication.CallerPartyId ) )
+                        var token = tokenService.CreateToken( user.UserId, user.PasswordHash, authentication.CallerPartyFullName );
+                        if( await mailer.SendPasswordLostAsync( ctx.Monitor, email, token, tokenService.DefaultLifetime, user.FirstName, user.LastName, authentication.CallerPartyFullName ) )
                         {
                             ctx.Monitor.Info( $"Password recovery link sent. (UserId: {user.UserId})" );
                         }
@@ -94,7 +94,7 @@ public class PasswordLostCommandHandler : IAutoService
             try
             {
                 // The token is bound to the current password: it dies with the recovery (single use).
-                var userId = await tokenService.ReadTokenAsync( ctx.Monitor, cmd.Token, authentication.CallerPartyId, id => queries.GetPasswordHashAsync( ctx, id ) );
+                var userId = await tokenService.ReadTokenAsync( ctx.Monitor, cmd.Token, authentication.CallerPartyFullName, id => queries.GetPasswordHashAsync( ctx, id ) );
                 if( userId == 0 )
                 {
                     collector.Error( "This reset link is no longer valid. Please start a new password reset request.",
@@ -143,7 +143,7 @@ public class PasswordLostCommandHandler : IAutoService
                             var user = await queries.FindPasswordUserByIdAsync( ctx, userId );
                             if( user is not null && !string.IsNullOrEmpty( user.Email ) )
                             {
-                                await mailer.SendPasswordSetConfirmationAsync( ctx.Monitor, user.Email, user.FirstName, user.LastName, authentication.CallerPartyId );
+                                await mailer.SendPasswordSetConfirmationAsync( ctx.Monitor, user.Email, user.FirstName, user.LastName, authentication.CallerPartyFullName );
                             }
                         }
                         catch( Exception e )

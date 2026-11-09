@@ -24,15 +24,15 @@ public interface IPasswordLostMailer : IAutoService
     /// error is logged) and false is returned.
     /// </summary>
     /// <param name="validity">How long the link stays valid: the templates announce it.</param>
-    /// <param name="callerPartyId">The PartyActorId of the party through which the user acts (0: the local party).</param>
+    /// <param name="callerPartyFullName">The full name of the party through which the user acts (null: unknown).</param>
     /// <returns>True if the mail has been sent.</returns>
-    Task<bool> SendPasswordLostAsync( IActivityMonitor monitor, string destination, string token, TimeSpan validity, string firstName, string lastName, int callerPartyId );
+    Task<bool> SendPasswordLostAsync( IActivityMonitor monitor, string destination, string token, TimeSpan validity, string firstName, string lastName, string? callerPartyFullName );
 
     /// <summary>
     /// Sends the confirmation e-mail, once the password has actually been changed. Its links target the client
     /// application of the party through which the user acts: when it has none, no mail is sent and false is returned.
     /// </summary>
-    /// <param name="callerPartyId">The PartyActorId of the party through which the user acts (0: the local party).</param>
+    /// <param name="callerPartyFullName">The full name of the party through which the user acts (null: unknown).</param>
     /// <returns>True if the mail has been sent.</returns>
-    Task<bool> SendPasswordSetConfirmationAsync( IActivityMonitor monitor, string destination, string firstName, string lastName, int callerPartyId );
+    Task<bool> SendPasswordSetConfirmationAsync( IActivityMonitor monitor, string destination, string firstName, string lastName, string? callerPartyFullName );
 }
