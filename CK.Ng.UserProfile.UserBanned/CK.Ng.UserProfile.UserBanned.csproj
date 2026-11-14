@@ -13,7 +13,7 @@
 
     <ItemGroup>
         <!-- TODO: version of the CK-DB-User-UserBanned release carrying IUserProfile.IsBanned. -->
-        <PackageReference Include="CK.IO.User.UserBanned" Version="4.0.0-0.uc.0.ci.50" />
+        <PackageReference Include="CK.IO.User.UserBanned" Version="4.0.0-0.uc.0.ci.51" />
     </ItemGroup>
 
 </Project>
