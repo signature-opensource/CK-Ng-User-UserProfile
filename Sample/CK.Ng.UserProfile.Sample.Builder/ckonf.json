@@ -39,7 +39,7 @@
               }
           },
           // The client application "App" (Clients/App of the host), served by the host (CK.TS.AspNet.Clients) on "/".
-          "PartyClient": { "App": { "Type": "TypeScript", "Kind": "DefaultApp", "DevServerPort": 4400, "IntegrationMode": "Inline", "DefaultCulture": "fr", "ActiveCultures": "fr-CA, de-be, nl-BE, zh" } }
+          "PartyClient": { "App": { "NgApp": { "IntegrationMode": "Inline", "DefaultCulture": "fr", "ActiveCultures": "fr-CA, de-be, nl-BE, zh" }, "Hosting": { "RequestPath": "/", "DevServerPort": 4400 } } }
       },
       "Parties": [],
       "CK-Monitoring": {
