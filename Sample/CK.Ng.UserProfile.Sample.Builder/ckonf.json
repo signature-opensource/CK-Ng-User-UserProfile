@@ -24,11 +24,7 @@
       "Local": {
           // This application is its own AuthCenter, and its web server is its "HttpEndpoint" feature.
           "AllowFeatures": "AuthCenter, HttpEndpoint",
-          "HttpEndpoint": {
-              "Main": {
-                  "Urls": "http://localhost:5400"
-              }
-          },
+          "HttpEndpoint": { "Urls": "http://localhost:5400" },
           "AuthCenter": {
               "CriticalLifetimes": {
                   "Basic": "00:05:00"
