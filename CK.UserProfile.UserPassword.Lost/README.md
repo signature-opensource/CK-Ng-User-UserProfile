@@ -14,6 +14,7 @@ commands reach this handler by location transparency.
 | Handler | [`PasswordLostCommandHandler`](PasswordLostCommandHandler.cs), [`PasswordLostTokenService`](PasswordLostTokenService.cs), [`PasswordLostQueries`](PasswordLostQueries.cs) |
 | Mail | [`IPasswordLostMailer`](Mail/IPasswordLostMailer.cs) and its default implementation, the Fluid templates of [Res/Templates](Res/Templates) |
 | Translations | [`Res/locales`](Res/locales) for the back-end `UserMessage` answers - see below |
+| Option | [`PasswordLostOption`](PasswordLostOption.cs): the "PasswordLost" option of the AuthCenter - see below |
 
 The handler is an auto service, found when this assembly is in the application: an application that
 references this project but uses none of its types keeps the reference with
@@ -25,8 +26,30 @@ drops an unused reference).
 - `CK.IO.UserProfile.UserPassword.Lost` (the commands), `CK.IO.User.UserPassword` (the
   `ISetPasswordCommand` the recover handler emits), `CK.Cris.Executor`.
 - `CK.DB.Actor.ActorEMail`, `CK.DB.User.NamedUser`, `CK.SqlServer.Dapper`, `CK.Mailer.MailKit`,
-  `CK.Mail.SharedLayout`, `CK.Template.Fluid`, `CK.AppIdentity.Abstractions`, `CK.Globalization.StObj`,
-  `Microsoft.AspNetCore.DataProtection.Extensions`.
+  `CK.Mail.SharedLayout`, `CK.Template.Fluid`, `CK.AppIdentity.AuthCenter.Local` (the owner of its option),
+  `CK.Globalization.StObj`, `Microsoft.AspNetCore.DataProtection.Extensions`.
+
+## The "PasswordLost" option of the AuthCenter.
+
+The flow and its policy are an option of the Authentication Center, where the users are
+([`PasswordLostOption`](PasswordLostOption.cs), see
+[the options of the party components](https://github.com/signature-opensource/CK-AppIdentity/blob/stable/CK.AppIdentity/PartyComponentOptions/README.md)).
+It is enabled by default: referencing this package brings the flow.
+
+```jsonc
+"Local": {
+  "AuthCenter": {
+    "PasswordLost": { "TokenLifetime": "02:00:00" } // The default: how long a recovery link stays valid.
+  }
+}
+```
+
+- **`"PasswordLost": false` turns the flow off:** no recovery mail is sent (the anonymous command answers the same, it
+  doesn't disclose it either) and a recovery link is refused. An application that is not an Authentication Center has
+  no flow.
+- **`TokenLifetime`** should be kept short: a token that has not been used stays valid until it expires. The mails
+  render this duration.
+- An invalid value (an unknown key, a `TokenLifetime` that is not a positive `TimeSpan`) fails the setup of the party.
 
 ## The two commands are anonymous, and one of them must stay silent.
 

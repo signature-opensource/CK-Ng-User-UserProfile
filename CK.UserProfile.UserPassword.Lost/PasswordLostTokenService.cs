@@ -1,4 +1,5 @@
 using CK.AppIdentity;
+using CK.AppIdentity.AuthCenter;
 using CK.Core;
 using Microsoft.AspNetCore.DataProtection;
 using System.Globalization;
@@ -21,38 +22,50 @@ namespace CK.UserProfile.UserPassword.Lost;
 /// issued before a password change. A token that has not been used stays valid until it expires:
 /// <see cref="DefaultLifetime"/> should be kept short.
 /// </para>
+/// <para>
+/// The flow and its policy are the <see cref="PasswordLostOption"/> of the AuthCenter of the application: the flow is
+/// disabled (<see cref="IsEnabled"/> is false) when the option is (<c>"AuthCenter": { "PasswordLost": false }</c>) or when
+/// the application is not an Authentication Center.
+/// </para>
 /// </summary>
 public class PasswordLostTokenService : ISingletonAutoService
 {
-    /// <summary>
-    /// Lifetime used when <c>CK-AppIdentity:Local:PasswordLostTokenLifetime</c> is not configured.
-    /// </summary>
-    public static readonly TimeSpan FallbackLifetime = TimeSpan.FromHours( 2 );
-
-    const string ConfigurationKey = "PasswordLostTokenLifetime";
     const string ProtectorPurpose = "CK.UserProfile.UserPassword.Lost.PasswordLostToken";
 
     readonly ITimeLimitedDataProtector _protector;
+    readonly IApplicationIdentityService _appIdentity;
+    readonly LocalAuthCenterFeatureDriver _authCenter;
 
     public PasswordLostTokenService( IDataProtectionProvider dataProtectionProvider,
-                                     IApplicationIdentityService appIdentity )
+                                     IApplicationIdentityService appIdentity,
+                                     LocalAuthCenterFeatureDriver authCenter )
     {
         _protector = dataProtectionProvider.CreateProtector( ProtectorPurpose ).ToTimeLimitedDataProtector();
-        // This service is a singleton: IActivityMonitor is scoped and cannot be injected here.
-        // The configuration is read once at construction, so a local monitor is enough.
-        DefaultLifetime = ReadLifetime( new ActivityMonitor( $"{nameof( PasswordLostTokenService )}" ), appIdentity );
+        _appIdentity = appIdentity;
+        _authCenter = authCenter;
     }
 
     /// <summary>
-    /// Gets how long an issued token stays valid, read once from
-    /// <c>CK-AppIdentity:Local:PasswordLostTokenLifetime</c> (a <see cref="TimeSpan"/> such as
-    /// <c>"02:00:00"</c> or <c>"1.00:00:00"</c>), defaulting to <see cref="FallbackLifetime"/>.
+    /// Gets the "PasswordLost" option of the AuthCenter of the application (created when the party is set up). Null when
+    /// it is disabled or when the application is not an Authentication Center: the flow is disabled.
+    /// </summary>
+    public PasswordLostOption? Option => _authCenter.GetOption<PasswordLostOption>( _appIdentity );
+
+    /// <summary>
+    /// Gets whether the lost password flow is enabled: see <see cref="Option"/>.
+    /// </summary>
+    public bool IsEnabled => Option != null;
+
+    /// <summary>
+    /// Gets how long an issued token stays valid: the <see cref="PasswordLostOption.TokenLifetime"/>
+    /// (<c>"AuthCenter": { "PasswordLost": { "TokenLifetime": "02:00:00" } }</c>), defaulting to
+    /// <see cref="PasswordLostOption.DefaultTokenLifetime"/>.
     /// <para>
     /// The e-mail templates render this duration, so changing the configuration keeps the message
     /// truthful without touching them.
     /// </para>
     /// </summary>
-    public TimeSpan DefaultLifetime { get; }
+    public TimeSpan DefaultLifetime => Option?.TokenLifetime ?? PasswordLostOption.DefaultTokenLifetime;
 
     /// <summary>
     /// Creates a recovery token for a user.
@@ -88,6 +101,11 @@ public class PasswordLostTokenService : ISingletonAutoService
     /// <returns>The user identifier, or 0 when the token is invalid, expired or already used.</returns>
     public async Task<int> ReadTokenAsync( IActivityMonitor monitor, string? token, string? callerPartyFullName, Func<int, Task<byte[]?>> getPasswordHashAsync )
     {
+        if( !IsEnabled )
+        {
+            monitor.Warn( "The lost password flow is disabled (the \"PasswordLost\" option of the AuthCenter): the recovery is refused." );
+            return 0;
+        }
         if( string.IsNullOrWhiteSpace( token ) )
         {
             monitor.Warn( "Empty password recovery token." );
@@ -129,18 +147,4 @@ public class PasswordLostTokenService : ISingletonAutoService
 
     // The fingerprint is inside the protected payload: it is neither readable nor forgeable by the token's holder.
     static string GetPasswordFingerprint( byte[] passwordHash ) => Convert.ToBase64String( SHA256.HashData( passwordHash ) );
-
-    static TimeSpan ReadLifetime( IActivityMonitor monitor, IApplicationIdentityService appIdentity )
-    {
-        var configured = appIdentity.LocalConfiguration.Configuration[ConfigurationKey];
-        if( string.IsNullOrWhiteSpace( configured ) ) return FallbackLifetime;
-
-        if( !TimeSpan.TryParse( configured, CultureInfo.InvariantCulture, out var lifetime ) || lifetime <= TimeSpan.Zero )
-        {
-            monitor.Warn( $"Invalid '{ConfigurationKey}' configuration: expected a positive TimeSpan such as \"02:00:00\". Falling back to {FallbackLifetime}. (Value: {configured})" );
-            return FallbackLifetime;
-        }
-        monitor.Info( $"Password recovery tokens are valid for {lifetime}." );
-        return lifetime;
-    }
 }

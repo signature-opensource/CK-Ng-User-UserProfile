@@ -85,12 +85,11 @@ public class UserPasswordLostTests
         void Identity( MutableConfigurationSection c )
         {
             c["FullName"] = "Test/$UserPasswordLost";
-            // The application is its own AuthCenter.
-            c["Local:AuthCenter"] = "true";
+            // The application is its own AuthCenter (its section declares it).
             // The links of the mails target the default client application of the party (TestClientApplicationFeatureDriver).
             c["Local:PublicUrl"] = "https://front.example.com";
-            // Exercises the configurable lifetime rather than the 2 hours fallback.
-            c["Local:PasswordLostTokenLifetime"] = "00:45:00";
+            // Exercises the configurable lifetime rather than the 2 hours default (the PasswordLost option of the AuthCenter).
+            c["Local:AuthCenter:PasswordLost:TokenLifetime"] = "00:45:00";
             c["Local:EmailSender:Smtp:UsePickupDirectory"] = "true";
             c["Local:EmailSender:Smtp:PickupDirectory"] = pickupDirectory;
             c["Local:EmailSender:Smtp:SendEmail"] = "false";

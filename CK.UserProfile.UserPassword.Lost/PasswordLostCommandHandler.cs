@@ -37,7 +37,12 @@ public class PasswordLostCommandHandler : IAutoService
             try
             {
                 var email = cmd.Email?.Trim();
-                if( string.IsNullOrEmpty( email ) )
+                if( !tokenService.IsEnabled )
+                {
+                    // The same answer: the flow being disabled is not disclosed either.
+                    ctx.Monitor.Warn( "The lost password flow is disabled (the \"PasswordLost\" option of the AuthCenter): no mail sent." );
+                }
+                else if( string.IsNullOrEmpty( email ) )
                 {
                     ctx.Monitor.Warn( "Empty e-mail address." );
                 }
@@ -58,7 +63,7 @@ public class PasswordLostCommandHandler : IAutoService
                         }
                     }
                 }
-                // Same answer in all three cases: empty address, unknown address, or mail actually sent.
+                // Same answer in all the cases: the flow disabled, an empty or unknown address, or a mail actually sent.
                 collector.Info( "If this email is registered, you will receive instructions to reset your password.",
                                 "User.PasswordLostRequested" );
             }
