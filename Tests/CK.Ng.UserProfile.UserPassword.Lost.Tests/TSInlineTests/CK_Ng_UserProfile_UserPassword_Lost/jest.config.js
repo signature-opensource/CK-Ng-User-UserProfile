@@ -24,7 +24,7 @@ module.exports = {
         // backend servers).
         // Do NOT alter the comments below.
         // Start-CKTypeScriptEnv
-        CKTypeScriptEnv: {}
+        CKTypeScriptEnv: {},
         // Stop-CKTypeScriptEnv
     },
     // TestHelper.CreateTypeScriptTestRunner also replaces the 'http://localhost' (that is the default)
@@ -32,7 +32,7 @@ module.exports = {
     // Do NOT alter the comments below.
     testEnvironmentOptions: { 
         // Start-CKTypeScriptSrv
-        url: 'http://localhost' 
+        url: 'http://localhost',
         // Stop-CKTypeScriptSrv
     },
     // The tests run against a real server (TestHelper.CreateTypeScriptTestRunner): the 5 seconds default of Jest

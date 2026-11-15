@@ -78,6 +78,8 @@ public class UserOidcTests
         await using var server = await map.CreateRunningAuthCenterApplicationAsync( c =>
         {
             AuthCenterApplicationTestingExtensions.DefaultIdentity( c );
+            // Its section declares the AuthCenter (DefaultIdentity declares it by "true").
+            c["Local:AuthCenter"] = null;
             c["Local:AuthCenter:CriticalLifetimes:Basic"] = "00:05:00";
             // A provider that is never reached: the section only lists the scheme.
             c["Local:AuthCenter:Oidc:Test:Authority"] = "https://idp.example.com";

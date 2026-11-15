@@ -83,6 +83,8 @@ public class UserPasskeyTests
         await using var server = await map.CreateRunningAuthCenterApplicationAsync( c =>
         {
             AuthCenterApplicationTestingExtensions.DefaultIdentity( c );
+            // Its section declares the AuthCenter (DefaultIdentity declares it by "true").
+            c["Local:AuthCenter"] = null;
             c["Local:AuthCenter:CriticalLifetimes:Basic"] = "00:05:00";
             c["Local:AuthCenter:Passkey:RpId"] = "localhost";
             c["Local:AuthCenter:Passkey:RpName"] = "Test";
