@@ -86,7 +86,7 @@ public class UserPasswordLostTests
         {
             c["FullName"] = "Test/$UserPasswordLost";
             // The application is its own AuthCenter.
-            c["Local:AllowFeatures"] = "AuthCenter";
+            c["Local:AuthCenter"] = "true";
             // The links of the mails target the default client application of the party (TestClientApplicationFeatureDriver).
             c["Local:PublicUrl"] = "https://front.example.com";
             // Exercises the configurable lifetime rather than the 2 hours fallback.

@@ -42,7 +42,7 @@ public class PasswordLostTokenTests
         var appIdentity = ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, c =>
         {
             c["FullName"] = "Test/$PasswordLostToken";
-            c["Local:AllowFeatures"] = "AuthCenter";
+            c["Local:AuthCenter"] = "true";
             c["Local:PublicUrl"] = "https://front.example.com";
             // The recovery sends a confirmation mail: it is dropped in a pickup directory.
             c["Local:EmailSender:Smtp:UsePickupDirectory"] = "true";

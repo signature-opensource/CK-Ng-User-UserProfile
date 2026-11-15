@@ -23,7 +23,6 @@
       "FullName": "Sample/$Server",
       "Local": {
           // This application is its own AuthCenter, and its web server is its "HttpEndpoint" feature.
-          "AllowFeatures": "AuthCenter, HttpEndpoint",
           "HttpEndpoint": { "Urls": "http://localhost:5400" },
           "AuthCenter": {
               "CriticalLifetimes": {
