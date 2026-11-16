@@ -8,27 +8,27 @@
     <IsPackable>False</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.uc.0.ci.102" />
-    <PackageReference Include="CK.Cris.AspNet" Version="3.0.0-0.uc.0.ci.148" />
+    <PackageReference Include="CK.AppIdentity.Hosting" Version="3.0.0-0.uc.0.ci.103" />
+    <PackageReference Include="CK.Cris.AspNet" Version="3.0.0-0.uc.0.ci.149" />
     <!-- This application is a party whose web server is the "HttpEndpoint" feature (see appsettings.json of the host). -->
-    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.0.ci.2" />
+    <PackageReference Include="CK.AppIdentity.HttpEndpoint" Version="25.0.0-0.uc.0.ci.4" />
     <!-- The host serves its client application (Clients/App): its dev server in Development, its dist otherwise. -->
-    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.1-0.uc.0.ci.73" />
+    <PackageReference Include="CK.TS.AspNet.Clients" Version="3.0.1-0.uc.0.ci.74" />
     <!-- This application is its own AuthCenter (with its HTTP front). -->
-    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="4.0.0-0.uc.0.ci.2" />
-    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.uc.0.ci.148" />
-    <PackageReference Include="CK.Cris.Workspace" Version="18.0.0-0.uc.0.ci.60" />
+    <PackageReference Include="CK.AppIdentity.AuthCenter.Local" Version="4.0.0-0.uc.0.ci.4" />
+    <PackageReference Include="CK.Cris.AspNet.Authentication" Version="3.0.0-0.uc.0.ci.149" />
+    <PackageReference Include="CK.Cris.Workspace" Version="18.0.0-0.uc.0.ci.61" />
       
-    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.uc.0.ci.66" />
-    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.uc.0.ci.66" />
+    <PackageReference Include="CK.DB.User.NamedUser" Version="31.0.0-0.uc.0.ci.67" />
+    <PackageReference Include="CK.DB.User.PreferredCulture" Version="3.0.0-0.uc.0.ci.67" />
     <!-- TODO: version of the CK-DB-User-UserBanned release carrying BannedActorValidator. -->
-    <PackageReference Include="CK.DB.User.UserBanned" Version="4.0.0-0.uc.0.ci.62" />
-    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.0.ci.73" />
-    <PackageReference Include="CK.DB.User.UserPassword.Reset" Version="31.0.0-0.uc.0.ci.73" />
-    <PackageReference Include="CK.DB.Workspace" Version="18.0.0-0.uc.0.ci.60" />
+    <PackageReference Include="CK.DB.User.UserBanned" Version="4.0.0-0.uc.0.ci.63" />
+    <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.0.ci.74" />
+    <PackageReference Include="CK.DB.User.UserPassword.Reset" Version="31.0.0-0.uc.0.ci.74" />
+    <PackageReference Include="CK.DB.Workspace" Version="18.0.0-0.uc.0.ci.61" />
       
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="3.0.0-0.uc.0.ci.111" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.0.ci.148" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="3.0.0-0.uc.0.ci.112" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.0.ci.149" />
       
     <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.uc.0.ci.15" />
       

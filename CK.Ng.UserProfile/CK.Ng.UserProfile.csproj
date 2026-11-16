@@ -6,8 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CK.IO.Actor" Version="3.0.0-0.uc.0.ci.77" />
-    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication" Version="3.0.0-0.uc.0.ci.148" />
-    <PackageReference Include="CK.Ng.Zorro.Basic" Version="3.0.0-0.uc.0.ci.111" />
+    <PackageReference Include="CK.Ng.Cris.AspNet.Authentication" Version="3.0.0-0.uc.0.ci.149" />
+    <PackageReference Include="CK.Ng.Zorro.Basic" Version="3.0.0-0.uc.0.ci.112" />
   </ItemGroup>
   <ItemGroup>
     <!-- The commands of the profile (IUpdateUserCommand), handled where the database is (CK.UserProfile). -->
