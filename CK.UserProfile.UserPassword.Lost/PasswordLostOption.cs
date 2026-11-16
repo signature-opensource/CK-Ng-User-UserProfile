@@ -20,7 +20,7 @@ namespace CK.UserProfile.UserPassword.Lost;
 /// </code>
 /// An invalid configuration throws.
 /// </summary>
-[FeatureOption( IsEnabledByDefault = true )]
+[PartyFeatureOption( "PasswordLost", TypeActivation.ByDefault )]
 public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFeatureDriver>
 {
     /// <summary>

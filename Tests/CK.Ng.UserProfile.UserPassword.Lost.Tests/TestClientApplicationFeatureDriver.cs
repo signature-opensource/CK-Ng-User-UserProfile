@@ -8,7 +8,7 @@ namespace CK.Ng.UserProfile.UserPassword.Lost.Tests;
 /// The tests' party has a default client application (a host with CK.TS.AspNet.Clients contributes its own): the links of
 /// the mails target it, on the party's "Local:PublicUrl".
 /// </summary>
-[PartyFeature( IsOptional = false )]
+[PartyFeature( "TestClientApplication", TypeActivation.ByDefault )]
 public sealed class TestClientApplicationFeatureDriver : ApplicationIdentityFeatureDriver
 {
     public TestClientApplicationFeatureDriver( ApplicationIdentityService s ) : base( s ) { }
