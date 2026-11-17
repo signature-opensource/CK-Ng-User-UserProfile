@@ -36,7 +36,7 @@ public class PasswordLostOptionTests
 
     [TestCase( "TokenLifetime", "soon", "Invalid \"TokenLifetime\": 'soon'" )]
     [TestCase( "TokenLifetime", "-01:00:00", "Invalid \"TokenLifetime\": '-01:00:00'" )]
-    [TestCase( "Lifetime", "01:00:00", "Unknown \"Lifetime\": the keys are TokenLifetime." )]
+    [TestCase( "Lifetime", "01:00:00", "Unknown \"Lifetime\": the keys are TokenLifetime, Sender." )]
     public void an_invalid_configuration_throws( string key, string value, string expected )
     {
         Should.Throw<CKException>( () => new PasswordLostOption( Section( (key, value) ) ) ).Message.ShouldStartWith( expected );
