@@ -44,9 +44,8 @@ public class UserPasswordLostTests
                                                           // FirstName/LastName that NamedUser adds to CK.vUser.
                                                           "CK.DB.Actor.ActorEMail",
                                                           "CK.DB.User.NamedUser",
-                                                          // Without it the Smtp EmailSenderFactory is not in the graph and
-                                                          // IDefaultEmailSender silently resolves to a sender that drops
-                                                          // the message.
+                                                          // The "MailKit" option of the "MailSender" (the mails are written
+                                                          // in a pickup directory).
                                                           "CK.Mailer.MailKit",
                                                           "CK.Ng.UserProfile",
                                                           "CK.Ng.UserProfile.UserPassword",
@@ -90,10 +89,15 @@ public class UserPasswordLostTests
             c["Local:PublicUrl"] = "https://front.example.com";
             // Exercises the configurable lifetime rather than the 2 hours default (the PasswordLost option of the AuthCenter).
             c["Local:AuthCenter:PasswordLost:TokenLifetime"] = "00:45:00";
-            c["Local:EmailSender:Smtp:UsePickupDirectory"] = "true";
-            c["Local:EmailSender:Smtp:PickupDirectory"] = pickupDirectory;
-            c["Local:EmailSender:Smtp:SendEmail"] = "false";
-            c["Local:EmailSender:Smtp:RequiredAuthentication"] = "false";
+            c["Local:MailSender:MailKit:Pickup:UsePickupDirectory"] = "true";
+            c["Local:MailSender:MailKit:Pickup:PickupDirectory"] = pickupDirectory;
+            c["Local:MailSender:MailKit:Pickup:SendEmail"] = "false";
+            // The default sender is another one: the PasswordLost option names its sender (the mails are in the pickup directory).
+            c["Local:MailSender:MailKit:NoReply:UsePickupDirectory"] = "true";
+            c["Local:MailSender:MailKit:NoReply:PickupDirectory"] = TestHelper.TestProjectFolder.AppendPart( "obj" ).AppendPart( "MailNoReply" );
+            c["Local:MailSender:MailKit:NoReply:SendEmail"] = "false";
+            c["Local:MailSender:Default"] = "NoReply";
+            c["Local:AuthCenter:PasswordLost:Sender"] = "Pickup";
         }
         var appIdentity = ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, Identity );
         Throw.CheckState( appIdentity != null );

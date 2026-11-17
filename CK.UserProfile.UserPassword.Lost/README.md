@@ -39,7 +39,10 @@ It is enabled by default: referencing this package brings the flow.
 ```jsonc
 "Local": {
   "AuthCenter": {
-    "PasswordLost": { "TokenLifetime": "02:00:00" } // The default: how long a recovery link stays valid.
+    "PasswordLost": {
+      "TokenLifetime": "02:00:00", // The default: how long a recovery link stays valid.
+      "Sender": "Support"          // Optional: the sender of the mails, the default sender of the party when absent.
+    }
   }
 }
 ```
@@ -49,6 +52,9 @@ It is enabled by default: referencing this package brings the flow.
   no flow.
 - **`TokenLifetime`** should be kept short: a token that has not been used stays valid until it expires. The mails
   render this duration.
+- **`Sender`** names a sender of the "MailSender" feature of the Authentication Center party (see
+  [CK.Mailer](https://github.com/signature-opensource/CK-Mailer/blob/stable/CK.Mailer/README.md)): the mails are sent with
+  it (its `From` address). An unknown sender fails the sending of the mail, not the setup.
 - An invalid value (an unknown key, a `TokenLifetime` that is not a positive `TimeSpan`) fails the setup of the party.
 
 ## The two commands are anonymous, and one of them must stay silent.

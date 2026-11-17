@@ -31,11 +31,13 @@
               // The lost password flow (CK.UserProfile.UserPassword.Lost): how long a recovery link stays valid.
               "PasswordLost": { "TokenLifetime": "02:00:00" }
           },
-          "EmailSender": {
-              "Smtp": {
-                  "UsePickupDirectory": true,
-                  "PickupDirectory": "Mails",
-                  "SendEmail": false
+          "MailSender": {
+              "MailKit": {
+                  "NoReply": {
+                      "UsePickupDirectory": true,
+                      "PickupDirectory": "Mails",
+                      "SendEmail": false
+                  }
               }
           },
           // The client application "App" (Clients/App of the host), served by the host (CK.TS.AspNet.Clients) on "/".

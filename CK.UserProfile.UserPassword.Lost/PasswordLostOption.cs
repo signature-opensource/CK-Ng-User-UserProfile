@@ -14,7 +14,8 @@ namespace CK.UserProfile.UserPassword.Lost;
 /// <code>
 /// "AuthCenter": {
 ///   "PasswordLost": {
-///     "TokenLifetime": "02:00:00" // The default: how long a recovery link stays valid.
+///     "TokenLifetime": "02:00:00", // The default: how long a recovery link stays valid.
+///     "Sender": "Support"          // Optional: the sender of the mails ("MailSender" of the party), its default sender when null.
 ///   }
 /// }
 /// </code>
@@ -28,7 +29,7 @@ public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFe
     /// </summary>
     public static readonly TimeSpan DefaultTokenLifetime = TimeSpan.FromHours( 2 );
 
-    static readonly string[] _keys = ["TokenLifetime"];
+    static readonly string[] _keys = ["TokenLifetime", "Sender"];
 
     /// <summary>
     /// Initializes a new <see cref="PasswordLostOption"/> from its configuration.
@@ -52,6 +53,8 @@ public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFe
                 }
                 TokenLifetime = l;
             }
+            var sender = configuration["Sender"];
+            Sender = string.IsNullOrEmpty( sender ) ? null : sender;
         }
     }
 
@@ -60,4 +63,10 @@ public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFe
     /// a token that has not been used stays valid until it expires. The e-mail templates render this duration.
     /// </summary>
     public TimeSpan TokenLifetime { get; }
+
+    /// <summary>
+    /// Gets the name of the sender of the mails (a sender of the "MailSender" feature of the AuthCenter party, CK.Mailer).
+    /// Null: its default sender. An unknown sender fails the sending of a mail.
+    /// </summary>
+    public string? Sender { get; }
 }

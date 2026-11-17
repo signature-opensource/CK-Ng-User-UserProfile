@@ -1,4 +1,5 @@
 using CK.AppIdentity;
+using CK.AppIdentity.AuthCenter;
 using CK.Core;
 using CK.Mail.SharedLayout;
 using CK.Mailer;
@@ -10,13 +11,14 @@ namespace CK.UserProfile.UserPassword.Lost.Mail;
 /// Default <see cref="IPasswordLostMailer"/>: renders the <c>PasswordLost</c> and
 /// <c>PasswordSetConfirmation</c> Fluid templates (subject + HTML body) for the current culture,
 /// wraps the body in the shared <c>_DefaultMailLayout.liquid</c> chrome and dispatches through the
-/// CK-AppIdentity-configured <see cref="IDefaultEmailSender"/>.
+/// sender of the AuthCenter party: the "Sender" of its "PasswordLost" option (<see cref="PasswordLostOption.Sender"/>),
+/// else its default sender ("MailSender" feature, CK.Mailer).
 /// </summary>
 public class PasswordLostMailer : IPasswordLostMailer
 {
     readonly IFluidTemplateService _fluid;
     readonly PocoDirectory _pocoDir;
-    readonly IDefaultEmailSender _emailSender;
+    readonly LocalAuthCenterFeatureDriver _authCenter;
     readonly IMailBrandingProvider _brandingProvider;
     readonly CurrentCultureInfo _currentCulture;
     readonly CurrentLocalParty _localParty;
@@ -24,13 +26,13 @@ public class PasswordLostMailer : IPasswordLostMailer
     public PasswordLostMailer( IFluidTemplateService fluid,
                                PocoDirectory pocoDir,
                                CurrentLocalParty localParty,
-                               IDefaultEmailSender emailSender,
+                               LocalAuthCenterFeatureDriver authCenter,
                                IMailBrandingProvider brandingProvider,
                                CurrentCultureInfo currentCulture )
     {
         _fluid = fluid;
         _pocoDir = pocoDir;
-        _emailSender = emailSender;
+        _authCenter = authCenter;
         _brandingProvider = brandingProvider;
         _currentCulture = currentCulture;
         _localParty = localParty;
@@ -166,7 +168,8 @@ public class PasswordLostMailer : IPasswordLostMailer
         }
         try
         {
-            await _emailSender.SendAsync( monitor, message );
+            var party = _localParty.LocalParty;
+            await party.GetMailSender( _authCenter.GetOption<PasswordLostOption>( party )?.Sender ).SendAsync( monitor, message );
         }
         finally
         {
