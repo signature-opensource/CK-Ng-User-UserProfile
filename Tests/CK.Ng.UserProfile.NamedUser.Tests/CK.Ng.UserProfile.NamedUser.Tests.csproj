@@ -12,7 +12,7 @@
     <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.0.ci.84" />
     <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.0.ci.160" />
     <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.uc" />
-    <PackageReference Include="CK.Testing.Engine.AppIdentity.AuthCenter" Version="4.0.0-0.uc.0.ci.18" />
+    <PackageReference Include="CK.Testing.Engine.AppIdentity.AuthCenter" Version="4.0.0-0.uc.0.ci.19" />
     <PackageReference Include="CK.Testing.Engine.TypeScript" Version="4.0.0-0.uc.0.ci.15" />
     <PackageReference Include="CK.TS.Angular.Engine" Version="3.0.1-0.uc.0.ci.72" />
     <PackageReference Include="CK.Cris.AspNet.Engine" Version="3.0.0-0.uc.0.ci.160" />
