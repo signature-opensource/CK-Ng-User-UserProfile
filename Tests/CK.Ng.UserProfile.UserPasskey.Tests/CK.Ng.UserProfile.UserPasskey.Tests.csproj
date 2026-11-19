@@ -10,9 +10,9 @@
     <PackageReference Include="CK.DB.Tests.NUnit" Version="37.0.0-0.uc.0.ci.24" />
     <PackageReference Include="CK.DB.User.UserPassword" Version="31.0.0-0.uc.0.ci.90" />
     <PackageReference Include="CK.DB.User.UserPasskey" Version="0.0.0-0.uc.0.ci.81" />
-    <PackageReference Include="CK.AppIdentity.AuthCenter.Passkey" Version="4.0.0-0.uc.0.ci.28" />
+    <PackageReference Include="CK.AppIdentity.AuthCenter.Passkey" Version="4.0.0-0.uc.0.ci.29" />
     <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.0.ci.167" />
-    <PackageReference Include="CK.Testing.Engine.AppIdentity.AuthCenter" Version="4.0.0-0.uc.0.ci.28" />
+    <PackageReference Include="CK.Testing.Engine.AppIdentity.AuthCenter" Version="4.0.0-0.uc.0.ci.29" />
     <PackageReference Include="CK.Cris.AspNet.Engine" Version="3.0.0-0.uc.0.ci.167" />
     <PackageReference Include="CK.Testing.Engine.SqlServer" Version="37.0.0-0.uc.0.ci.24" />
     <PackageReference Include="CK.Testing.Engine.TypeScript" Version="4.0.0-0.uc.0.ci.19" />
