@@ -42,6 +42,9 @@ public class PasswordLostTokenTests
         var appIdentity = ApplicationIdentityServiceConfiguration.Create( TestHelper.Monitor, c =>
         {
             c["FullName"] = "Test/$PasswordLostToken";
+            // The store of the test project (as CreateRunningAspNetServerAsync does), not the machine-wide one of the
+            // account: the identity keys and their DataProtection key ring stay with the tests that created them.
+            c["StoreRootPath"] = TestHelper.TestProjectFolder.AppendPart( "TestStore" ).Path;
             c["Local:AuthCenter"] = "true";
             c["Local:PublicUrl"] = "https://front.example.com";
             // The recovery sends a confirmation mail: it is dropped in a pickup directory.
