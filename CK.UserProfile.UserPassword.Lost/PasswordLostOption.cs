@@ -1,6 +1,8 @@
 using CK.AppIdentity;
 using CK.AppIdentity.AuthCenter;
+using CK.AppIdentity.AuthCenter.Password;
 using CK.Core;
+using CK.Mailer;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
 using System.Linq;
@@ -20,8 +22,15 @@ namespace CK.UserProfile.UserPassword.Lost;
 /// }
 /// </code>
 /// An invalid configuration throws.
+/// <para>
+/// It exists only with the "Password" option of the AuthCenter (no password, nothing to recover) and the "MailSender"
+/// feature of the party (the recovery mail): enabled by default, it is disabled with them; enabled explicitly, it is an
+/// error without them.
+/// </para>
 /// </summary>
 [PartyFeatureOption( "PasswordLost", TypeActivation.ByDefault )]
+[Requires<AuthCenterPasswordOption>]
+[Requires<MailSenderFeatureDriver>]
 public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFeatureDriver>
 {
     /// <summary>

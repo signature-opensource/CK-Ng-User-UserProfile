@@ -50,6 +50,10 @@ It is enabled by default: referencing this package brings the flow.
 - **`"PasswordLost": false` turns the flow off:** no recovery mail is sent (the anonymous command answers the same, it
   doesn't disclose it either) and a recovery link is refused. An application that is not an Authentication Center has
   no flow.
+- **Only with "Password" and "MailSender":** the option requires the "Password" option of the AuthCenter
+  ([CK.AppIdentity.AuthCenter.Password](https://github.com/signature-opensource/CK-AppIdentity-Transport/blob/stable/CK.AppIdentity.AuthCenter.Password/README.md):
+  no password, nothing to recover) and the "MailSender" feature of the party (the recovery mail). Without them it is
+  disabled (an information is logged); `"PasswordLost": true` (or its section) without them is a configuration error.
 - **`TokenLifetime`** should be kept short: a token that has not been used stays valid until it expires. The mails
   render this duration.
 - **`Sender`** names a sender of the "MailSender" feature of the Authentication Center party (see
