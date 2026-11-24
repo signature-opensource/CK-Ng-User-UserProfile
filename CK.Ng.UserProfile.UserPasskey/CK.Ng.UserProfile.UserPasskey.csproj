@@ -3,7 +3,6 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Description>The passkey section of the "Sign-in methods" tab of the user profile page: list, rename, delete and add the user's passkeys.</Description>
   </PropertyGroup>
   <ItemGroup>
     <!-- The commands (handled by CK.DB.User.UserPasskey, where the database is). -->

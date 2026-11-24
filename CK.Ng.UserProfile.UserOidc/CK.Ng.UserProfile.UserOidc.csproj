@@ -3,7 +3,6 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Description>The OpenID Connect section of the "Sign-in methods" tab of the user profile page: list the user's identities (and what the providers shared), unlink them, link another provider.</Description>
   </PropertyGroup>
   <ItemGroup>
     <!-- The commands (handled by CK.DB.User.UserOidc, where the database is). -->
