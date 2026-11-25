@@ -82,9 +82,9 @@ public class UserOidcTests
             c["Local:AuthCenter"] = null;
             c["Local:AuthCenter:CriticalLifetimes:Basic"] = "00:05:00";
             // A provider that is never reached: the section only lists the scheme.
-            c["Local:AuthCenter:Oidc:Test:Authority"] = "https://idp.example.com";
-            c["Local:AuthCenter:Oidc:Test:ClientId"] = "client";
-            c["Local:AuthCenter:Oidc:Test:ClientSecret"] = "secret";
+            c["Local:AuthCenter:Oidc:Schemes:Test:Authority"] = "https://idp.example.com";
+            c["Local:AuthCenter:Oidc:Schemes:Test:ClientId"] = "client";
+            c["Local:AuthCenter:Oidc:Schemes:Test:ClientSecret"] = "secret";
             // The callbacks are on the public URL of the parties: here, the application is its own front.
             c["Local:PublicUrl"] = "http://localhost";
         } );
