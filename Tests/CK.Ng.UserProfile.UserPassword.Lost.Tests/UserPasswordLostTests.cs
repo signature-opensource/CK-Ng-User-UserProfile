@@ -89,13 +89,13 @@ public class UserPasswordLostTests
             c["Local:PublicUrl"] = "https://front.example.com";
             // Exercises the configurable lifetime rather than the 2 hours default (the PasswordLost option of the AuthCenter).
             c["Local:AuthCenter:PasswordLost:TokenLifetime"] = "00:45:00";
-            c["Local:MailSender:MailKit:Pickup:UsePickupDirectory"] = "true";
-            c["Local:MailSender:MailKit:Pickup:PickupDirectory"] = pickupDirectory;
-            c["Local:MailSender:MailKit:Pickup:SendEmail"] = "false";
+            c["Local:MailSender:MailKit:Senders:Pickup:UsePickupDirectory"] = "true";
+            c["Local:MailSender:MailKit:Senders:Pickup:PickupDirectory"] = pickupDirectory;
+            c["Local:MailSender:MailKit:Senders:Pickup:SendEmail"] = "false";
             // The default sender is another one: the PasswordLost option names its sender (the mails are in the pickup directory).
-            c["Local:MailSender:MailKit:NoReply:UsePickupDirectory"] = "true";
-            c["Local:MailSender:MailKit:NoReply:PickupDirectory"] = TestHelper.TestProjectFolder.AppendPart( "obj" ).AppendPart( "MailNoReply" );
-            c["Local:MailSender:MailKit:NoReply:SendEmail"] = "false";
+            c["Local:MailSender:MailKit:Senders:NoReply:UsePickupDirectory"] = "true";
+            c["Local:MailSender:MailKit:Senders:NoReply:PickupDirectory"] = TestHelper.TestProjectFolder.AppendPart( "obj" ).AppendPart( "MailNoReply" );
+            c["Local:MailSender:MailKit:Senders:NoReply:SendEmail"] = "false";
             c["Local:MailSender:Default"] = "NoReply";
             c["Local:AuthCenter:PasswordLost:Sender"] = "Pickup";
         }

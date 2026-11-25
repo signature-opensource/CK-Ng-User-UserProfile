@@ -48,9 +48,9 @@ public class PasswordLostTokenTests
             c["Local:AuthCenter"] = "true";
             c["Local:PublicUrl"] = "https://front.example.com";
             // The recovery sends a confirmation mail: it is dropped in a pickup directory.
-            c["Local:MailSender:MailKit:Pickup:UsePickupDirectory"] = "true";
-            c["Local:MailSender:MailKit:Pickup:PickupDirectory"] = TestHelper.TestProjectFolder.Combine( "obj/MailPickupToken" ).Path;
-            c["Local:MailSender:MailKit:Pickup:SendEmail"] = "false";
+            c["Local:MailSender:MailKit:Senders:Pickup:UsePickupDirectory"] = "true";
+            c["Local:MailSender:MailKit:Senders:Pickup:PickupDirectory"] = TestHelper.TestProjectFolder.Combine( "obj/MailPickupToken" ).Path;
+            c["Local:MailSender:MailKit:Senders:Pickup:SendEmail"] = "false";
         } );
         Throw.CheckState( appIdentity != null );
         _services = engineRes.CreateAutomaticServices( configureServices: services =>
