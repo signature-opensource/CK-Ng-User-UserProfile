@@ -3,9 +3,7 @@ using CK.AppIdentity.AuthCenter;
 using CK.AppIdentity.AuthCenter.Password;
 using CK.Core;
 using CK.Mailer;
-using Microsoft.Extensions.Configuration;
-using System.Globalization;
-using System.Linq;
+using System;
 
 namespace CK.UserProfile.UserPassword.Lost;
 
@@ -21,7 +19,7 @@ namespace CK.UserProfile.UserPassword.Lost;
 ///   }
 /// }
 /// </code>
-/// An invalid configuration throws.
+/// Its configuration is <see cref="PasswordLostOptionConfiguration"/>: an invalid one is an error.
 /// <para>
 /// It exists only with the "Password" option of the AuthCenter (no password, nothing to recover) and the "MailSender"
 /// feature of the party (the recovery mail): enabled by default, it is disabled with them; enabled explicitly, it is an
@@ -29,6 +27,7 @@ namespace CK.UserProfile.UserPassword.Lost;
 /// </para>
 /// </summary>
 [PartyFeatureOption( "PasswordLost", TypeActivation.ByDefault )]
+[Configuration<PasswordLostOptionConfiguration>]
 [Requires<AuthCenterPasswordOption>]
 [Requires<MailSenderFeatureDriver>]
 public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFeatureDriver>
@@ -38,33 +37,14 @@ public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFe
     /// </summary>
     public static readonly TimeSpan DefaultTokenLifetime = TimeSpan.FromHours( 2 );
 
-    static readonly string[] _keys = ["TokenLifetime", "Sender"];
-
     /// <summary>
-    /// Initializes a new <see cref="PasswordLostOption"/> from its configuration.
+    /// Initializes a new <see cref="PasswordLostOption"/> from its (checked) configuration.
     /// </summary>
-    /// <param name="configuration">The "PasswordLost" section of the AuthCenter. Null for the defaults.</param>
-    public PasswordLostOption( IConfiguration? configuration )
+    /// <param name="configuration">The configuration of the option.</param>
+    public PasswordLostOption( PasswordLostOptionConfiguration configuration )
     {
-        TokenLifetime = DefaultTokenLifetime;
-        if( configuration != null )
-        {
-            foreach( var c in configuration.GetChildren() )
-            {
-                if( !_keys.Contains( c.Key ) ) Throw.CKException( $"Unknown \"{c.Key}\": the keys are {_keys.Concatenate()}." );
-            }
-            var lifetime = configuration["TokenLifetime"];
-            if( lifetime != null )
-            {
-                if( !TimeSpan.TryParse( lifetime, CultureInfo.InvariantCulture, out var l ) || l <= TimeSpan.Zero )
-                {
-                    Throw.CKException( $"Invalid \"TokenLifetime\": '{lifetime}' (a positive TimeSpan is expected, like \"02:00:00\")." );
-                }
-                TokenLifetime = l;
-            }
-            var sender = configuration["Sender"];
-            Sender = string.IsNullOrEmpty( sender ) ? null : sender;
-        }
+        TokenLifetime = configuration.TokenLifetime;
+        Sender = string.IsNullOrEmpty( configuration.Sender ) ? null : configuration.Sender;
     }
 
     /// <summary>
@@ -78,4 +58,30 @@ public sealed class PasswordLostOption : IPartyComponentOption<LocalAuthCenterFe
     /// Null: its default sender. An unknown sender fails the sending of a mail.
     /// </summary>
     public string? Sender { get; }
+}
+
+/// <summary>
+/// The configuration of the <see cref="PasswordLostOption"/>.
+/// </summary>
+[ConfigurationModel]
+public sealed class PasswordLostOptionConfiguration : IConfigurationModel
+{
+    /// <summary>
+    /// Gets the lifetime of the token sent by mail. Defaults to <see cref="PasswordLostOption.DefaultTokenLifetime"/> (2 hours).
+    /// </summary>
+    public TimeSpan TokenLifetime { get; init; } = PasswordLostOption.DefaultTokenLifetime;
+
+    /// <summary>
+    /// Gets the name of the sender of the mail (the default sender of the MailSender feature when null).
+    /// </summary>
+    public string? Sender { get; init; }
+
+    /// <inheritdoc />
+    public void Validate( IConfigurationValidationContext context )
+    {
+        if( TokenLifetime <= TimeSpan.Zero )
+        {
+            context.Error( $"'{context.Path}:TokenLifetime' = '{TokenLifetime}': a positive time span is expected (like \"02:00:00\")." );
+        }
+    }
 }
