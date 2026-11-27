@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CK.DB.Actor" Version="31.0.0-0.uc.4.ci.144" />
-    <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.uc.4.ci.37" />
-    <PackageReference Include="CK.Cris.Executor" Version="3.0.0-0.uc.4.ci.215" />
+    <PackageReference Include="CK.DB.Actor" Version="31.0.0-0.uc.4.ci.146" />
+    <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.uc.4.ci.38" />
+    <PackageReference Include="CK.Cris.Executor" Version="3.0.0-0.uc.4.ci.218" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.IO.UserProfile\CK.IO.UserProfile.csproj" />

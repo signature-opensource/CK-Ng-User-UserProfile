@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- The commands (handled by CK.DB.User.UserOidc, where the database is). -->
-    <PackageReference Include="CK.IO.User.UserOidc" Version="31.0.0-0.uc.4.ci.144" />
+    <PackageReference Include="CK.IO.User.UserOidc" Version="31.0.0-0.uc.4.ci.146" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CK.Ng.UserProfile\CK.Ng.UserProfile.csproj" />
