@@ -29,7 +29,7 @@
     <PackageReference Include="CK.DB.User.UserPassword.Reset" Version="31.0.0-0.uc.4.ci.131" />
     <PackageReference Include="CK.DB.Workspace" Version="18.0.0-0.uc.4.ci.118" />
       
-    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="3.0.0-0.uc.4.ci.184" />
+    <PackageReference Include="CK.Ng.Zorro.BackOffice" Version="3.0.0-0.uc.4.ci.185" />
     <PackageReference Include="CK.Ng.Cris.AspNet.Authentication.Basic" Version="3.0.0-0.uc.4.ci.222" />
       
     <PackageReference Include="CK.SqlServer.Transaction" Version="15.0.0-0.uc.4.ci.38" />
