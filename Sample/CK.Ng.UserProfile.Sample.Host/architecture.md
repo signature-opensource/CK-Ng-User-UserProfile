@@ -80,7 +80,6 @@ Package: `CK.AppIdentity.PartyClient`
 
 ## The client 'App' of '$Server'
 
-
 ### Client feature `NgApp`
 
 Package: `CK.TS.Angular`
